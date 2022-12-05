@@ -3,6 +3,7 @@ package pl.wsikora.successbudget.language.application.command;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.language.domain.Language;
 
+
 @Service
 public class LanguageCommandService {
 
@@ -25,7 +26,7 @@ public class LanguageCommandService {
         languageCommand.delete(id);
     }
 
-    private Language convert(LanguageFormAttribute attribute) {
+    protected Language convert(LanguageFormAttribute attribute) {
 
         Language language = new Language();
 

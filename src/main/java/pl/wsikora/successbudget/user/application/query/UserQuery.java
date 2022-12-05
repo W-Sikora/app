@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.user.application.command;
+package pl.wsikora.successbudget.user.application.query;
 
 
 import pl.wsikora.successbudget.user.domain.User;

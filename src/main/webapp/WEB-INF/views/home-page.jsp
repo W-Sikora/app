@@ -4,7 +4,7 @@
 <body>
 <div class="page-container">
 
-    <%@ include file="navbar-for-home-page.jsp" %>
+    <%@ include file="navbar-for-main-page.jsp" %>
 
     <div class="page-container">
         <section class="hero">
@@ -39,7 +39,7 @@
                             </section>
                         </div>
                         <div class="column is-one-third has-text-left mt-6">
-                            <%@ include file="login-form.jsp" %>
+                            <%@ include file="main/login-form.jsp" %>
                             <%--                            <%@ include file="login-form.jsp"%>--%>
                         </div>
                     </div>

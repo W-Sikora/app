@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<body>
+
 <nav class="navbar is-white">
     <div class="navbar-brand">
         <div class="navbar-items-left">
-            <a class="navbar-item ml-3" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png" alt="logo" width="112" height="28">
+            <a class="navbar-item is-size-4	has-text-weight-bold ml-3" href="/">
+                <fmt:message key="app.name"/>
             </a>
         </div>
     </div>
 </nav>
-</body>
-</html>

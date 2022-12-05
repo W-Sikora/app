@@ -1,37 +1,44 @@
 package pl.wsikora.successbudget.user.domain;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import pl.wsikora.successbudget.abstractutil.domain.AbstractEntity;
 
 import static pl.wsikora.successbudget.common.UuidGenerator.generateUuid;
+import static pl.wsikora.successbudget.user.common.UserLimitation.*;
+
 
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity {
 
-    private String name;
+    @Column(length = USER_NAME_MAX_LENGTH)
+    private String userName;
 
+    @Column(length = EMAIL_MAX_LENGTH)
     private String email;
 
     private String password;
 
+    @Column(length = UUID_LENGTH)
     private String uuid;
+
+    private boolean configured;
 
     public User() {
 
     }
 
-    public String getName() {
+    public String getUserName() {
 
-        return name;
+        return userName;
     }
 
-    public void setName(String name) {
+    public void setUserName(String name) {
 
-        this.name = name;
+        this.userName = name;
     }
 
     public String getEmail() {
@@ -68,5 +75,15 @@ public class User extends AbstractEntity {
     private void assignUuid() {
 
         this.uuid = generateUuid();
+    }
+
+    public boolean isConfigured() {
+
+        return configured;
+    }
+
+    public void setConfigured(boolean configured) {
+
+        this.configured = configured;
     }
 }

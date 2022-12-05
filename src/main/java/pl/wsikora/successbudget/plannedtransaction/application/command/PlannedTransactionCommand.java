@@ -7,5 +7,5 @@ public interface PlannedTransactionCommand {
 
     void save(PlannedTransaction plannedTransaction);
 
-    void delete(Long id);
+    void delete(long id);
 }

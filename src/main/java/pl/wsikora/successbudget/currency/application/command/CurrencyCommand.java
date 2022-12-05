@@ -7,5 +7,5 @@ public interface CurrencyCommand {
 
     void save(Currency currency);
 
-    void delete(Long id);
+    void delete(long id);
 }

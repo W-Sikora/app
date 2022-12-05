@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/views/{viewName}")
+@RequestMapping("/views/{prefix}/{viewName}")
 public class AllControllers {
 
     @GetMapping
-    private String view(@PathVariable String viewName) {
+    private String view(@PathVariable String prefix, @PathVariable String viewName) {
 
-        return viewName;
+        return prefix + "/" + viewName;
     }
 }

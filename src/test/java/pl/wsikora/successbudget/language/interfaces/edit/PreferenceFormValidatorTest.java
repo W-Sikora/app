@@ -9,12 +9,12 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.language.interfaces.edit.LanguageForm.*;
-import static pl.wsikora.successbudget.language.interfaces.edit.LanguageFormValidator.*;
+import static pl.wsikora.successbudget.language.interfaces.edit.RegistrationFormValidator.*;
 
 
 class PreferenceFormValidatorTest {
 
-    private LanguageFormValidator validator;
+    private RegistrationFormValidator validator;
     private LanguageForm form;
     @Mock
     private Errors errors;
@@ -24,7 +24,7 @@ class PreferenceFormValidatorTest {
 
         openMocks(this);
 
-        validator = new LanguageFormValidator();
+        validator = new RegistrationFormValidator();
 
         form = new LanguageForm();
         form.setName(randomAlphabetic(F_NAME_MAX_LENGTH));

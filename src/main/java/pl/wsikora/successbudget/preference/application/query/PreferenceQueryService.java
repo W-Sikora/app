@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.currency.application.query.CurrencyQueryService;
 import pl.wsikora.successbudget.language.application.query.LanguageQueryService;
 import pl.wsikora.successbudget.preference.domain.Preference;
-import pl.wsikora.successbudget.user.application.command.UserQueryService;
+import pl.wsikora.successbudget.user.application.query.UserQueryService;
 
 @Service
 public class PreferenceQueryService {

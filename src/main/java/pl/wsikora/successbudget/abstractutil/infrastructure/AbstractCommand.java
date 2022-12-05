@@ -37,9 +37,7 @@ public abstract class AbstractCommand<Entity extends AbstractEntity> {
     }
 
     @Transactional
-    public void delete(Long id) {
-
-        Assert.notNull(id, getNotNullErrorMessage("id"));
+    public void delete(long id) {
 
         Entity entity = entityManager.find(entityClass(), id);
 

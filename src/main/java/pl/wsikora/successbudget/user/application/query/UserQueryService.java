@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.user.application.command;
+package pl.wsikora.successbudget.user.application.query;
 
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.user.domain.User;
@@ -18,7 +18,7 @@ public class UserQueryService {
     public String getUserNameById(Long id) {
 
         return userQuery.findById(id)
-                .map(User::getName)
+                .map(User::getUserName)
                 .orElse(NO_VALUE_FOUND);
     }
 }

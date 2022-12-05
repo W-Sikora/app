@@ -7,5 +7,5 @@ public interface LanguageCommand {
 
     void save(Language language);
 
-    void delete(Long id);
+    void delete(long id);
 }

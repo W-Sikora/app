@@ -21,9 +21,3 @@
         <button class="button is-link">Submit</button>
     </div>
 </div>
-
-<div class="field is-grouped mt-4">
-    <div class="control">
-        <p>Nie masz konta, <a href="#">zarejestruj się</a></p>
-    </div>
-</div>

@@ -1,8 +1,9 @@
+<hr>
 <footer class="footer footer-modified">
     <div class="container">
         <div class="columns is-vcentered">
             <div class="column is-size-4">
-                <fmt:message key="footer.app.name"/>
+                <fmt:message key="app.name"/>
             </div>
 
             <div class="column mt-2">
@@ -19,7 +20,7 @@
 
             <div class="column">
                 <fmt:message key="footer.source.code.text"/>:
-                <a class="has-text-black" href="<fmt:message key="footer.source.code.link"/>">
+                <a class="has-text-black" href="https://github.com/W-Sikora/budget">
                     <i class="fab fa-github fa-2x"></i>
                 </a>
             </div>

@@ -3,6 +3,7 @@ package pl.wsikora.successbudget.currency.application.command;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.currency.domain.Currency;
 
+
 @Service
 public class CurrencyCommandService {
 

@@ -8,41 +8,45 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.*;
 import org.springframework.util.Assert;
-
 
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig {
 
-	private static final String EMPLOYEE = "employee";
-	private static final String MANAGER = "manager";
-	private static final String OWNER = "owner";
+    private static final String EMPLOYEE = "employee";
+    private static final String MANAGER = "manager";
+    private static final String OWNER = "owner";
 
-	private static final String CSS = "/css/style.css";
+    private static final String CSS = "/css/style.css";
 
-	private final PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
 
-	@Autowired
     SecurityConfig(PasswordEncoder encoder) {
 
-		Assert.notNull(encoder, "encoder must not be null");
+        Assert.notNull(encoder, "encoder must not be null");
 
-		this.encoder = encoder;
-	}
+        this.encoder = encoder;
+    }
 
+    @Bean
+    HttpFirewall defaultHttpFirewall() {
 
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return new DefaultHttpFirewall();
+    }
 
-		return http
-				.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/**").permitAll();
-					auth.requestMatchers("/static/css/style.css").permitAll();
-				})
-				.build();
-	}
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/**").permitAll();
+                    auth.requestMatchers("/static/css/style.css").permitAll();
+                })
+                .build();
+    }
 }

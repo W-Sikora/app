@@ -1,20 +1,22 @@
 package pl.wsikora.successbudget.currency.interfaces.edit;
 
 import org.springframework.stereotype.Service;
+import pl.wsikora.successbudget.abstractutil.interfaces.AbstractFormFactory;
 import pl.wsikora.successbudget.currency.application.query.CurrencyQuery;
 import pl.wsikora.successbudget.currency.domain.Currency;
 
 @Service
-public class CurrencyFormFactory {
+public class CurrencyAbstractFormFactory extends AbstractFormFactory<CurrencyForm, Currency> {
 
     private final CurrencyQuery currencyQuery;
 
-    private CurrencyFormFactory(CurrencyQuery currencyQuery) {
+    private CurrencyAbstractFormFactory(CurrencyQuery currencyQuery) {
 
         this.currencyQuery = currencyQuery;
     }
 
-    CurrencyForm getForm(Long id) {
+    @Override
+    public CurrencyForm getForm(Long id) {
 
         if (id == null) {
 
@@ -24,7 +26,8 @@ public class CurrencyFormFactory {
         return convert(currencyQuery.getById(id));
     }
 
-    private CurrencyForm convert(Currency currency) {
+    @Override
+    protected CurrencyForm convert(Currency currency) {
 
         CurrencyForm form = new CurrencyForm();
 
