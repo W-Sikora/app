@@ -20,7 +20,7 @@
 
             <div class="column">
                 <fmt:message key="footer.source.code.text"/>:
-                <a class="has-text-black" href="https://github.com/W-Sikora/budget">
+                <a class="has-text-black" href="https://github.com/W-Sikora/success-budget">
                     <i class="fab fa-github fa-2x"></i>
                 </a>
             </div>

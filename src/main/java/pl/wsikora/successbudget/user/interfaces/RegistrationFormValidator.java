@@ -15,12 +15,9 @@ import static pl.wsikora.successbudget.user.interfaces.RegistrationForm.*;
 @Service
 class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> {
 
-    static final String E_USER_NAME_NOT_EMPTY = "userName.not.empty";
-    static final String E_USER_NAME_INVALID_RANGE = "userName.invalid.range";
-    static final String E_EMAIL_NOT_EMPTY = "email.not.empty";
-    static final String E_EMAIL_INVALID_RANGE = "email.invalid.range";
-    static final String E_PASSWORD_NOT_EMPTY ="password.not.empty";
-    static final String E_PASSWORD_INVALID_RANGE ="password.invalid.range";
+    static final String E_USER_NAME_INVALID = "userName.invalid";
+    static final String E_EMAIL_INVALID = "email.invalid";
+    static final String E_PASSWORD_INVALID = "password.invalid";
     static final String E_REPEATED_PASSWORD_INVALID = "repeatedPassword.invalid";
 
     @Override
@@ -28,16 +25,11 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
         String userName = registrationForm.getUserName();
 
-        if (!hasText(userName)) {
-
-            errors.rejectValue(F_USER_NAME, E_USER_NAME_NOT_EMPTY);
-
-        }
-        else if (isBeyond(userName.length(), USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH)) {
+        if (!hasText(userName) || isBeyond(userName.length(), USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH)) {
 
             errors.rejectValue(
                     F_USER_NAME,
-                    E_USER_NAME_INVALID_RANGE,
+                    E_USER_NAME_INVALID,
                     new Object[] { USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH },
                     null
             );
@@ -45,15 +37,11 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
         String email = registrationForm.getEmail();
 
-        if (!hasText(email)) {
-
-            errors.rejectValue(F_EMAIL, E_EMAIL_NOT_EMPTY);
-        }
-        else if (isBeyond(email.length(), EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH)) {
+        if (!hasText(email) || isBeyond(email.length(), EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH)) {
 
             errors.rejectValue(
                     F_EMAIL,
-                    E_EMAIL_INVALID_RANGE,
+                    E_EMAIL_INVALID,
                     new Integer[] { EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH },
                     null
             );
@@ -61,15 +49,11 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
         String password = registrationForm.getPassword();
 
-        if (!hasText(password)) {
-
-            errors.rejectValue(F_PASSWORD, E_PASSWORD_NOT_EMPTY);
-        }
-        else if (isBeyond(password.length(), PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)) {
+        if (!hasText(password) || isBeyond(password.length(), PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)) {
 
             errors.rejectValue(
                     F_PASSWORD,
-                    E_PASSWORD_INVALID_RANGE,
+                    E_PASSWORD_INVALID,
                     new Integer[] { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH },
                     null
             );

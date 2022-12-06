@@ -10,7 +10,7 @@
 <body>
 
 <!-- START NAV -->
-<%@ include file="navbar.jsp" %>
+<%@ include file="common/navbar.jsp" %>
 
 <div class="page-container">
     <div class="columns">

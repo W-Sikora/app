@@ -33,7 +33,7 @@
                                 <strong>
                                     <c:out value="${userName}"/>
                                 </strong><br>
-                                <div class="is-size-7	">
+                                <div class="is-size-7">
                                     <c:out value="${userEmail}"/>
                                 </div>
                             </div>

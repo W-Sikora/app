@@ -1,23 +1,37 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<div class="field">
-    <label class="label">Email</label>
-    <div class="control">
-        <input class="input" type="email">
-    </div>
-    <p class="help">walidacja</p>
-</div>
+<form action="<c:url value="/login"/>" method="post">
 
-<div class="field">
-    <label class="label">Hasło</label>
-    <div class="control">
-        <input class="input" type="password">
-    </div>
-    <p class="help">walidacja</p>
-</div>
+    <sec:csrfMetaTags/>
 
-<div class="field is-grouped is-grouped-centered">
-    <div class="control">
-        <button class="button is-link">Submit</button>
+    <div class="field">
+        <label for="email" class="<c:if test="${invalid}">has-text-danger</c:if>">
+            <fmt:message key="email"/>
+        </label>
+        <div class="control">
+            <input name="email" id="email" type="email" class="input"/>
+        </div>
     </div>
-</div>
+
+    <div class="field">
+        <label for="password" class="<c:if test="${invalid}">has-text-danger</c:if>">
+            <fmt:message key="password"/>
+        </label>
+        <div class="control">
+            <input name="password" id="password" type="password" class="input"/>
+        </div>
+        <c:if test="${invalid}">
+            <p class="validation-message has-text-danger">
+                <fmt:message key="login-form.invalid"/>
+            </p>
+        </c:if>
+    </div>
+
+    <div class="field is-grouped is-grouped-centered">
+        <div class="control mt-5">
+            <button type="submit" class="button is-link">
+                <fmt:message key="login-form.button"/>
+            </button>
+        </div>
+    </div>
+</form>

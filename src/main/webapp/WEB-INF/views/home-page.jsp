@@ -4,7 +4,7 @@
 <body>
 <div class="page-container">
 
-    <%@ include file="navbar-for-main-page.jsp" %>
+    <%@ include file="common/navbar-for-main-page.jsp" %>
 
     <div class="page-container">
         <section class="hero">

@@ -5,15 +5,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 public abstract class AbstractEditController<Form> {
 
     @GetMapping
     protected abstract String goToView();
 
     @PostMapping
-    protected abstract String save(@Valid @ModelAttribute Form form, BindingResult bindingResult);
+    protected abstract String save(@ModelAttribute Form form, BindingResult bindingResult);
 
     @ModelAttribute
     protected abstract void initData(@RequestParam(required = false) Long id, ModelMap modelMap);

@@ -6,7 +6,7 @@
     <%@ include file="../head-import.jsp" %>
 </head>
 
-<%@ include file="../navbar.jsp" %>
+<%@ include file="../common/navbar.jsp" %>
 
 <body>
 <div class="page-container">

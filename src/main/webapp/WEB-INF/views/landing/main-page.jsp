@@ -9,7 +9,7 @@
     <div class="page-container">
         <section class="hero is-fullheight is-fullheight-with-navbar">
 
-            <%@ include file="../navbar-for-main-page.jsp" %>
+            <%@ include file="../common/navbar-for-main-page.jsp" %>
 
             <div class="hero-body">
                 <div class="container has-text-centered">
@@ -30,17 +30,21 @@
 
                             <div class="field is-grouped is-grouped-centered">
                                 <p class="control">
-                                    <a class="button is-medium is-link is-outlined mr-6">
+                                    <a class="button is-medium is-link is-outlined mr-6"
+                                       href="<c:url value="/registration"/>">
                                         <fmt:message key="main-page.registration.button"/>
                                     </a>
                                 </p>
 
                                 <p class="control">
-                                    <a class="button is-medium is-link">
+                                    <a class="button is-medium is-link" href="<c:url value="/login"/>">
                                         <fmt:message key="main-page.login.button"/>
                                     </a>
                                 </p>
                             </div>
+
+                            <hr>
+
                         </div>
                     </div>
 
@@ -51,10 +55,10 @@
                             <div class="has-large-bottom-margin">
                                 <div>
                                     <h4 class="is-size-4 has-text-weight-bold mb-2">
-                                        Lorem ipsum dolor
+                                        <fmt:message key="info.label.1"/>
                                     </h4>
                                     <p class="subtitle has-text-grey">
-                                        Pellentesque eu quam vitae mi lacinia consequat quis in metus.
+                                        <fmt:message key="info.text.1"/>
                                     </p>
                                 </div>
                             </div>

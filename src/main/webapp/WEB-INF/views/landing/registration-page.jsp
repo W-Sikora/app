@@ -9,7 +9,7 @@
     <div class="page-container">
         <section class="hero is-fullheight is-fullheight-with-navbar">
 
-            <%@ include file="../navbar-for-main-page.jsp" %>
+            <%@ include file="../common/navbar-for-main-page.jsp" %>
 
             <div class="hero-body">
                 <div class="container">

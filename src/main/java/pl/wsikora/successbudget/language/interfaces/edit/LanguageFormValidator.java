@@ -8,7 +8,7 @@ import static org.springframework.util.StringUtils.hasText;
 import static pl.wsikora.successbudget.language.interfaces.edit.LanguageForm.*;
 
 @Service
-class RegistrationFormValidator extends AbstractFormValidator<LanguageForm> {
+class LanguageFormValidator extends AbstractFormValidator<LanguageForm> {
 
     static final String E_NAME_IS_EMPTY = "validation.languageForm.name.is.empty";
     static final String E_NAME_IS_TOO_LONG = "validation.languageForm.name.is.too.long";

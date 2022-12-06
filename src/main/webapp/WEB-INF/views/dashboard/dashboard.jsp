@@ -41,8 +41,6 @@
                     <div class="columns my-4">
                         <div class="column is-8 is-offset-2 has-medium-bottom-margin">
 
-                            <%@ include file="login-form.jsp"%>
-
                         </div>
                     </div>
 

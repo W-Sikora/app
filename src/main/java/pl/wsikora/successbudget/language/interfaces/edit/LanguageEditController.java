@@ -18,11 +18,11 @@ class LanguageEditController {
 
     private final LanguageFormFactory languageFormFactory;
     private final LanguageCommandService languageCommandService;
-    private final RegistrationFormValidator languageFormValidator;
+    private final LanguageFormValidator languageFormValidator;
 
     private LanguageEditController(LanguageFormFactory languageFormFactory,
                                    LanguageCommandService languageCommandService,
-                                   RegistrationFormValidator languageFormValidator) {
+                                   LanguageFormValidator languageFormValidator) {
 
         this.languageFormFactory = languageFormFactory;
         this.languageCommandService = languageCommandService;

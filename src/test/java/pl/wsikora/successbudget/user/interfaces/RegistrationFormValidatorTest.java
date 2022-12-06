@@ -50,7 +50,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_USER_NAME, E_USER_NAME_NOT_EMPTY);
+        verify(errors).rejectValue(
+                F_USER_NAME,
+                E_USER_NAME_INVALID,
+                new Integer[] { USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH },
+                null
+        );
     }
 
     @Test
@@ -63,7 +68,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_USER_NAME, E_USER_NAME_NOT_EMPTY);
+        verify(errors).rejectValue(
+                F_USER_NAME,
+                E_USER_NAME_INVALID,
+                new Integer[] { USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH },
+                null
+        );
     }
 
     @Test
@@ -78,7 +88,7 @@ class RegistrationFormValidatorTest {
         // then
         verify(errors).rejectValue(
                 F_USER_NAME,
-                E_USER_NAME_INVALID_RANGE,
+                E_USER_NAME_INVALID,
                 new Integer[] { USER_NAME_MIN_LENGTH, USER_NAME_MAX_LENGTH },
                 null
         );
@@ -94,8 +104,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_EMAIL, E_EMAIL_NOT_EMPTY);
-    }
+        verify(errors).rejectValue(
+                F_EMAIL,
+                E_EMAIL_INVALID,
+                new Integer[] { EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH },
+                null
+        );    }
 
     @Test
     void shouldDetectEmptyEmail() {
@@ -107,8 +121,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_EMAIL, E_EMAIL_NOT_EMPTY);
-    }
+        verify(errors).rejectValue(
+                F_EMAIL,
+                E_EMAIL_INVALID,
+                new Integer[] { EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH },
+                null
+        );    }
 
     @Test
     void shouldDetectTooShortEmail() {
@@ -122,7 +140,7 @@ class RegistrationFormValidatorTest {
         // then
         verify(errors).rejectValue(
                 F_EMAIL,
-                E_EMAIL_INVALID_RANGE,
+                E_EMAIL_INVALID,
                 new Integer[] { EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH },
                 null
         );
@@ -140,7 +158,7 @@ class RegistrationFormValidatorTest {
         // then
         verify(errors).rejectValue(
                 F_EMAIL,
-                E_EMAIL_INVALID_RANGE,
+                E_EMAIL_INVALID,
                 new Integer[] { EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH },
                 null
         );
@@ -156,8 +174,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_PASSWORD, E_PASSWORD_NOT_EMPTY);
-    }
+        verify(errors).rejectValue(
+                F_PASSWORD,
+                E_PASSWORD_INVALID,
+                new Integer[] { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH },
+                null
+        );    }
 
     @Test
     void shouldDetectEmptyPassword() {
@@ -169,8 +191,12 @@ class RegistrationFormValidatorTest {
         validator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(F_PASSWORD, E_PASSWORD_NOT_EMPTY);
-    }
+        verify(errors).rejectValue(
+                F_PASSWORD,
+                E_PASSWORD_INVALID,
+                new Integer[] { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH },
+                null
+        );    }
 
     @Test
     void shouldDetectTooShortPassword() {
@@ -186,7 +212,7 @@ class RegistrationFormValidatorTest {
         // then
         verify(errors).rejectValue(
                 F_PASSWORD,
-                E_PASSWORD_INVALID_RANGE,
+                E_PASSWORD_INVALID,
                 new Integer[] { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH },
                 null
         );
@@ -206,7 +232,7 @@ class RegistrationFormValidatorTest {
         // then
         verify(errors).rejectValue(
                 F_PASSWORD,
-                E_PASSWORD_INVALID_RANGE,
+                E_PASSWORD_INVALID,
                 new Integer[] { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH },
                 null
         );
