@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Admin - Free Bulma template</title>
-    <%@ include file="head-import.jsp" %>
+    <%@ include file="imports/head-imports.jsp" %>
 </head>
 
 <body>
@@ -44,29 +44,29 @@
                     <div class="tile is-ancestor has-text-centered mt-2">
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">439k</p>
-                                <p class="subtitle">Users</p>
+                                <p class="title">1111</p>
+                                <p class="subtitle">???brak???</p>
                             </article>
                         </div>
 
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">59k</p>
-                                <p class="subtitle">Products</p>
+                                <p class="title">11111</p>
+                                <p class="subtitle">???brak???</p>
                             </article>
                         </div>
 
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">3.4k</p>
-                                <p class="subtitle">Open Orders</p>
+                                <p class="title">11111</p>
+                                <p class="subtitle">???brak???</p>
                             </article>
                         </div>
 
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">19</p>
-                                <p class="subtitle">Exceptions</p>
+                                <p class="title">11111</p>
+                                <p class="subtitle">???brak???</p>
                             </article>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
 
                 <div class="columns">
 
-                    <%@ include file="recent-transactions.jsp"%>
+                    <%@ include file="dashboard/recent-transactions.jsp"%>
                     <div class="column is-6">
                         <div class="card">
                             <header class="card-header">

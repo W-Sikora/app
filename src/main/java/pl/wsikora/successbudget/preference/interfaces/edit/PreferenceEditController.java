@@ -12,8 +12,10 @@ import pl.wsikora.successbudget.preference.application.command.PreferenceCommand
 
 import javax.validation.Valid;
 
+import static pl.wsikora.successbudget.common.Constants.*;
 import static pl.wsikora.successbudget.common.Redirector.redirect;
 import static pl.wsikora.successbudget.common.currentuser.application.CurrentUserDtoExtractor.extractCurrentUserDto;
+import static pl.wsikora.successbudget.common.interfaces.EditControllerUtils.getEditFormName;
 import static pl.wsikora.successbudget.preference.interfaces.PreferenceConstants.*;
 
 @Controller
@@ -42,24 +44,26 @@ class PreferenceEditController {
     @GetMapping
     private String goToView() {
 
-        return PREFERENCE_EDIT_VIEW;
+        return EDIT_VIEW;
     }
 
     @ModelAttribute
     private void initData(@RequestParam Long id, Authentication authentication, ModelMap modelMap) {
 
-        modelMap.addAttribute("preferenceForm", preferenceFormFactory.getForm(id))
+        modelMap.addAttribute(FORM_PAGE, getEditFormName(PREFERENCE))
+                .addAttribute(PAGE_TITLE, "Ustawianie preferencji użytkownika")
+                .addAttribute(PREFERENCE + FORM_SUFIX, preferenceFormFactory.getForm(id))
                 .addAttribute("currentlyLoggedInUser", extractCurrentUserDto(authentication))
                 .addAttribute("languages", languageQueryService.getAll())
                 .addAttribute("currencies", currencyQueryService.getAll());
     }
 
     @PostMapping
-    private String save(@Valid PreferenceForm form, BindingResult bindingResult) {
+    private String save(@Valid @ModelAttribute PreferenceForm form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
-            return PREFERENCE_EDIT_VIEW;
+            return EDIT_VIEW;
         }
 
         preferenceCommandService.save(form);

@@ -1,3 +1,5 @@
+<%@include file="../imports/jsp-imports.jsp"%>
+
 <form:form modelAttribute="plannedTransactionForm" action="${action}" method="post">
 
     <form:hidden path="id" value="${id}"/>
@@ -24,7 +26,7 @@
         </form:label>
 
         <div class="control">
-            <div class="select">
+            <div class="select is-fullwidth">
                 <form:select path="transactionTypeId" required="required">
                     <c:forEach items="${transactionTypes}" var="transactionType">
                         <c:set var="transactionTypeLabel">
@@ -49,7 +51,7 @@
         <form:hidden path="parentCategoryId" value="${parentCategoryId}"/>
 
         <div class="control">
-            <div class="select">
+            <div class="select is-fullwidth">
                 <form:select path="categoryId" required="required" cssClass="select">
                     <c:forEach items="${categories}" var="category">
                         <form:option value="${category.id}" label="${category.name}"/>
@@ -75,7 +77,7 @@
             </p>
 
             <p class="control">
-                <span class="select">
+                <span class="select is-fullwidth">
                   <form:select path="currencyId" required="required" cssClass="select">
                       <c:forEach items="${currencies}" var="currency">
                           <form:option value="${currency.id}" label="${currency.code}"/>

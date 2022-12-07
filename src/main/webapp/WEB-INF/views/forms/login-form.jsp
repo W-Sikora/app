@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@include file="../imports/jsp-imports.jsp"%>
 
 <form action="<c:url value="/login"/>" method="post">
 

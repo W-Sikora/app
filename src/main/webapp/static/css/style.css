@@ -80,6 +80,11 @@ nav.navbar {
     margin-bottom: calc(2rem + 2vh);
 }
 
+.has-medium-vertical-margin {
+    margin-top: calc(1rem + 1vh);
+    margin-bottom: calc(1rem + 1vh);
+}
+
 .has-medium-top-margin {
     margin-top: calc(1.5rem + 2vh);
 }

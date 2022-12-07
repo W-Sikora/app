@@ -1,3 +1,5 @@
+<%@include file="../imports/jsp-imports.jsp"%>
+
 <form:form modelAttribute="preferenceForm" action="/preferences/edit" method="post">
 
     <form:hidden path="userId" value="${currentlyLoggedInUser.id}"/>

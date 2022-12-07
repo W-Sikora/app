@@ -1,23 +1,29 @@
 package pl.wsikora.successbudget.plannedtransaction.interfaces.edit;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.abstractutil.interfaces.AbstractEditController;
 import pl.wsikora.successbudget.plannedtransaction.application.command.PlannedTransactionCommandService;
 
 import java.time.YearMonth;
 
 import static java.util.Objects.isNull;
+import static pl.wsikora.successbudget.common.Constants.EDIT_VIEW;
+import static pl.wsikora.successbudget.common.Constants.FORM_PAGE;
 import static pl.wsikora.successbudget.common.Redirector.redirect;
-import static pl.wsikora.successbudget.plannedtransaction.interfaces.PlannedTransactionConstant.PLANNED_TRANSACTION_EDIT_URL;
-import static pl.wsikora.successbudget.plannedtransaction.interfaces.PlannedTransactionConstant.PLANNED_TRANSACTION_EDIT_VIEW;
+import static pl.wsikora.successbudget.common.currentuser.application.CurrentUserDtoExtractor.extractCurrentUserDto;
+import static pl.wsikora.successbudget.common.interfaces.EditControllerUtils.getEditFormName;
+import static pl.wsikora.successbudget.plannedtransaction.interfaces.PlannedTransactionConstant.*;
+import static pl.wsikora.successbudget.preference.interfaces.PreferenceConstants.PREFERENCE;
+
 
 @Controller
 @RequestMapping(PLANNED_TRANSACTION_EDIT_URL)
-class PlannedTransactionEditController extends AbstractEditController<PlannedTransactionForm> {
+class PlannedTransactionEditController {
 
     private final PlannedTransactionCommandService plannedTransactionCommandService;
     private final PlannedTransactionFormFactory plannedTransactionFormFactory;
@@ -32,18 +38,18 @@ class PlannedTransactionEditController extends AbstractEditController<PlannedTra
         this.plannedTransactionFormValidator = plannedTransactionFormValidator;
     }
 
-    @Override
-    protected String goToView() {
+    @GetMapping
+    private String goToView() {
 
-        return PLANNED_TRANSACTION_EDIT_VIEW;
+        return EDIT_VIEW;
     }
 
-    @Override
-    protected String save(PlannedTransactionForm form, BindingResult bindingResult) {
+    @PostMapping
+    private String save(PlannedTransactionForm form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
-            return PLANNED_TRANSACTION_EDIT_VIEW;
+            return EDIT_VIEW;
         }
 
         plannedTransactionCommandService.save(form);
@@ -51,10 +57,12 @@ class PlannedTransactionEditController extends AbstractEditController<PlannedTra
         return redirect("");
     }
 
-    @Override
-    protected void initData(Long id, ModelMap modelMap) {
+    @ModelAttribute
+    private void initData(@RequestParam(required = false) Long id, Authentication authentication, ModelMap modelMap) {
 
-        modelMap.addAttribute("plannedTransactionForm", plannedTransactionFormFactory.getForm(id))
+        modelMap.addAttribute(FORM_PAGE, getEditFormName(PLANNED_TRANSACTION))
+                .addAttribute("plannedTransactionForm", plannedTransactionFormFactory.getForm(id))
+                .addAttribute("currentlyLoggedInUser", extractCurrentUserDto(authentication))
                 .addAttribute("action", PLANNED_TRANSACTION_EDIT_URL);
 
         if (isNull(id)) {
@@ -63,8 +71,8 @@ class PlannedTransactionEditController extends AbstractEditController<PlannedTra
         }
     }
 
-    @Override
-    protected void initBinder(WebDataBinder binder) {
+    @InitBinder("plannedTransactionFormValidator")
+    private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(plannedTransactionFormValidator);
     }

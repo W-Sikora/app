@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 
-<%@ include file="../head-import.jsp" %>
+<%@ include file="../imports/head-imports.jsp" %>
 
 <body>
 <div>

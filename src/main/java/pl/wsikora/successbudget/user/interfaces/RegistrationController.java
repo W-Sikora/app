@@ -9,15 +9,16 @@ import pl.wsikora.successbudget.user.application.command.UserCommandService;
 
 import javax.validation.Valid;
 
+import static pl.wsikora.successbudget.common.Constants.*;
 import static pl.wsikora.successbudget.common.Redirector.redirect;
+import static pl.wsikora.successbudget.common.interfaces.EditControllerUtils.getEditFormName;
 import static pl.wsikora.successbudget.user.interfaces.Constant.LOGIN_URL;
+import static pl.wsikora.successbudget.user.interfaces.Constant.REGISTRATION;
 
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-
-    private static final String VIEW = "landing/registration-page";
 
     private final RegistrationFormValidator registrationFormValidator;
     private final UserCommandService userCommandService;
@@ -32,7 +33,7 @@ public class RegistrationController {
     @GetMapping
     private String goToView() {
 
-        return VIEW;
+        return EDIT_VIEW;
     }
 
     @PostMapping
@@ -40,7 +41,7 @@ public class RegistrationController {
 
         if (bindingResult.hasErrors()) {
 
-            return VIEW;
+            return EDIT_VIEW;
         }
 
         userCommandService.save(registrationForm);
@@ -51,7 +52,9 @@ public class RegistrationController {
     @ModelAttribute
     private void initData(ModelMap modelMap) {
 
-        modelMap.addAttribute("registrationForm", new RegistrationForm());
+        modelMap.addAttribute(REGISTRATION + FORM_SUFIX, new RegistrationForm())
+                .addAttribute(FORM_PAGE, getEditFormName(REGISTRATION))
+                .addAttribute(PAGE_TITLE, "Rejestracja");
     }
 
     @InitBinder

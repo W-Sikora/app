@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@include file="../imports/jsp-imports.jsp"%>
 
 <form:form modelAttribute="registrationForm" action="/registration" method="post">
     <div class="field">

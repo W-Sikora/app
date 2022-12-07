@@ -7,24 +7,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static pl.wsikora.successbudget.user.interfaces.Constant.LOGIN_URL;
+import static pl.wsikora.successbudget.common.Constants.*;
+import static pl.wsikora.successbudget.common.interfaces.EditControllerUtils.getEditFormName;
+import static pl.wsikora.successbudget.user.interfaces.Constant.*;
 
 
 @Controller
 @RequestMapping(LOGIN_URL)
 public class LoginController {
 
-    private static final String VIEW = "landing/login-page";
-
     @GetMapping
     private String goToView() {
 
-        return VIEW;
+        return EDIT_VIEW;
     }
 
     @ModelAttribute
     private void initData(@RequestParam(required = false) boolean invalid, ModelMap modelMap) {
 
-        modelMap.addAttribute("invalid", invalid);
+        modelMap.addAttribute("invalid", invalid)
+                .addAttribute(FORM_PAGE, getEditFormName(LOGIN))
+                .addAttribute(PAGE_TITLE, "Logowanie");
     }
 }
