@@ -36,6 +36,6 @@ class PreferenceFormValidator extends AbstractFormValidator<PreferenceForm> {
     @Override
     public boolean supports(Class<?> clazz) {
 
-        return clazz.equals(PreferenceForm.class);
+        return PreferenceForm.class.isAssignableFrom(clazz);
     }
 }

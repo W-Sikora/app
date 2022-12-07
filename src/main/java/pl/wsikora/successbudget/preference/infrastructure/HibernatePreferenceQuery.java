@@ -9,6 +9,7 @@ import pl.wsikora.successbudget.preference.domain.Preference;
 
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.common.CommonMessage.getEntityNotFoundExceptionMessage;
 
 @Service
@@ -23,7 +24,8 @@ class HibernatePreferenceQuery implements PreferenceQuery {
         return findById(id).orElseThrow(() -> throwEntityNotFoundExceptionForId(id));
     }
 
-    private Optional<Preference> findById(Long id) {
+    @Override
+    public Optional<Preference> findById(long id) {
 
         Preference preference = entityManager.find(Preference.class, id);
 

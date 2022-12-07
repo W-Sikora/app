@@ -32,13 +32,13 @@
                                 <p class="control">
                                     <a class="button is-medium is-link is-outlined mr-6"
                                        href="<c:url value="/registration"/>">
-                                        <fmt:message key="main-page.registration.button"/>
+                                        <fmt:message key="landing-page.registration.button"/>
                                     </a>
                                 </p>
 
                                 <p class="control">
                                     <a class="button is-medium is-link" href="<c:url value="/login"/>">
-                                        <fmt:message key="main-page.login.button"/>
+                                        <fmt:message key="landing-page.login.button"/>
                                     </a>
                                 </p>
                             </div>

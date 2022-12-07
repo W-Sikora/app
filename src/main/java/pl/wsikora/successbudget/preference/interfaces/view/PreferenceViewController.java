@@ -5,16 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.wsikora.successbudget.currency.application.query.CurrencyDto;
-import pl.wsikora.successbudget.language.application.query.LanguageDto;
-import pl.wsikora.successbudget.language.application.query.LanguageQueryService;
 import pl.wsikora.successbudget.preference.application.query.PreferenceDto;
 import pl.wsikora.successbudget.preference.application.query.PreferenceQueryService;
 
-import java.util.List;
-
 import static pl.wsikora.successbudget.language.interfaces.LanguageConstant.LANGUAGE_VIEW;
-import static pl.wsikora.successbudget.preference.interfaces.PreferenceConstant.PREFERENCE_VIEW_URL;
+import static pl.wsikora.successbudget.preference.interfaces.PreferenceConstants.PREFERENCE_VIEW_URL;
 
 @Controller
 @RequestMapping(PREFERENCE_VIEW_URL)

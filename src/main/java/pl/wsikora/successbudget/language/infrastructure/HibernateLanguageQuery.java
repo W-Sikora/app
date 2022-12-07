@@ -24,7 +24,7 @@ class HibernateLanguageQuery extends AbstractQuery<Language> implements Language
     @Override
     public List<Language> getAll() {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 
         CriteriaQuery<Language> query = criteriaBuilder.createQuery(entityClass());
 
@@ -32,7 +32,7 @@ class HibernateLanguageQuery extends AbstractQuery<Language> implements Language
 
         CriteriaQuery<Language> all = query.select(rootEntry);
 
-        TypedQuery<Language> allQuery = entityManager.createQuery(all);
+        TypedQuery<Language> allQuery = getEntityManager().createQuery(all);
 
         return allQuery.getResultList();
     }

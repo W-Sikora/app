@@ -24,7 +24,7 @@ class HibernateCurrencyQuery extends AbstractQuery<Currency> implements Currency
     @Override
     public List<Currency> getAll() {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 
         CriteriaQuery<Currency> query = criteriaBuilder.createQuery(entityClass());
 
@@ -32,7 +32,7 @@ class HibernateCurrencyQuery extends AbstractQuery<Currency> implements Currency
 
         CriteriaQuery<Currency> all = query.select(rootEntry);
 
-        TypedQuery<Currency> allQuery = entityManager.createQuery(all);
+        TypedQuery<Currency> allQuery = getEntityManager().createQuery(all);
 
         return allQuery.getResultList();
     }

@@ -17,7 +17,7 @@
         <%@ include file="common/menu.jsp" %>
         <div class="container">
 
-            <%@include file="common/breadcrumb.jsp" %>
+<%--            <%@include file="common/breadcrumb.jsp" %>--%>
 
             <div class="column is-main-content">
                 <section class="hero is-link welcome is-small">

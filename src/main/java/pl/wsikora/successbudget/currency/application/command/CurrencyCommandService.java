@@ -9,7 +9,7 @@ public class CurrencyCommandService {
 
     private final CurrencyCommand currencyCommand;
 
-    public CurrencyCommandService(CurrencyCommand currencyCommand) {
+    private CurrencyCommandService(CurrencyCommand currencyCommand) {
 
         this.currencyCommand = currencyCommand;
     }

@@ -1,28 +1,29 @@
-package pl.wsikora.successbudget.category.domain;
+package pl.wsikora.successbudget.category.interfaces.edit;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import pl.wsikora.successbudget.abstractutil.domain.AbstractEntity;
+import pl.wsikora.successbudget.category.application.command.CategoryFormAttribute;
 
 
-@Table
-@Entity(name = "categories")
-public class Category extends AbstractEntity {
+public class CategoryForm implements CategoryFormAttribute {
 
+    private Long id;
     private Long creatorId;
-
     private String name;
-
     private Long parentCategoryId;
-
     private Long colorId;
-
     private Long iconId;
 
-    public Category() {
+    @Override
+    public Long getId() {
 
+        return id;
     }
 
+    public void setId(Long id) {
+
+        this.id = id;
+    }
+
+    @Override
     public Long getCreatorId() {
 
         return creatorId;
@@ -33,6 +34,7 @@ public class Category extends AbstractEntity {
         this.creatorId = creatorId;
     }
 
+    @Override
     public String getName() {
 
         return name;
@@ -43,6 +45,7 @@ public class Category extends AbstractEntity {
         this.name = name;
     }
 
+    @Override
     public Long getParentCategoryId() {
 
         return parentCategoryId;
@@ -53,6 +56,7 @@ public class Category extends AbstractEntity {
         this.parentCategoryId = parentCategoryId;
     }
 
+    @Override
     public Long getColorId() {
 
         return colorId;
@@ -63,6 +67,7 @@ public class Category extends AbstractEntity {
         this.colorId = colorId;
     }
 
+    @Override
     public Long getIconId() {
 
         return iconId;
@@ -72,6 +77,4 @@ public class Category extends AbstractEntity {
 
         this.iconId = iconId;
     }
-
-
 }

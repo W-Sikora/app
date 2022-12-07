@@ -17,11 +17,11 @@ import static pl.wsikora.successbudget.language.interfaces.LanguageConstant.LANG
 @RequestMapping(CURRENCY_EDIT_URL)
 class CurrencyEditController {
 
-    private final CurrencyAbstractFormFactory currencyFormFactory;
+    private final CurrencyFormFactory currencyFormFactory;
     private final CurrencyCommandService currencyCommandService;
     private final CurrencyFormValidator currencyFormValidator;
 
-    private CurrencyEditController(CurrencyAbstractFormFactory currencyFormFactory,
+    private CurrencyEditController(CurrencyFormFactory currencyFormFactory,
                                    CurrencyCommandService currencyCommandService,
                                    CurrencyFormValidator currencyFormValidator) {
 

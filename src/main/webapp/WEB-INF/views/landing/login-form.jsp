@@ -9,7 +9,7 @@
             <fmt:message key="email"/>
         </label>
         <div class="control">
-            <input name="email" id="email" type="email" class="input"/>
+            <input name="email" id="email" type="email" class="input" required/>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
             <fmt:message key="password"/>
         </label>
         <div class="control">
-            <input name="password" id="password" type="password" class="input"/>
+            <input name="password" id="password" type="password" class="input" required/>
         </div>
         <c:if test="${invalid}">
             <p class="validation-message has-text-danger">

@@ -1,8 +1,12 @@
 package pl.wsikora.successbudget.preference.interfaces.edit;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.preference.application.query.PreferenceQuery;
 import pl.wsikora.successbudget.preference.domain.Preference;
+
+import static java.util.Objects.isNull;
+
 
 @Service
 public class PreferenceFormFactory {
@@ -11,17 +15,23 @@ public class PreferenceFormFactory {
 
     private PreferenceFormFactory(PreferenceQuery preferenceQuery) {
 
+        Assert.notNull(preferenceQuery, "preferenceQuery must not be null");
+
         this.preferenceQuery = preferenceQuery;
     }
 
     PreferenceForm getForm(Long id) {
 
-        if (id == null) {
+        PreferenceForm form = new PreferenceForm();
 
-            return new PreferenceForm();
+        if (isNull(id)) {
+
+            return form;
         }
 
-        return convert(preferenceQuery.getById(id));
+        return preferenceQuery.findById(id)
+                .map(this::convert)
+                .orElse(form);
     }
 
     private PreferenceForm convert(Preference preference) {

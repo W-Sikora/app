@@ -12,7 +12,12 @@ import static pl.wsikora.successbudget.common.CommonMessage.getEntityNotFoundExc
 public abstract class AbstractQuery<Entity extends AbstractEntity> {
 
     @PersistenceContext
-    protected EntityManager entityManager;
+    private EntityManager entityManager;
+
+    protected EntityManager getEntityManager() {
+
+        return entityManager;
+    }
 
     public Entity getById(Long id) {
 

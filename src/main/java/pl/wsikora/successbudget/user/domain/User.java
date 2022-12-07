@@ -1,10 +1,10 @@
 package pl.wsikora.successbudget.user.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import pl.wsikora.successbudget.abstractutil.domain.AbstractEntity;
+
+import java.util.List;
+import java.util.Set;
 
 import static pl.wsikora.successbudget.common.UuidGenerator.generateUuid;
 import static pl.wsikora.successbudget.user.common.UserLimitation.*;
@@ -13,6 +13,8 @@ import static pl.wsikora.successbudget.user.common.UserLimitation.*;
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity {
+
+    public static final String D_EMAIL = "email";
 
     @Column(length = USER_NAME_MAX_LENGTH)
     private String userName;
@@ -26,6 +28,9 @@ public class User extends AbstractEntity {
     private String uuid;
 
     private boolean configured;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     public User() {
 
@@ -85,5 +90,15 @@ public class User extends AbstractEntity {
     public void setConfigured(boolean configured) {
 
         this.configured = configured;
+    }
+
+    public List<Role> getRoles() {
+
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+
+        this.roles = roles;
     }
 }

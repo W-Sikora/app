@@ -6,11 +6,11 @@ import pl.wsikora.successbudget.currency.application.query.CurrencyQuery;
 import pl.wsikora.successbudget.currency.domain.Currency;
 
 @Service
-public class CurrencyAbstractFormFactory extends AbstractFormFactory<CurrencyForm, Currency> {
+public class CurrencyFormFactory extends AbstractFormFactory<CurrencyForm, Currency> {
 
     private final CurrencyQuery currencyQuery;
 
-    private CurrencyAbstractFormFactory(CurrencyQuery currencyQuery) {
+    private CurrencyFormFactory(CurrencyQuery currencyQuery) {
 
         this.currencyQuery = currencyQuery;
     }

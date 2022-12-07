@@ -20,7 +20,7 @@
                                 <ul>
                                     <li>
                                         <a href="<c:url value="/"/>">
-                                            <fmt:message key="landing.page"/>
+                                            <fmt:message key="landing-page.title"/>
                                         </a>
                                     </li>
                                     <li class="is-active">
@@ -31,7 +31,7 @@
                                 </ul>
                             </nav>
                             <div class="has-text-centered">
-                                <h1 class="mb-5 is-size-1 is-size-3-mobile has-text-weight-bold">
+                                <h1 class="mb-5 is-size-2 is-size-3-mobile has-text-weight-bold">
                                     <fmt:message key="registration-page.title"/>
                                 </h1>
                             </div>

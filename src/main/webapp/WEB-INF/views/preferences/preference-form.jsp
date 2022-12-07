@@ -1,6 +1,6 @@
 <form:form modelAttribute="preferenceForm" action="/preferences/edit" method="post">
 
-    <form:hidden path="userId" value="${userId}"/>
+    <form:hidden path="userId" value="${currentlyLoggedInUser.id}"/>
 
     <div class="field">
         <form:label class="label" path="languageId">
@@ -8,7 +8,7 @@
         </form:label>
 
         <div class="control">
-            <div class="select">
+            <div class="select is-fullwidth">
                 <form:select path="languageId" required="required" disabled="true">
                     <c:forEach items="${languages}" var="language">
                         <c:set var="languageLabel" value="${language.name} - ${language.code}"/>
@@ -30,8 +30,8 @@
         </form:label>
 
         <div class="control">
-            <div class="select">
-                <form:select path="mainCurrencyId" class="select" required="required">
+            <div class="select is-fullwidth">
+                <form:select path="mainCurrencyId" required="required">
                     <c:forEach items="${currencies}" var="currency">
                         <c:set var="currencyLabel" value="${currency.name} - ${currency.code}"/>
                         <form:option value="${currency.id}" label="${currencyLabel}"/>

@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping
+@RequestMapping("/")
 class LandingPageController {
 
-    private static final String VIEW = "landing/main-page";
+    private static final String VIEW = "landing/landing-page";
 
-    @GetMapping("/")
+    @GetMapping
     private String goToView() {
 
         return VIEW;
