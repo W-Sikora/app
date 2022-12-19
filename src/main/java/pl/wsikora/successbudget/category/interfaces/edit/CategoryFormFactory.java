@@ -26,7 +26,7 @@ class CategoryFormFactory {
 
         CategoryForm form = new CategoryForm();
 
-        form.setId(category.getId());
+        form.setId(category.getValue());
 
         form.setCreatorId(category.getCreatorId());
 

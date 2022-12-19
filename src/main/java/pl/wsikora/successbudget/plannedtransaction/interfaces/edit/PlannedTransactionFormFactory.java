@@ -31,7 +31,7 @@ class PlannedTransactionFormFactory extends AbstractFormFactory<PlannedTransacti
 
         PlannedTransactionForm form = new PlannedTransactionForm();
 
-        form.setId(plannedTransaction.getId());
+        form.setId(plannedTransaction.getValue());
 
         form.setBudgetId(plannedTransaction.getBudgetId());
 

@@ -33,7 +33,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
                 user.getEmail(),
                 user.getPassword(),
                 user.getRoles(),
-                user.getId(),
+                user.getValue(),
                 user.getUserName(),
                 user.getUuid(),
                 user.isConfigured()

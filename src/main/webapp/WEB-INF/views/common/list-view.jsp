@@ -14,7 +14,7 @@
                 <div class="container">
 
                     <div class="columns is-centered">
-                        <div class="column is-two-thirds has-medium-vertical-margin">
+                        <div class="column is-three-quarters has-medium-vertical-margin">
 
                             <%@include file="breadcrumb.jsp" %>
 
@@ -28,9 +28,9 @@
                     </div>
 
                     <div class="columns is-centered">
-                        <div class="column is-two-thirds has-medium-bottom-margin">
+                        <div class="column is-three-quarters has-medium-bottom-margin">
 
-                            <c:import url="${formPage}"/>
+                            <c:import url="${listPage}"/>
 
                         </div>
                     </div>

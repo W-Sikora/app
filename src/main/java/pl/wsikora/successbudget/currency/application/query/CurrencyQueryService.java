@@ -35,7 +35,7 @@ public class CurrencyQueryService {
     private CurrencyDto convert(Currency currency) {
 
         return new CurrencyDto(
-                currency.getId(),
+                currency.getValue(),
                 currency.getName(),
                 currency.getCode(),
                 currency.getSymbol()

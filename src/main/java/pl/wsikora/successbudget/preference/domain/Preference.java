@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class Preference {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     private Long languageId;

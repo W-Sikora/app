@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.preference.application.command.PreferenceCommand;
 import pl.wsikora.successbudget.preference.domain.Preference;
 
-import static pl.wsikora.successbudget.common.CommonMessage.getNotNullErrorMessage;
+import static pl.wsikora.successbudget.common.CommonMessage.getNotNullMessage;
 
 @Service
 @Transactional
@@ -36,7 +36,7 @@ class HibernatePreferenceCommand implements PreferenceCommand {
 
         String preferenceClassName = preference.getClass().getSimpleName();
 
-        Assert.notNull(preference, getNotNullErrorMessage(preferenceClassName));
+        Assert.notNull(preference, getNotNullMessage(preferenceClassName));
     }
 }
 

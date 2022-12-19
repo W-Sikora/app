@@ -16,7 +16,7 @@ public class CategoryQueryService {
     private CategoryDto convert(Currency currency) {
 
         return new CategoryDto(
-                currency.getId(),
+                currency.getValue(),
                 currency.getName(),
                 currency.getCode(),
                 currency.getSymbol()

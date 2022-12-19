@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.abstractutil.domain.AbstractEntity;
 
-import static pl.wsikora.successbudget.common.CommonMessage.getNotNullErrorMessage;
+import static pl.wsikora.successbudget.common.CommonMessage.getNotNullMessage;
 
 public abstract class AbstractCommand<Entity extends AbstractEntity> {
 
@@ -18,7 +18,7 @@ public abstract class AbstractCommand<Entity extends AbstractEntity> {
 
         notNullEntity(entity);
 
-        if (entity.getId() == null) {
+        if (entity.getValue() == null) {
 
             entityManager.persist(entity);
 
@@ -52,6 +52,6 @@ public abstract class AbstractCommand<Entity extends AbstractEntity> {
 
         String entityClassName = entityClass().getSimpleName();
 
-        Assert.notNull(entity, getNotNullErrorMessage(entityClassName));
+        Assert.notNull(entity, getNotNullMessage(entityClassName));
     }
 }

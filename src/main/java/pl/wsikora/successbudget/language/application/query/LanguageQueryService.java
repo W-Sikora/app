@@ -35,7 +35,7 @@ public class LanguageQueryService {
     private LanguageDto convert(Language language) {
 
         return new LanguageDto(
-                language.getId(),
+                language.getValue(),
                 language.getName(),
                 language.getCode()
         );
