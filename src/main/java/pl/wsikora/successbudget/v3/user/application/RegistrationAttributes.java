@@ -5,4 +5,6 @@ public interface RegistrationAttributes {
     String getUsername();
 
     String getPassword();
+
+    String getRepeatedPassword();
 }

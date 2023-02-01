@@ -1,47 +1,35 @@
 package pl.wsikora.successbudget.v3.category.ui.edit;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
-import pl.wsikora.successbudget.v3.common.type.Description;
-import pl.wsikora.successbudget.v3.common.type.Title;
+import pl.wsikora.successbudget.v3.common.validation.DescriptionValidator;
+import pl.wsikora.successbudget.v3.common.validation.TitleValidator;
 
 import java.util.Objects;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static pl.wsikora.successbudget.v3.category.ui.edit.CategoryForm.*;
+import static pl.wsikora.successbudget.v3.category.ui.edit.CategoryForm.F_ASSIGNED_TRANSACTION_TYPE;
 
 
 @Service
 class CategoryFormValidator extends AbstractFormValidator<CategoryForm> {
 
+    private final TitleValidator titleValidator;
+    private final DescriptionValidator descriptionValidator;
+
+    CategoryFormValidator(TitleValidator titleValidator,
+                          DescriptionValidator descriptionValidator) {
+
+        this.titleValidator = titleValidator;
+        this.descriptionValidator = descriptionValidator;
+    }
+
     @Override
     public void validateForm(CategoryForm form, Errors errors) {
 
-        String title = form.getTitle();
+        titleValidator.validateForm(form.getTitle(), errors);
 
-        if (StringUtils.hasText(title)) {
-
-            errors.rejectValue(F_TITLE, E_FIELD_MUST_NOT_BE_EMPTY);
-        }
-        else if (Title.hasValidLength(title)) {
-
-            errors.rejectValue(F_TITLE, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
-                Title.getLengthRange(), EMPTY);
-        }
-
-        String description = form.getDescription();
-
-        if (Objects.nonNull(description) && StringUtils.hasText(description)) {
-
-            errors.rejectValue(F_DESCRIPTION, E_FIELD_MUST_NOT_BE_EMPTY);
-        }
-        else if (Objects.nonNull(description) && Description.hasValidLength(description)) {
-
-            errors.rejectValue(F_DESCRIPTION, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
-                Description.getLengthRange(), EMPTY);
-        }
+        descriptionValidator.validateForm(form.getDescription(), errors);
 
         if (Objects.isNull(form.getAssignedTransactionType())) {
 

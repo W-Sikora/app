@@ -91,7 +91,11 @@ nav.navbar {
 
 .validation-message {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-top: 0.45rem;
     font-weight: bold;
+}
+
+label {
+    margin-bottom: 15px !important;
 }

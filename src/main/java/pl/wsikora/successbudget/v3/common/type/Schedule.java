@@ -1,10 +1,15 @@
 package pl.wsikora.successbudget.v3.common.type;
 
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Getter
 public enum Schedule {
 
-    DAILY("0 0 0 ? * * *"),
-    ONCE_A_WEEK("0 0 0 1/7 * ? *"),
-    ONCE_A_MONTH("0 0 0 ? * * *");
+    DAILY("0 0 0 1/1 * ? *"),
+    ONCE_A_MONTH("0 0 12 1 1/1 ? *");
 
     private final String cronExpressions;
 
@@ -13,8 +18,10 @@ public enum Schedule {
         this.cronExpressions = cronExpressions;
     }
 
-    public String getCronExpressions() {
+    public static List<Integer> getOrdinals() {
 
-        return cronExpressions;
+        return Arrays.stream(Schedule.values())
+            .map(Schedule::ordinal)
+            .toList();
     }
 }

@@ -8,5 +8,5 @@
     <link rel="stylesheet" href="<c:url value="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"/>"/>
     <link rel="stylesheet" href="<c:url value="//use.fontawesome.com/releases/v5.0.7/css/all.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/static/css/style.css"/>"/>
-    <link rel="script" href="../../static/js/script.js">
+    <script src="<c:url value="/static/js/main.js"/>"></script>
 </head>

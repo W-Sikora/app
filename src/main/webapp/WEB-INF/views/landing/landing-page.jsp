@@ -23,8 +23,7 @@
                                 </h1>
 
                                 <p class="subtitle has-text-grey">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Pellentesque massa nibh.
+                                    <fmt:message key="info.main"/>
                                 </p>
                             </div>
 
@@ -32,13 +31,13 @@
                                 <p class="control">
                                     <a class="button is-medium is-link is-outlined mr-6"
                                        href="<c:url value="/registration"/>">
-                                        <fmt:message key="landing-page.registration.button"/>
+                                        <fmt:message key="landing.page.registration.button"/>
                                     </a>
                                 </p>
 
                                 <p class="control">
                                     <a class="button is-medium is-link" href="<c:url value="/login"/>">
-                                        <fmt:message key="landing-page.login.button"/>
+                                        <fmt:message key="landing.page.login.button"/>
                                     </a>
                                 </p>
                             </div>
@@ -74,33 +73,11 @@
                                 </div>
                             </div>
 
-                            <div class="has-large-bottom-margin">
-                                <div>
-                                    <h4 class="is-size-4 has-text-weight-bold mb-2">
-                                        Lorem ipsum dolor
-                                    </h4>
-                                    <p class="subtitle has-text-grey">
-                                        Pellentesque eu quam vitae mi lacinia consequat quis in metus.
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="column is-2 is-block-desktop"></div>
 
                         <div class="column is-12 is-5-desktop">
-
-                            <div class="has-large-bottom-margin">
-                                <div>
-                                    <h4 class="is-size-4 has-text-weight-bold mb-2">
-                                        Lorem ipsum dolor
-                                    </h4>
-                                    <p class="subtitle has-text-grey">
-                                        Pellentesque eu quam vitae mi lacinia consequat quis in metus.
-                                    </p>
-                                </div>
-                            </div>
 
                             <div class="has-large-bottom-margin">
                                 <div>

@@ -5,8 +5,8 @@
         <div class="navbar-brand">
 
             <div class="navbar-items-left">
-                <a class="navbar-item ml-4" id="menuButton">
-                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                <a class="navbar-item is-size-4	has-text-weight-bold ml-3" href="<c:url value="/home"/>">
+                    <fmt:message key="app.name"/>
                 </a>
             </div>
 

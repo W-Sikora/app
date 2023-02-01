@@ -18,6 +18,6 @@ public class CategoryForm implements CategoryAttributes {
     private Long categoryId;
     private String title;
     private String description;
-    private String assignedTransactionType;
+    private Integer assignedTransactionType;
 
 }

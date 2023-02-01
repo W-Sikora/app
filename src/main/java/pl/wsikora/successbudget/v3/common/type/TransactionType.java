@@ -1,17 +1,18 @@
 package pl.wsikora.successbudget.v3.common.type;
 
+import java.util.Arrays;
+import java.util.List;
+
+
 public enum TransactionType {
 
     REVENUE,
     EXPENDITURE;
 
-    public boolean isRevenue() {
+    public static List<Integer> getOrdinals() {
 
-        return this == REVENUE;
-    }
-
-    public boolean isExpenditure() {
-
-        return this == EXPENDITURE;
+        return Arrays.stream(TransactionType.values())
+            .map(TransactionType::ordinal)
+            .toList();
     }
 }

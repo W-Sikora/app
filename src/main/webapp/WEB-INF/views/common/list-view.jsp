@@ -43,6 +43,5 @@
         </section>
     </div>
 </div>
-<script src="<c:url value="/static/js/main.js"/>"></script>
 </body>
 </html>

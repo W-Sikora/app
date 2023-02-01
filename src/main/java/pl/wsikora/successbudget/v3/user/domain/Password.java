@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.user.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +15,16 @@ import static org.springframework.util.StringUtils.hasText;
 public class Password {
 
     public static final int MINIMUM_LENGTH = 3;
-    public static final int MAXIMUM_LENGTH = 60;
+    public static final int MAXIMUM_LENGTH = 30;
 
+    @Column(name = "password")
     private String value;
 
-    public Password(String value) {
+    public Password(String encodeValue) {
 
-        Assert.isTrue(hasText(value), "password value must not be empty");
-        Assert.isTrue(hasValidLength(value), "password value must be of valid length");
+        Assert.isTrue(hasText(encodeValue), "encodeValue value must not be empty");
 
-        this.value = value;
+        this.value = encodeValue;
     }
 
     public static boolean hasValidLength(String value) {

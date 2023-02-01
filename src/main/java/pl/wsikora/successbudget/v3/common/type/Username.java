@@ -2,7 +2,6 @@ package pl.wsikora.successbudget.v3.common.type;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
@@ -20,7 +19,7 @@ public class Username implements Serializable {
     public static final int MINIMUM_LENGTH = 3;
     public static final int MAXIMUM_LENGTH = 30;
 
-    @Column(name = "username")
+    @Column(name = "username", length = MAXIMUM_LENGTH, unique = true)
     private String value;
 
     public Username(String value) {

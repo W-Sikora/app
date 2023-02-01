@@ -1,20 +1,20 @@
 package pl.wsikora.successbudget.v3.category.ui.view;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.category.application.CategoryUserAccessChecker;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
+import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.type.Username;
 
 import java.security.Principal;
+import java.util.List;
 
-import static pl.wsikora.successbudget.v3.category.ui.CategoryUtils.*;
-import static pl.wsikora.successbudget.v3.common.Constants.ID_PATH_VARIABLE;
-import static pl.wsikora.successbudget.v3.common.Constants.LACK_OF_AUTHORITY_VIEW;
+import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
 
 
 @Controller
@@ -22,39 +22,58 @@ import static pl.wsikora.successbudget.v3.common.Constants.LACK_OF_AUTHORITY_VIE
 class CategoryViewController {
 
     private final CategoryQuery categoryQuery;
-    private final CategoryUserAccessChecker categoryUserAccessChecker;
+    private final MessageProvider messageProvider;
 
-    private CategoryViewController(CategoryQuery categoryQuery,
-                                   CategoryUserAccessChecker categoryUserAccessChecker) {
+    public CategoryViewController(CategoryQuery categoryQuery, MessageProvider messageProvider) {
 
         this.categoryQuery = categoryQuery;
-        this.categoryUserAccessChecker = categoryUserAccessChecker;
+        this.messageProvider = messageProvider;
     }
 
     @GetMapping
-    private String goToView(Model model, Principal principal) {
+    private String goToView() {
 
-        Username username = new Username(principal.getName());
-
-        model.addAttribute("categories", categoryQuery.getAllCategoryDto(username));
-
-        return CATEGORY_VIEW;
+        return LIST_VIEW;
     }
 
-    @GetMapping(ID_PATH_VARIABLE)
-    private String goToView(@PathVariable Long id, Principal principal, Model model) {
+    @ModelAttribute(LIST_PAGE)
+    private String listPage() {
 
-        CategoryId categoryId = new CategoryId(id);
+        return getListName(CATEGORY);
+    }
+
+    @ModelAttribute("categories")
+    private List<CategoryDto> list(Principal principal) {
 
         Username username = new Username(principal.getName());
 
-        if (!categoryUserAccessChecker.hasAccess(categoryId, username)) {
+        return categoryQuery.getAllCategoryDto(username);
+    }
 
-            return LACK_OF_AUTHORITY_VIEW;
-        }
+    @ModelAttribute("editUrl")
+    private String editUrl() {
 
-        model.addAttribute("category", categoryQuery.getCategoryDto(categoryId, username));
+        return CATEGORY_EDIT_PATH + ID_PATH_QUERY;
+    }
 
-        return CATEGORY_DETAIL_VIEW;
+    @ModelAttribute("deleteUrl")
+    private String deleteUrl() {
+
+        return CATEGORY_DELETE_PATH;
+    }
+
+    @ModelAttribute(BREADCRUMB_ELEMENTS)
+    private List<BreadcrumbElement> breadcrumbElements() {
+
+        return List.of(
+            new BreadcrumbElement(messageProvider.getMessage(HOME_TITLE), HOME_PATH),
+            new BreadcrumbElement(CATEGORY_LIST_TITLE)
+        );
+    }
+
+    @ModelAttribute(PAGE_TITLE)
+    private String pageTitle() {
+
+        return messageProvider.getMessage(CATEGORY_LIST_TITLE);
     }
 }

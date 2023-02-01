@@ -1,10 +1,8 @@
 package pl.wsikora.successbudget.v3.category.ui.edit;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.type.Username;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
 
 
 @Service
@@ -17,19 +15,19 @@ class CategoryFormFactory {
         this.categoryQuery = categoryQuery;
     }
 
-    CategoryForm getCategoryForm(CategoryId categoryId, Username username) {
+    CategoryForm getCategoryForm(Long categoryId) {
 
-        return convert(categoryQuery.getCategoryDto(categoryId, username));
+        return toForm(categoryQuery.getCategoryDto(categoryId));
     }
 
+    private static CategoryForm toForm(CategoryDto categoryDto) {
 
-    private CategoryForm convert(CategoryDto categoryDto) {
+        CategoryForm categoryForm = new CategoryForm();
+        categoryForm.setCategoryId(categoryDto.getCategoryId());
+        categoryForm.setTitle(categoryDto.getTitle());
+        categoryForm.setDescription(categoryDto.getDescription());
+        categoryForm.setAssignedTransactionType(categoryDto.getAssignedTransactionType());
 
-        return CategoryForm.builder()
-            .categoryId(categoryDto.getCategoryId())
-            .title(categoryDto.getTitle())
-            .description(categoryDto.getDescription())
-            .assignedTransactionType(categoryDto.getAssignedTransactionType())
-            .build();
+        return categoryForm;
     }
 }

@@ -1,27 +1,25 @@
 package pl.wsikora.successbudget.v3.category.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
+import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.type.Description;
 import pl.wsikora.successbudget.v3.common.type.Title;
 import pl.wsikora.successbudget.v3.common.type.TransactionType;
-import pl.wsikora.successbudget.v3.user.domain.User;
+import pl.wsikora.successbudget.v3.common.type.Username;
 
 
 @Entity
 @Table(name = "categories")
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
+@Setter
+@NoArgsConstructor
 public class Category {
 
-    @EmbeddedId
-    private CategoryId categoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long categoryId;
 
     @Embedded
     private Title title;
@@ -32,7 +30,7 @@ public class Category {
     @Embedded
     private TransactionType assignedTransactionType;
 
-    @ManyToOne
-    private User ownedByUser;
+    @Embedded
+    private Username owner;
 
 }

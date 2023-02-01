@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.TransactionType;
 import pl.wsikora.successbudget.v3.common.type.Username;
 
 import java.util.List;
@@ -21,29 +21,48 @@ class CategoryQueryImpl implements CategoryQuery {
     }
 
     @Override
-    public CategoryDto getCategoryDto(CategoryId categoryId, Username username) {
+    public CategoryDto getCategoryDto(Long categoryId) {
 
-        return categoryRepository.findCategoryByCategoryIdAndOwnedByUser(categoryId, username)
-            .map(this::toDto)
-            .orElseThrow(() -> new IllegalArgumentException("No category found for categoryId: " + categoryId.getValue()));
+        return toDto(categoryRepository.getByCategoryId(categoryId));
+    }
+
+    @Override
+    public CategoryDto getCategoryDto(Long categoryId, Username username) {
+
+        return toDto(categoryRepository.getByCategoryIdAndUsername(categoryId, username));
     }
 
     @Override
     public List<CategoryDto> getAllCategoryDto(Username username) {
 
-        return categoryRepository.getCategoryByOwnedByUser(username)
+        return categoryRepository.getByUsername(username)
             .stream()
             .map(this::toDto)
             .toList();
     }
 
+    @Override
+    public List<CategoryDto> getAllCategoryDto(Username username, TransactionType transactionType) {
+
+        return categoryRepository.getByUsernameAndAssignedTransactionType(username, transactionType)
+            .stream()
+            .map(this::toDto)
+            .toList();
+    }
+
+    @Override
+    public boolean exists(Long categoryId, Username username) {
+
+        return categoryRepository.existsByCategoryIdAndUsername(categoryId, username);
+    }
+
     private CategoryDto toDto(Category category) {
 
         return new CategoryDto(
-            category.getCategoryId().getValue(),
+            category.getCategoryId(),
             category.getTitle().getValue(),
             category.getDescription().getValue(),
-            category.getAssignedTransactionType().toString()
+            category.getAssignedTransactionType().ordinal()
         );
     }
 }
