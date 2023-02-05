@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.type.Money;
+import pl.wsikora.successbudget.v3.common.type.Priority;
+import pl.wsikora.successbudget.v3.common.type.Schedule;
 import pl.wsikora.successbudget.v3.common.type.Username;
-
-import java.time.YearMonth;
 
 
 @Entity
@@ -33,9 +33,13 @@ public class PlannedExpenditure {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Enumerated(EnumType.ORDINAL)
+    private Priority priority;
+
     @Embedded
     private Money money;
 
-    private YearMonth yearMonth;
+    @Enumerated(EnumType.ORDINAL)
+    private Schedule schedule;
 
 }

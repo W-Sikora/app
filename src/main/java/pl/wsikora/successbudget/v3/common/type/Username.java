@@ -19,7 +19,7 @@ public class Username implements Serializable {
     public static final int MINIMUM_LENGTH = 3;
     public static final int MAXIMUM_LENGTH = 30;
 
-    @Column(name = "username", length = MAXIMUM_LENGTH, unique = true)
+    @Column(name = "username", length = MAXIMUM_LENGTH)
     private String value;
 
     public Username(String value) {

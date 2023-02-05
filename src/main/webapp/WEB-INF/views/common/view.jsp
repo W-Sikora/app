@@ -13,8 +13,19 @@
             <div class="hero-body has-large-top-margin">
                 <div class="container main-section">
 
+                    <c:set var="columnSize">
+                        <c:choose>
+                            <c:when test="${viewType}">
+                                is-10
+                            </c:when>
+                            <c:otherwise>
+                                is-two-thirds
+                            </c:otherwise>
+                        </c:choose>
+                    </c:set>
+
                     <div class="columns is-centered">
-                        <div class="column is-two-thirds">
+                        <div class="column ${columnSize}">
 
                             <%@include file="breadcrumb.jsp" %>
 
@@ -28,18 +39,17 @@
                     </div>
 
                     <div class="columns is-centered">
-                        <div class="column is-two-thirds">
+                        <div class="column ${columnSize}">
                             <c:import url="${pagePath}"/>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
     <%@ include file="footer.jsp" %>
+
 </div>
 </body>
 </html>

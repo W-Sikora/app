@@ -7,7 +7,6 @@ import lombok.Value;
 public class BudgetDto {
 
     Long budgetId;
-    String title;
-    String description;
+    String yearMonth;
 
 }

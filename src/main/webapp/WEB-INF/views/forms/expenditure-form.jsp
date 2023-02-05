@@ -1,6 +1,6 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<form:form modelAttribute="expenditureForm" action="${formAction}" method="post">
+<form:form modelAttribute="form" action="${formAction}" method="post">
 
     <form:hidden path="expenditureId"/>
 

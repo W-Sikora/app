@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.type.Money;
+import pl.wsikora.successbudget.v3.common.type.Schedule;
 import pl.wsikora.successbudget.v3.common.type.Username;
-
-import java.time.YearMonth;
 
 
 @Getter
@@ -36,6 +35,7 @@ public class PlannedRevenue {
     @Embedded
     private Money money;
 
-    private YearMonth yearMonth;
+    @Enumerated(EnumType.ORDINAL)
+    private Schedule schedule;
 
 }

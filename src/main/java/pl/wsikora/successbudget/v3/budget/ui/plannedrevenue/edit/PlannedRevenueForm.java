@@ -2,23 +2,20 @@ package pl.wsikora.successbudget.v3.budget.ui.plannedrevenue.edit;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.type.Money;
-import pl.wsikora.successbudget.v3.common.type.Schedule;
+import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueAttributes;
 
-import java.time.YearMonth;
+import java.math.BigDecimal;
 
 
 @Getter
 @Setter
-public class PlannedRevenueForm {
+class PlannedRevenueForm implements PlannedRevenueAttributes {
 
     private Long plannedRevenueId;
     private Long budgetId;
-    private String title;
-    private String description;
     private Long categoryId;
-    private Money money;
-    private Schedule schedule;
-    private YearMonth yearMonth;
+    private Integer currencyId;
+    private BigDecimal value;
+    private Integer scheduleId;
 
 }

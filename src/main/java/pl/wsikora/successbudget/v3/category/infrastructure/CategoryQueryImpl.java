@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.category.infrastructure;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
@@ -35,9 +36,9 @@ class CategoryQueryImpl implements CategoryQuery {
     }
 
     @Override
-    public List<CategoryDto> getAllCategoryDto(Username username) {
+    public List<CategoryDto> getAllCategoryDto(Pageable pageable) {
 
-        return categoryRepository.getByUsername(username)
+        return categoryRepository.findAll(pageable)
             .stream()
             .map(this::toDto)
             .toList();

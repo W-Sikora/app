@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.type.Username;
 
-import java.util.List;
+import java.time.YearMonth;
 
 
 @Entity
@@ -23,10 +23,6 @@ public class Budget {
     @Embedded
     private Username owner;
 
-    @OneToMany
-    List<PlannedRevenue> plannedRevenues;
-
-    @OneToMany
-    List<PlannedExpenditure> plannedExpenditures;
+    private YearMonth yearMonth;
 
 }

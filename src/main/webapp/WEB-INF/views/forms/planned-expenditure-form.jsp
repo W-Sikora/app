@@ -1,59 +1,80 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
-<form:form modelAttribute="categoryForm" action="${formAction}" method="post">
+<form:form modelAttribute="form" action="${formAction}" method="post">
 
-    <form:hidden path="categoryId"/>
-
-    <div class="field">
-        <form:label path="title" cssClass="label">
-            <fmt:message key="title"/>
-            <fmt:message key="required.field.sign"/>
-        </form:label>
-
-        <div class="control">
-            <form:input path="title" type="text" cssClass="input" cssErrorClass="input is-danger"/>
-        </div>
-
-        <p class="validation-message">
-            <form:errors path="title" cssClass="has-text-danger"/>
-        </p>
-    </div>
+    <form:hidden path="plannedExpenditureId"/>
 
     <div class="field">
-        <form:label path="description" cssClass="label">
-            <fmt:message key="description"/>
-        </form:label>
-
-        <div class="control">
-            <form:textarea path="description" type="text" cssClass="textarea" cssErrorClass="textarea is-danger"/>
-        </div>
-
-        <p class="validation-message">
-            <form:errors path="description" cssClass="has-text-danger"/>
-        </p>
-    </div>
-
-    <div class="field">
-        <form:label path="assignedTransactionType" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+        <form:label path="categoryId" cssClass="label">
+            <fmt:message key="category"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="control">
             <div class="select is-fullwidth">
-                <form:select path="assignedTransactionType" required="required" cssErrorClass="is-danger">
-                    <c:forEach items="${assignedTransactionTypes}" var="type">
-                        <c:set var="typeLabel">
-                            <fmt:message key="assigned.transaction.type.${type}"/>
-                        </c:set>
-                        <form:option value="${type}" label="${typeLabel}"/>
+                <form:select path="categoryId" required="required" cssErrorClass="is-danger">
+                    <c:forEach items="${categories}" var="category">
+                        <form:option value="${category.categoryId}" label="${category.title}"/>
                     </c:forEach>
                 </form:select>
             </div>
         </div>
 
         <p class="help">
-            <form:errors path="assignedTransactionType" cssClass="has-text-danger"/>
+            <form:errors path="categoryId" cssClass="has-text-danger"/>
+        </p>
+    </div>
+
+    <div class="field">
+
+        <form:label path="value" cssClass="label">
+            <fmt:message key="money"/>
+            <fmt:message key="required.field.sign"/>
+        </form:label>
+
+        <div class="field has-addons">
+            <p class="control is-expanded">
+                <form:input path="value" type="number" cssClass="input" cssErrorClass="input is-danger"/>
+            </p>
+
+            <p class="control">
+                <span class="select">
+                    <form:select path="currencyId" required="required" cssClass="select" cssErrorClass="select is-danger">
+                        <c:forEach items="${currencies}" var="currency">
+                            <form:option value="${currency.id}" label="${currency.code}"/>
+                        </c:forEach>
+                    </form:select>
+                </span>
+            </p>
+        </div>
+
+        <p class="help">
+            <form:errors path="value" cssClass="has-text-danger"/>
+            <form:errors path="currencyId" cssClass="has-text-danger"/>
+        </p>
+    </div>
+
+    <div class="field">
+        <form:label path="priorityId" cssClass="label">
+            <fmt:message key="priority"/>
+            <fmt:message key="required.field.sign"/>
+        </form:label>
+
+        <div class="control">
+            <div class="select is-fullwidth">
+                <form:select path="priorityId" required="required" cssErrorClass="is-danger">
+                    <c:forEach items="${priorities}" var="priority">
+                        <c:set var="priorityLabel">
+                            <fmt:message key="priority.${priority}"/>
+                        </c:set>
+                        <form:option value="${priority}" label="${priorityLabel}"/>
+                    </c:forEach>
+                </form:select>
+            </div>
+        </div>
+
+        <p class="help">
+            <form:errors path="priorityId" cssClass="has-text-danger"/>
         </p>
     </div>
 

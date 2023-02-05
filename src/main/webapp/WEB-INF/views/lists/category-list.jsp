@@ -1,27 +1,23 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<div>
-    <a class="button is-success">
-        <fmt:message key="add.text"/>
-    </a>
-</div>
+<c:set var="addUrl" value="aa"/>
+<%@ include file="../common/add.jsp" %>
 
 
 <c:choose>
     <c:when test="${empty categories}">
-        <fmt:message key="category.list.is.empty"/>
+
+        <%@include file="../common/no-elements.jsp" %>
+
     </c:when>
 
     <c:otherwise>
-        <table class="table">
+        <table class="table is-fullwidth">
             <thead>
             <tr>
                 <th></th>
                 <th>
                     <fmt:message key="title"/>
-                </th>
-                <th>
-                    <fmt:message key="description"/>
                 </th>
                 <th>
                     <fmt:message key="assigned.transaction.type"/>
@@ -35,17 +31,16 @@
                 <tr>
                     <th>${loop.index + 1}</th>
                     <td>${category.title}</td>
-                    <td>${category.description}</td>
                     <td>${category.assignedTransactionType}</td>
                     <td>
                         <div class="field is-grouped">
-                            <p class="control">
-                                <a href="${editUrl}${category.id}" class="button is-info is-outlined">
+                            <p class="control mr-6">
+                                <a class="button is-small is-info is-outlined" href="${editUrl}${category.categoryId}">
                                     <fmt:message key="edit.text"/>
                                 </a>
                             </p>
                             <p class="control">
-                                <button class="button is-danger is-outlined is-">
+                                <button class="button is-small is-danger is-outlined">
                                     <fmt:message key="delete.text"/>
                                 </button>
                             </p>
@@ -55,6 +50,29 @@
             </c:forEach>
             </tbody>
         </table>
+
+        <div class="field has-addons has-addons-centered mt-6">
+            <p class="control">
+                <a class="button">
+                  <span class="icon is-small">
+                    <i class="fas fa-chevron-left"></i>
+                  </span>
+                </a>
+            </p>
+            <p class="control mx-6 mt-2">
+                <strong>
+                    AAAAB${currentPage}
+                </strong>
+            </p>
+            <p>
+                <a class="button">
+                  <span class="icon is-small">
+                    <i class="fas fa-chevron-right"></i>
+                  </span>
+                </a>
+            </p>
+        </div>
+
     </c:otherwise>
 </c:choose>
 

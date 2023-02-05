@@ -23,7 +23,7 @@ public class Category {
     @Embedded
     private Title title;
 
-    @Embedded
+    @Enumerated(EnumType.ORDINAL)
     private TransactionType assignedTransactionType;
 
     @Embedded

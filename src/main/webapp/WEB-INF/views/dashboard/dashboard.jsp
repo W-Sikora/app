@@ -25,6 +25,8 @@
 
                             <%@include file="period.jsp" %>
 
+                            <hr>
+
                             <%@ include file="menu.jsp" %>
 
                             <hr>
