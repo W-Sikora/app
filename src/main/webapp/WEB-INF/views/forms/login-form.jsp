@@ -33,7 +33,7 @@
 
     <div class="field is-grouped is-grouped-centered">
         <div class="control mt-5">
-            <button type="submit" class="button is-link">
+            <button type="submit" class="button is-link is-outlined">
                 <fmt:message key="login.form.button"/>
             </button>
         </div>

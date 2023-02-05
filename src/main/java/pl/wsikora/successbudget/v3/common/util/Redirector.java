@@ -2,6 +2,10 @@ package pl.wsikora.successbudget.v3.common.util;
 
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
+
+import static pl.wsikora.successbudget.v3.common.Constants.SLASH;
+
 
 public class Redirector {
 
@@ -15,6 +19,20 @@ public class Redirector {
         Assert.hasText(path, "path must not be empty");
 
         return String.format(REDIRECT_PATTERN, path);
+    }
+
+    public static String redirect(Object... paths) {
+
+        Assert.notEmpty(paths, "paths must not be empty");
+
+        StringBuilder finalPath = new StringBuilder();
+
+        for (Object path : paths) {
+
+            finalPath.append(path).append(SLASH);
+        }
+
+        return String.format(REDIRECT_PATTERN, finalPath);
     }
 
     public static String redirectWithQueryParameter(String path, String queryParameterName, Object queryParameterValue) {

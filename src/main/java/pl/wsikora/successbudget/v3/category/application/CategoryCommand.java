@@ -7,5 +7,5 @@ public interface CategoryCommand {
 
     void save(CategoryAttributes categoryAttributes, Username username);
 
-    void delete(Long categoryId, Username username);
+    void delete(Long categoryId);
 }

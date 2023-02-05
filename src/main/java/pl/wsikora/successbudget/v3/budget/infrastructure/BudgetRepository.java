@@ -11,4 +11,5 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     @Query("select count(b) > 0 from Budget b where b.budgetId = ?1 and b.owner.value = ?2")
     boolean existsByBudgetIdAndUsername(Long budgetId, String username);
+
 }

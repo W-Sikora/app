@@ -1,66 +1,37 @@
 package pl.wsikora.successbudget.v3.user.ui.login;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
 
-import java.util.List;
-
-import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
+import static pl.wsikora.successbudget.v3.common.Constants.LOGIN_PATH;
+import static pl.wsikora.successbudget.v3.common.Constants.VIEW;
 
 
 @Controller
 @RequestMapping(LOGIN_PATH)
 class LoginController {
 
-    private final MessageProvider messageProvider;
+    private final LoginControllerDataProvider loginControllerDataProvider;
 
-    private LoginController(MessageProvider messageProvider) {
+    private LoginController(LoginControllerDataProvider loginControllerDataProvider) {
 
-        this.messageProvider = messageProvider;
+        this.loginControllerDataProvider = loginControllerDataProvider;
     }
 
     @GetMapping
     private String goToView() {
 
-        return EDIT_VIEW;
+        return VIEW;
     }
 
-    @ModelAttribute(FORM_PAGE)
-    private String formPage() {
+    @ModelAttribute
+    private void data(@RequestParam(required = false) boolean invalid, Model model) {
 
-        return getEditFormName(LOGIN);
+        model.addAllAttributes(loginControllerDataProvider.provideData(invalid));
     }
 
-    @ModelAttribute(FORM_ACTION)
-    private String formAction() {
-
-        return LOGIN_PATH;
-    }
-
-    @ModelAttribute(BREADCRUMB_ELEMENTS)
-    private List<BreadcrumbElement> breadcrumbElements() {
-
-        return List.of(
-            new BreadcrumbElement(messageProvider.getMessage(LANDING_PAGE_TITLE), SLASH),
-            new BreadcrumbElement(messageProvider.getMessage(LOGIN_PAGE_TITLE))
-        );
-    }
-
-    @ModelAttribute(PAGE_TITLE)
-    private String pageTitle() {
-
-        return messageProvider.getMessage(LOGIN_PAGE_TITLE);
-    }
-
-    @ModelAttribute("invalid")
-    private boolean initData(@RequestParam(required = false) boolean invalid) {
-
-        return invalid;
-    }
 }

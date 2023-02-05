@@ -26,17 +26,17 @@ class CategoryFormValidatorTest {
     @Mock
     private DescriptionValidator descriptionValidator;
     private CategoryFormValidator validator;
-    private CategoryForm form;
+    private CategoryForm categoryForm;
 
     @BeforeEach
     void setUp() {
 
         openMocks(this);
 
-        form = CategoryForm.builder()
+        categoryForm = CategoryForm.builder()
             .title(randomAlphabetic(Title.MAXIMUM_LENGTH))
             .description(randomAlphabetic(Description.MAXIMUM_LENGTH))
-            .assignedTransactionType(TransactionType.EXPENDITURE.toString())
+            .assignedTransactionType(TransactionType.EXPENDITURE.ordinal())
             .build();
 
         validator = new CategoryFormValidator(titleValidator, descriptionValidator);
@@ -46,10 +46,10 @@ class CategoryFormValidatorTest {
     void shouldDetectNullAssignedTransactionType() {
 
         // given
-        form.setAssignedTransactionType(null);
+        categoryForm.setAssignedTransactionType(null);
 
         // when
-        validator.validateForm(form, errors);
+        validator.validateForm(categoryForm, errors);
 
         // then
         verify(errors).rejectValue(F_ASSIGNED_TRANSACTION_TYPE, E_FIELD_MUST_NOT_BE_EMPTY);

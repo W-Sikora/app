@@ -3,19 +3,19 @@ package pl.wsikora.successbudget.v3.budget.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.type.*;
+import pl.wsikora.successbudget.v3.common.type.Money;
+import pl.wsikora.successbudget.v3.common.type.Username;
 
 import java.time.YearMonth;
 
 
-@Entity
-@Table(name = "planned_revenues")
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "planned_revenues")
 public class PlannedRevenue {
 
     @Id
@@ -29,21 +29,12 @@ public class PlannedRevenue {
     @Embedded
     private Username owner;
 
-    @Embedded
-    private Title title;
-
-    @Embedded
-    private Description description;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
     @Embedded
     private Money money;
-
-    @Embedded
-    private Schedule schedule;
 
     private YearMonth yearMonth;
 

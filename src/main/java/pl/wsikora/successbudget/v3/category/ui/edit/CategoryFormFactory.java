@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 
+import java.util.Optional;
+
 
 @Service
 class CategoryFormFactory {
@@ -17,15 +19,16 @@ class CategoryFormFactory {
 
     CategoryForm getCategoryForm(Long categoryId) {
 
-        return toForm(categoryQuery.getCategoryDto(categoryId));
+        return categoryQuery.findByCategoryId(categoryId)
+                .map(this::toForm)
+                    .orElseGet(CategoryForm::new);
     }
 
-    private static CategoryForm toForm(CategoryDto categoryDto) {
+    private CategoryForm toForm(CategoryDto categoryDto) {
 
         CategoryForm categoryForm = new CategoryForm();
         categoryForm.setCategoryId(categoryDto.getCategoryId());
         categoryForm.setTitle(categoryDto.getTitle());
-        categoryForm.setDescription(categoryDto.getDescription());
         categoryForm.setAssignedTransactionType(categoryDto.getAssignedTransactionType());
 
         return categoryForm;

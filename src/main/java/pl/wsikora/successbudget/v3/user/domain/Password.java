@@ -20,11 +20,24 @@ public class Password {
     @Column(name = "password")
     private String value;
 
-    public Password(String encodeValue) {
+    private Password(String value) {
 
-        Assert.isTrue(hasText(encodeValue), "encodeValue value must not be empty");
+        this.value = value;
+    }
 
-        this.value = encodeValue;
+    public static Password of(String value) {
+
+        Assert.isTrue(hasText(value), "password value must not be empty");
+        Assert.isTrue(hasValidLength(value), "password value must be of valid length");
+
+        return new Password(value);
+    }
+
+    public static Password encoded(String encodedValue) {
+
+        Assert.isTrue(hasText(encodedValue), "password encodedValue must not be empty");
+
+        return new Password(encodedValue);
     }
 
     public static boolean hasValidLength(String value) {
@@ -38,4 +51,5 @@ public class Password {
 
         return new Object[]{MINIMUM_LENGTH, MAXIMUM_LENGTH};
     }
+
 }

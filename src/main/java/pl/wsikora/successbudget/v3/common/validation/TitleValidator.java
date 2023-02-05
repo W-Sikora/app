@@ -16,11 +16,11 @@ public class TitleValidator extends AbstractFormValidator<String> {
     @Override
     public void validateForm(String title, Errors errors) {
 
-        if (StringUtils.hasText(title)) {
+        if (!StringUtils.hasText(title)) {
 
             errors.rejectValue(F_TITLE, E_FIELD_MUST_NOT_BE_EMPTY);
         }
-        else if (Title.hasValidLength(title)) {
+        else if (!Title.hasValidLength(title)) {
 
             errors.rejectValue(F_TITLE, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Title.getLengthRange(), EMPTY);

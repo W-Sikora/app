@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.common.type.Username;
 import pl.wsikora.successbudget.v3.user.application.UserQuery;
 
+
 @Service
 class UserQueryImpl implements UserQuery {
 
@@ -19,4 +20,5 @@ class UserQueryImpl implements UserQuery {
 
         return userRepository.existsByUsername(username);
     }
+
 }

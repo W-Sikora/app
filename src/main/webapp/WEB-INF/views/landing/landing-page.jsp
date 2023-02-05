@@ -7,11 +7,11 @@
 <body>
 <div>
     <div class="page-container">
-        <section class="hero is-fullheight is-fullheight-with-navbar">
+        <div class="hero is-fullheight is-fullheight-with-navbar">
 
-            <%@ include file="../common/navbar-for-main-page.jsp" %>
+            <%@ include file="../common/navbar.jsp" %>
 
-            <div class="hero-body">
+            <div class="hero-body has-large-top-margin">
                 <div class="container has-text-centered">
 
                     <div class="columns my-4">
@@ -29,14 +29,14 @@
 
                             <div class="field is-grouped is-grouped-centered">
                                 <p class="control">
-                                    <a class="button is-medium is-link is-outlined mr-6"
+                                    <a class="button is-link is-outlined mr-6"
                                        href="<c:url value="/registration"/>">
                                         <fmt:message key="landing.page.registration.button"/>
                                     </a>
                                 </p>
 
                                 <p class="control">
-                                    <a class="button is-medium is-link" href="<c:url value="/login"/>">
+                                    <a class="button is-link" href="<c:url value="/login"/>">
                                         <fmt:message key="landing.page.login.button"/>
                                     </a>
                                 </p>
@@ -105,11 +105,10 @@
                     </div>
                 </div>
             </div>
-
-            <%@ include file="../common/footer.jsp" %>
-
-        </section>
+        </div>
     </div>
+
+    <%@ include file="../common/footer.jsp" %>
 </div>
 </body>
 </html>

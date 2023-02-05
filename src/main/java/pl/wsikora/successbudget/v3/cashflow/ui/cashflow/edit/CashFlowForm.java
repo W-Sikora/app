@@ -10,7 +10,7 @@ import lombok.Setter;
 public class CashFlowForm {
 
     private Long cashFlowId;
-    private String titleValue;
-    private String descriptionValue;
+    private String title;
+    private String description;
 
 }

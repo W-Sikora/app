@@ -37,6 +37,11 @@ nav.navbar {
     display: flex;
 }
 
+.is-narrow-dropdown-content {
+    margin-left: 8px;
+    width: 45px;
+}
+
 .has-rounded-corners {
     border-radius: 15px;
     padding: 10px 10px 10px 10px;
@@ -51,7 +56,11 @@ nav.navbar {
 
 .page-container {
     position: relative;
-    min-height: calc(100vh - 159px);
+    min-height: calc(100vh);
+}
+
+.main-section {
+    min-height: 35vw;
 }
 
 .user-info {
@@ -60,6 +69,10 @@ nav.navbar {
     border-radius: 10px;
     padding: 1.25rem;
     margin-bottom: 0.5rem;
+}
+
+body::-webkit-scrollbar{
+    display: none;
 }
 
 #menu {
@@ -87,6 +100,10 @@ nav.navbar {
 
 .has-medium-top-margin {
     margin-top: calc(1.5rem + 2vh);
+}
+
+.has-large-top-margin {
+    margin-top: min(calc(3rem + 5vh), 30px);
 }
 
 .validation-message {

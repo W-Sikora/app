@@ -8,7 +8,6 @@ public class CategoryDto {
 
     Long categoryId;
     String title;
-    String description;
     int assignedTransactionType;
 
 }

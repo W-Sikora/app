@@ -8,6 +8,7 @@ import pl.wsikora.successbudget.v3.common.type.TransactionType;
 import pl.wsikora.successbudget.v3.common.type.Username;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,15 +22,16 @@ class CategoryQueryImpl implements CategoryQuery {
     }
 
     @Override
-    public CategoryDto getCategoryDto(Long categoryId) {
+    public Optional<CategoryDto> findByCategoryId(Long categoryId) {
 
-        return toDto(categoryRepository.getByCategoryId(categoryId));
+        return categoryRepository.findCategoryByCategoryId(categoryId)
+            .map(this::toDto);
     }
 
     @Override
-    public CategoryDto getCategoryDto(Long categoryId, Username username) {
+    public CategoryDto getCategoryDto(Long categoryId) {
 
-        return toDto(categoryRepository.getByCategoryIdAndUsername(categoryId, username));
+        return toDto(categoryRepository.getByCategoryId(categoryId));
     }
 
     @Override
@@ -51,9 +53,9 @@ class CategoryQueryImpl implements CategoryQuery {
     }
 
     @Override
-    public boolean exists(Long categoryId, Username username) {
+    public boolean exists(Long categoryId) {
 
-        return categoryRepository.existsByCategoryIdAndUsername(categoryId, username);
+        return categoryRepository.existsByCategoryId(categoryId);
     }
 
     private CategoryDto toDto(Category category) {
@@ -61,7 +63,6 @@ class CategoryQueryImpl implements CategoryQuery {
         return new CategoryDto(
             category.getCategoryId(),
             category.getTitle().getValue(),
-            category.getDescription().getValue(),
             category.getAssignedTransactionType().ordinal()
         );
     }

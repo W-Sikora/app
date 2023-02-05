@@ -1,6 +1,6 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
-<form:form modelAttribute="categoryForm" action="${formAction}" method="post">
+<form:form modelAttribute="form" action="${formAction}" method="post">
 
     <form:hidden path="categoryId"/>
 
@@ -16,20 +16,6 @@
 
         <p class="validation-message">
             <form:errors path="title" cssClass="has-text-danger"/>
-        </p>
-    </div>
-
-    <div class="field">
-        <form:label path="description" cssClass="label">
-            <fmt:message key="description"/>
-        </form:label>
-
-        <div class="control">
-            <form:textarea path="description" type="text" cssClass="textarea" cssErrorClass="textarea is-danger"/>
-        </div>
-
-        <p class="validation-message">
-            <form:errors path="description" cssClass="has-text-danger"/>
         </p>
     </div>
 

@@ -35,7 +35,6 @@ class UsernameValidator extends AbstractFormValidator<String> {
             errors.rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Username.getLengthRange(), EMPTY);
         }
-
         else if (userQuery.existsByUsername(new Username(username))) {
 
             errors.rejectValue(RegistrationForm.F_USER_NAME, E_USERNAME_MUST_BE_UNIQUE);
@@ -47,4 +46,5 @@ class UsernameValidator extends AbstractFormValidator<String> {
 
         return clazz.equals(String.class);
     }
+
 }

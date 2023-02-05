@@ -7,4 +7,5 @@ public interface RegistrationAttributes {
     String getPassword();
 
     String getRepeatedPassword();
+
 }

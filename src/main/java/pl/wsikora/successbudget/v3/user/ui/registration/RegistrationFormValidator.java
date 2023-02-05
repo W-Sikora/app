@@ -39,4 +39,5 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
         return clazz.equals(RegistrationForm.class);
     }
+
 }

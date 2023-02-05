@@ -6,4 +6,6 @@ import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
 
 public interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
 
+
+
 }

@@ -2,17 +2,17 @@
 
     <div class="field is-grouped is-grouped-centered">
         <p class="control">
-            <button class="button" type="button" id="periodLeft">
+            <button class="button" type="button" id="periodLeft" disabled>
                 <i class="fas fa-chevron-left"></i>
             </button>
         </p>
 
         <p class="control">
-            <input class="input" type="date" name="period" id="period" value="${period}"/>
+            <input class="input" type="month" name="period" id="period" value="${period}"/>
         </p>
 
         <p class="control">
-            <button class="button" type="button" id="periodRight">
+            <button class="button" type="button" id="periodRight" disabled>
                 <i class="fas fa-chevron-right"></i>
             </button>
         </p>

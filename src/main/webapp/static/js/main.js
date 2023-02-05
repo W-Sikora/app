@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // const activeDropdownClass = 'is-active';
+    //
+    // window.addEventListener('click', () => {
+    //
+    //     document.querySelectorAll('.dropdown').forEach(dropdown => {
+    //
+    //         if (dropdown.classList.contains(activeDropdownClass)) {
+    //
+    //             dropdown.classList.remove(activeDropdownClass);
+    //         }
+    //     })
+    // });
+
     const numberTypeInputExcludes = ['-', '+', 'e'];
 
     document.querySelectorAll('input[type="number"]').forEach(numberTypeInput => {
@@ -13,34 +26,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     })
 
-    const navbarDropdownTrigger = document.getElementById('navbarDropdownTrigger');
+    const navbarUserDropdownTrigger = document.getElementById('navbarUserDropdownTrigger');
 
-    if (navbarDropdownTrigger) {
+    if (navbarUserDropdownTrigger) {
 
-        const navbarDropdown = document.getElementById('navbarDropdown');
+        const navbarUserDropdown = document.getElementById('navbarUserDropdown');
 
-        navbarDropdownTrigger.addEventListener('click', (event) => {
+        navbarUserDropdownTrigger.addEventListener('click', () => {
 
-            event.stopPropagation();
+            navbarUserDropdown.classList.toggle('is-active');
 
-            navbarDropdown.classList.toggle('is-active');
+            const copyUuidButton = document.getElementById('copyUuid');
+
+            if (copyUuidButton) {
+
+                const uuidInput = document.getElementById('uuidInput');
+
+                copyUuidButton.addEventListener('click', (event) => {
+
+                    event.stopPropagation();
+
+                    uuidInput.select();
+                    uuidInput.setSelectionRange(0, 99999);
+
+                    navigator.clipboard.writeText(uuidInput.value);
+                });
+            }
         });
     }
 
-    const copyUuidButton = document.getElementById('copyUuid');
+    const navbarLocaleDropdownTrigger = document.getElementById('navbarLocaleDropdownTrigger');
 
-    if (copyUuidButton) {
+    if (navbarLocaleDropdownTrigger) {
 
-        const uuidInput = document.getElementById('uuidInput');
+        const navbarLocaleDropdown = document.getElementById('navbarLocaleDropdown');
 
-        copyUuidButton.addEventListener('click', (event) => {
+        navbarLocaleDropdownTrigger.addEventListener('click', () => {
 
-            event.stopPropagation();
-
-            uuidInput.select();
-            uuidInput.setSelectionRange(0, 99999);
-
-            navigator.clipboard.writeText(uuidInput.value);
+            navbarLocaleDropdown.classList.toggle('is-active');
         });
     }
+
+    document.querySelectorAll('.change-locale').forEach(el =>
+
+        el.addEventListener('click', () => {
+
+            changeLocale(el.dataset.code)
+        })
+    );
+
+    function changeLocale(code) {
+
+        const request = new XMLHttpRequest();
+
+        request.open('POST', '/locale', true);
+
+        request.onload = () => {
+
+            location.reload();
+        }
+
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        request.send(JSON.stringify({'code': code}));
+    }
+
 });

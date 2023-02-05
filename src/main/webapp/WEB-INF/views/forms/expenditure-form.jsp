@@ -1,8 +1,10 @@
-<%@include file="../imports/jsp-imports.jsp"%>
+<%@include file="../imports/jsp-imports.jsp" %>
 
-<form:form modelAttribute="categoryForm" action="${formAction}" method="post">
+<form:form modelAttribute="expenditureForm" action="${formAction}" method="post">
 
-    <form:hidden path="cashFlowCashFlowId"/>
+    <form:hidden path="expenditureId"/>
+
+    <form:hidden path="cashFlowId"/>
 
     <div class="field">
         <form:label path="title" cssClass="label">
@@ -35,7 +37,7 @@
 
     <div class="field">
         <form:label path="categoryId" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+            <fmt:message key="category"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 
@@ -54,22 +56,49 @@
         </p>
     </div>
 
-    !
+    <div class="field">
+
+        <form:label path="value" cssClass="label">
+            <fmt:message key="money"/>
+            <fmt:message key="required.field.sign"/>
+        </form:label>
+
+        <div class="field has-addons">
+            <p class="control is-expanded">
+                <form:input path="value" type="number" cssClass="input" cssErrorClass="input is-danger"/>
+            </p>
+
+            <p class="control">
+                <span class="select">
+                    <form:select path="currencyId" required="required" cssClass="select" cssErrorClass="select is-danger">
+                        <c:forEach items="${currencies}" var="currency">
+                            <form:option value="${currency.id}" label="${currency.code}"/>
+                        </c:forEach>
+                    </form:select>
+                </span>
+            </p>
+        </div>
+
+        <p class="help">
+            <form:errors path="value" cssClass="has-text-danger"/>
+            <form:errors path="currencyId" cssClass="has-text-danger"/>
+        </p>
+    </div>
 
     <div class="field">
         <form:label path="priorityId" cssClass="label">
-            <fmt:message key=""/>
+            <fmt:message key="priority"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="control">
             <div class="select is-fullwidth">
                 <form:select path="priorityId" required="required" cssErrorClass="is-danger">
-                    <c:forEach items="${priority}" var="priority">
-                        <c:set var="typeLabel">
+                    <c:forEach items="${priorities}" var="priority">
+                        <c:set var="priorityLabel">
                             <fmt:message key="priority.${priority}"/>
                         </c:set>
-                        <form:option value="${type}" label="${typeLabel}"/>
+                        <form:option value="${priority}" label="${priorityLabel}"/>
                     </c:forEach>
                 </form:select>
             </div>
@@ -83,7 +112,6 @@
     <div class="field">
         <form:label path="payee" cssClass="label">
             <fmt:message key="payee"/>
-            <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="control">
@@ -98,7 +126,6 @@
     <div class="field">
         <form:label path="scheduleId" cssClass="label">
             <fmt:message key="schedule"/>
-            <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="control">

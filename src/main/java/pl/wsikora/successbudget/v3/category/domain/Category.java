@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.type.Description;
 import pl.wsikora.successbudget.v3.common.type.Title;
 import pl.wsikora.successbudget.v3.common.type.TransactionType;
 import pl.wsikora.successbudget.v3.common.type.Username;
@@ -23,9 +22,6 @@ public class Category {
 
     @Embedded
     private Title title;
-
-    @Embedded
-    private Description description;
 
     @Embedded
     private TransactionType assignedTransactionType;

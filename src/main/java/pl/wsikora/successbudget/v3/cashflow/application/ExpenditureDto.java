@@ -16,8 +16,8 @@ public class ExpenditureDto {
     String description;
     String categoryTitle;
     Money money;
-    Payee payee;
-    Schedule schedule;
+    String payee;
+    Integer schedule;
     LocalDate date;
 
 }

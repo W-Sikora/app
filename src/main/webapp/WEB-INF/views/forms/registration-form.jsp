@@ -1,6 +1,6 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
-<form:form modelAttribute="registrationForm" action="/registration" method="post">
+<form:form modelAttribute="form" action="${formAction}" method="post">
     <div class="field">
         <form:label path="username" cssClass="label">
             <fmt:message key="username"/>
@@ -50,7 +50,7 @@
 
     <div class="field is-grouped is-grouped-centered">
         <div class="control mt-5">
-            <button type="submit" class="button is-link">
+            <button type="submit" class="button is-link is-outlined">
                 <fmt:message key="registration.form.button"/>
             </button>
         </div>

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,7 +33,7 @@ class CategoryViewController {
     @GetMapping
     private String goToView() {
 
-        return LIST_VIEW;
+        return VIEW;
     }
 
     @ModelAttribute(LIST_PAGE)
@@ -66,8 +66,8 @@ class CategoryViewController {
     private List<BreadcrumbElement> breadcrumbElements() {
 
         return List.of(
-            new BreadcrumbElement(messageProvider.getMessage(HOME_TITLE), HOME_PATH),
-            new BreadcrumbElement(CATEGORY_LIST_TITLE)
+            new BreadcrumbElement(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH),
+            new BreadcrumbElement(messageProvider.getMessage(CATEGORY_LIST_TITLE))
         );
     }
 

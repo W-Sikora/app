@@ -31,4 +31,5 @@ class PasswordValidator extends AbstractFormValidator<String> {
 
         return clazz.equals(String.class);
     }
+
 }

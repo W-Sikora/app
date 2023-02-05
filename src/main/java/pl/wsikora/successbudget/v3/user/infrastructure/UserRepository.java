@@ -6,16 +6,24 @@ import org.springframework.stereotype.Repository;
 import pl.wsikora.successbudget.v3.common.type.Username;
 import pl.wsikora.successbudget.v3.user.domain.User;
 
+import java.util.Optional;
+
 
 @Repository
 interface UserRepository extends JpaRepository<User, Username> {
 
-    @Query("select u from User u where u.username.value = ?1")
-    User getByUsernameAsString(String username);
+    @Query("""
+        select u
+        from User u
+        where u.username.value = ?1
+    """)
+    Optional<User> findByUsernameAsString(String username);
 
-    @Query("select (count(u) > 0) from User u where u.username.value = ?1")
-    boolean existsByUsernameAsString(String username);
-
-    @Query("select (count(u) > 0) from User u where u.username = ?1")
+    @Query("""
+        select (count(u) > 0)
+        from User u
+        where u.username = ?1
+    """)
     boolean existsByUsername(Username username);
+
 }

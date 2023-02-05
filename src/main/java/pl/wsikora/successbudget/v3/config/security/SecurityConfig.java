@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
+import static pl.wsikora.successbudget.v3.common.Constants.DASHBOARD_PATH;
+
 
 @Configuration
 @EnableWebSecurity
@@ -63,7 +65,7 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login?invalid=true")
-                .defaultSuccessUrl("/aa", true)
+                .defaultSuccessUrl(DASHBOARD_PATH, true)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

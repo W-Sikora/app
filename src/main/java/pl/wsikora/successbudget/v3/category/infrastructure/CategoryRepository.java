@@ -1,6 +1,7 @@
 package pl.wsikora.successbudget.v3.category.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.wsikora.successbudget.v3.category.domain.Category;
@@ -8,18 +9,24 @@ import pl.wsikora.successbudget.v3.common.type.TransactionType;
 import pl.wsikora.successbudget.v3.common.type.Username;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 interface CategoryRepository extends JpaRepository<Category, Long> {
 
+    @Query("select c from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
+    Optional<Category> findCategoryByCategoryId(Long categoryId);
+
+    @Modifying
+    @Query("delete from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
+    void deleteByCategoryId(Long categoryId);
+
+    @Query("select c from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
     Category getByCategoryId(Long categoryId);
 
-    @Query("select c from Category c where c.categoryId = ?1 and c.owner = ?2")
-    Category getByCategoryIdAndUsername(Long categoryId, Username username);
-
-    @Query("select count(c) > 0 from Category c where c.categoryId = ?1 and c.owner = ?2")
-    boolean existsByCategoryIdAndUsername(Long categoryId, Username username);
+    @Query("select count(c) > 0 from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
+    boolean existsByCategoryId(Long categoryId);
 
     @Query("select c from Category c where c.owner = ?1")
     List<Category> getByUsername(Username username);

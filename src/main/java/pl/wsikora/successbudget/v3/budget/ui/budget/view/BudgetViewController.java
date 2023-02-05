@@ -30,7 +30,7 @@ class BudgetViewController {
     @GetMapping
     private String goToView() {
 
-        return LIST_VIEW;
+        return VIEW;
     }
 
     @ModelAttribute(LIST_PAGE)
@@ -61,7 +61,7 @@ class BudgetViewController {
     private List<BreadcrumbElement> breadcrumbElements() {
 
         return List.of(
-            new BreadcrumbElement(messageProvider.getMessage(HOME_TITLE), HOME_PATH),
+            new BreadcrumbElement(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH),
             new BreadcrumbElement(CATEGORY_LIST_TITLE)
         );
     }

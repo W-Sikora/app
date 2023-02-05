@@ -6,15 +6,15 @@
 <body>
 <div>
     <div class="page-container">
-        <section class="hero is-fullheight is-fullheight-with-navbar">
+        <div class="hero is-fullheight is-fullheight-with-navbar">
 
             <%@ include file="navbar.jsp" %>
 
-            <div class="hero-body mt-6">
-                <div class="container">
+            <div class="hero-body has-large-top-margin">
+                <div class="container main-section">
 
                     <div class="columns is-centered">
-                        <div class="column is-three-quarters has-medium-vertical-margin">
+                        <div class="column is-two-thirds">
 
                             <%@include file="breadcrumb.jsp" %>
 
@@ -28,20 +28,18 @@
                     </div>
 
                     <div class="columns is-centered">
-                        <div class="column is-three-quarters has-medium-bottom-margin">
-
-                            <c:import url="${listPage}"/>
-
+                        <div class="column is-two-thirds">
+                            <c:import url="${pagePath}"/>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <%@ include file="footer.jsp" %>
-
-        </section>
+        </div>
     </div>
+
+    <%@ include file="footer.jsp" %>
 </div>
 </body>
 </html>

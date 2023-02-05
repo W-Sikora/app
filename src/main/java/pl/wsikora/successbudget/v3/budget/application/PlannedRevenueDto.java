@@ -2,7 +2,6 @@ package pl.wsikora.successbudget.v3.budget.application;
 
 import lombok.Value;
 import pl.wsikora.successbudget.v3.common.type.Money;
-import pl.wsikora.successbudget.v3.common.type.Schedule;
 
 import java.io.Serializable;
 import java.time.YearMonth;
@@ -16,7 +15,7 @@ public class PlannedRevenueDto implements Serializable {
     String description;
     String categoryTitle;
     Money money;
-    Schedule schedule;
+    Integer schedule;
     YearMonth yearMonth;
 
 }

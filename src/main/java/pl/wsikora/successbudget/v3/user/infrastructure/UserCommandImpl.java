@@ -1,10 +1,10 @@
 package pl.wsikora.successbudget.v3.user.infrastructure;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.common.type.Username;
 import pl.wsikora.successbudget.v3.user.application.RegistrationAttributes;
 import pl.wsikora.successbudget.v3.user.application.UserCommand;
+import pl.wsikora.successbudget.v3.user.application.UserPasswordEncoder;
 import pl.wsikora.successbudget.v3.user.domain.Password;
 import pl.wsikora.successbudget.v3.user.domain.User;
 
@@ -13,22 +13,24 @@ import pl.wsikora.successbudget.v3.user.domain.User;
 class UserCommandImpl implements UserCommand {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserPasswordEncoder userPasswordEncoder;
 
-    private UserCommandImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private UserCommandImpl(UserRepository userRepository, UserPasswordEncoder userPasswordEncoder) {
 
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.userPasswordEncoder = userPasswordEncoder;
     }
 
     @Override
     public void save(RegistrationAttributes registrationAttributes) {
 
         Username username = new Username(registrationAttributes.getUsername());
-        Password password = new Password(passwordEncoder.encode(registrationAttributes.getPassword()));
+        Password password = Password.of(registrationAttributes.getPassword());
+        Password encodedPassword = userPasswordEncoder.encodePassword(password);
 
-        User user = new User(username, password);
+        User user = new User(username, encodedPassword);
 
         userRepository.save(user);
     }
+
 }

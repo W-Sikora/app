@@ -2,8 +2,8 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.type.Money;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -12,11 +12,12 @@ import java.time.LocalDate;
 public class ExpenditureForm {
 
     private Long expenditureId;
-    private Long cashFlowCashFlowId;
+    private Long cashFlowId;
     private String title;
     private String description;
     private Long categoryId;
-    private Money money;
+    private BigDecimal value;
+    private Integer currencyId;
     private Integer priorityId;
     private String payee;
     private Integer scheduleId;

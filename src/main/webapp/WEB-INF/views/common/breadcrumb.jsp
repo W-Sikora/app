@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <c:if test="${not empty breadcrumbElements}">
-    <nav class="breadcrumb has-medium-top-margin" aria-label="breadcrumbs">
+    <nav class="breadcrumb has-medium-vertical-margin" aria-label="breadcrumbs">
         <ul>
             <c:forEach items="${breadcrumbElements}" var="breadcrumbElement" varStatus="status">
                 <c:choose>

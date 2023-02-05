@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.wsikora.successbudget.v3.category.application.CategoryCommand;
-import pl.wsikora.successbudget.v3.common.type.Username;
-
-import java.security.Principal;
 
 import static pl.wsikora.successbudget.v3.common.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
@@ -25,11 +22,9 @@ class CategoryDeleteController {
     }
 
     @PostMapping(ID_PATH_VARIABLE)
-    private String delete(@PathVariable Long id, Principal principal) {
+    private String delete(@PathVariable Long id) {
 
-        Username username = new Username(principal.getName());
-
-        categoryCommand.delete(id, username);
+        categoryCommand.delete(id);
 
         return redirect(CATEGORY_PATH);
     }
