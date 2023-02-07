@@ -1,15 +1,16 @@
 package pl.wsikora.successbudget.v3.category.infrastructure;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.type.TransactionType;
-import pl.wsikora.successbudget.v3.common.type.Username;
 
-import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+
+import static org.springframework.util.StringUtils.hasText;
 
 
 @Service
@@ -30,33 +31,16 @@ class CategoryQueryImpl implements CategoryQuery {
     }
 
     @Override
-    public CategoryDto getCategoryDto(Long categoryId) {
+    public Page<CategoryDto> getAll(Pageable pageable, String keyword) {
 
-        return toDto(categoryRepository.getByCategoryId(categoryId));
-    }
+        if (hasText(keyword)) {
 
-    @Override
-    public List<CategoryDto> getAllCategoryDto(Pageable pageable) {
+            return categoryRepository.findAllByKeywordIgnoreCase(pageable, keyword.toLowerCase(Locale.ROOT))
+                .map(this::toDto);
+        }
 
         return categoryRepository.findAll(pageable)
-            .stream()
-            .map(this::toDto)
-            .toList();
-    }
-
-    @Override
-    public List<CategoryDto> getAllCategoryDto(Username username, TransactionType transactionType) {
-
-        return categoryRepository.getByUsernameAndAssignedTransactionType(username, transactionType)
-            .stream()
-            .map(this::toDto)
-            .toList();
-    }
-
-    @Override
-    public boolean exists(Long categoryId) {
-
-        return categoryRepository.existsByCategoryId(categoryId);
+            .map(this::toDto);
     }
 
     private CategoryDto toDto(Category category) {
@@ -67,4 +51,5 @@ class CategoryQueryImpl implements CategoryQuery {
             category.getAssignedTransactionType().ordinal()
         );
     }
+
 }

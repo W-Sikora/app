@@ -1,6 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import lombok.*;
+import pl.wsikora.successbudget.v3.objective.application.ObjectiveAttributes;
 
 import java.math.BigDecimal;
 
@@ -10,14 +11,14 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-class ObjectiveForm {
+class ObjectiveForm implements ObjectiveAttributes {
 
     private Long objectiveId;
     private String title;
     private String description;
-    private Long necessaryMoneyCurrency;
-    private BigDecimal necessaryMoney;
-    private Long raisedMoneyCurrency;
-    private BigDecimal raisedMoney;
+    private Integer necessaryMoneyCurrencyId;
+    private BigDecimal necessaryMoneyValue;
+    private Integer moneyCurrencyId;
+    private BigDecimal moneyValue;
 
 }

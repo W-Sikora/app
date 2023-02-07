@@ -1,6 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import org.springframework.stereotype.Service;
+import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 
@@ -24,14 +25,14 @@ class ObjectiveFormFactory {
 
     private ObjectiveForm toForm(ObjectiveDto objectiveDto) {
 
+        MoneyDto necessaryMoneyDto = objectiveDto.getNecessaryMoneyDto();
+
         return ObjectiveForm.builder()
             .objectiveId(objectiveDto.getObjectiveId())
             .title(objectiveDto.getTitle())
             .description(objectiveDto.getDescription())
-            .necessaryMoneyCurrency(objectiveDto.getNecessaryMoneyCurrencyId())
-            .necessaryMoney(objectiveDto.getNecessaryMoney())
-            .raisedMoneyCurrency(objectiveDto.getRaisedMoneyCurrencyId())
-            .raisedMoney(objectiveDto.getRaisedMoney())
+            .necessaryMoneyCurrencyId(necessaryMoneyDto.getCurrencyId())
+            .necessaryMoneyValue(necessaryMoneyDto.getValue())
             .build();
     }
 

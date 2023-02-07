@@ -8,12 +8,11 @@ import org.springframework.util.Assert;
 import java.io.Serializable;
 
 
-@Getter
-@NoArgsConstructor
 @Embeddable
+@NoArgsConstructor
+@Getter
 public class CategoryId implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "category_id")
     private Long value;
 

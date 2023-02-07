@@ -6,8 +6,10 @@ import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
+import java.time.YearMonth;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
 
@@ -22,7 +24,7 @@ class BudgetViewControllerDataProvider {
         this.messageProvider = messageProvider;
     }
 
-    ModelMap provideData() {
+    ModelMap provideData(String period) {
 
         ModelMap modelMap = new ModelMap();
 

@@ -11,12 +11,12 @@ public interface ObjectiveAttributes {
 
     String getDescription();
 
-    Long getNecessaryMoneyCurrency();
+    Integer getNecessaryMoneyCurrencyId();
 
-    BigDecimal getNecessaryMoney();
+    BigDecimal getNecessaryMoneyValue();
 
-    Long getRaisedMoneyCurrency();
+    Integer getMoneyCurrencyId();
 
-    BigDecimal getRaisedMoney();
+    BigDecimal getMoneyValue();
 
 }

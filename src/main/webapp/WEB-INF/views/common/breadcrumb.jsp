@@ -8,14 +8,14 @@
                     <c:when test="${status.isLast()}">
                         <li class="is-active">
                             <a href="#" aria-current="page">
-                                    ${breadcrumbElement.label}
+                                ${breadcrumbElement.label}
                             </a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li>
                             <a href="${breadcrumbElement.url}">
-                                    ${breadcrumbElement.label}
+                                ${breadcrumbElement.label}
                             </a>
                         </li>
                     </c:otherwise>

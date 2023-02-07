@@ -38,9 +38,9 @@
 
                             <%@include file="summary.jsp" %>
 
-                            <%@include file="chart.jsp"%>
+                            <%@include file="middle.jsp"%>
 
-                            <%@ include file="conclusion.jsp"%>
+                            <%@ include file="level.jsp"%>
 
                         </div>
                     </div>

@@ -1,26 +1,25 @@
 package pl.wsikora.successbudget.v3.cashflow.ui.revenue.edit;
 
-import lombok.Getter;
-import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.type.Money;
-import pl.wsikora.successbudget.v3.common.type.Payer;
-import pl.wsikora.successbudget.v3.common.type.Schedule;
+import lombok.*;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RevenueForm {
 
     private Long revenueId;
-    private Long cashFlowCashFlowId;
-    private String titleValue;
-    private String descriptionValue;
-    private Long categoryCategoryId;
-    private Money money;
-    private Payer payer;
-    private Schedule schedule;
-    private LocalDate date;
+    private Long cashFlowId;
+    private String title;
+    private String description;
+    private Long categoryId;
+    private Integer currencyId;
+    private BigDecimal value;
+    private String payer;
+    private String date;
 
 }

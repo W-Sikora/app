@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.category.ui.view;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -7,6 +8,7 @@ import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.validation.PaginationValidator;
 
 import java.util.List;
 
@@ -27,13 +29,15 @@ class CategoryViewControllerDataProvider {
         this.categoryQuery = categoryQuery;
     }
 
-    ModelMap provideData(Pageable pageable) {
+    ModelMap provideData(int page, int size, String keyword) {
 
         ModelMap modelMap = new ModelMap();
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
         modelMap.addAttribute(PAGE_PATH, getListName(CATEGORY));
+
+        modelMap.addAttribute(COLUMN_SIZE, "is-7");
 
         String title = messageProvider.getMessage(CATEGORY_LIST_TITLE);
 
@@ -46,11 +50,22 @@ class CategoryViewControllerDataProvider {
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
 
+        modelMap.addAttribute(ADD_URL, CATEGORY_EDIT_PATH);
+
         modelMap.addAttribute(EDIT_URL, CATEGORY_EDIT_PATH + ID_PATH_QUERY);
 
         modelMap.addAttribute(DELETE_URL, CATEGORY_DELETE_PATH);
 
-        modelMap.addAttribute("categories", categoryQuery.getAllCategoryDto(pageable));
+        modelMap.addAttribute(KEYWORD, keyword);
+
+        if (PaginationValidator.isValid(page, size)) {
+
+            Pageable pageable = PageRequest.of(page, size);
+
+            modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber() + 1);
+
+            modelMap.addAttribute("categories", categoryQuery.getAll(pageable, keyword));
+        }
 
         return modelMap;
     }

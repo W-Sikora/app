@@ -20,4 +20,29 @@ public enum Currency {
         this.symbol = symbol;
         this.code = code;
     }
+
+    public boolean isPln() {
+
+        return this == POLISH_ZLOTY;
+    }
+
+    public boolean isEur() {
+
+        return this == EURO;
+    }
+
+    public boolean isUsd() {
+
+        return this == UNITED_STATES_DOLLAR;
+    }
+
+    public boolean isGbp() {
+
+        return this == STERLING;
+    }
+
+    public boolean isChf() {
+
+        return this == SWISS_FRANC;
+    }
 }

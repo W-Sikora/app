@@ -30,13 +30,13 @@
                             <div class="field is-grouped is-grouped-centered">
                                 <p class="control">
                                     <a class="button is-link is-outlined mr-6"
-                                       href="<c:url value="/registration"/>">
+                                       href="${registration}">
                                         <fmt:message key="landing.page.registration.button"/>
                                     </a>
                                 </p>
 
                                 <p class="control">
-                                    <a class="button is-link" href="<c:url value="/login"/>">
+                                    <a class="button is-link" href="${login}">
                                         <fmt:message key="landing.page.login.button"/>
                                     </a>
                                 </p>

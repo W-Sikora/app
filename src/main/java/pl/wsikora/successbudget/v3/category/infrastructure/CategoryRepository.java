@@ -6,11 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.type.TransactionType;
-import pl.wsikora.successbudget.v3.common.type.Username;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +28,7 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
             select c
             from Category c
             where c.owner.value = ?#{principal.username}
+            order by c.title.value
         """,
         countQuery = """
             select count(c)
@@ -39,24 +38,31 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
     )
     Page<Category> findAll(Pageable pageable);
 
+    @Query(
+        value = """
+            select c
+            from Category c
+            where lower(c.title.value) like %?1%
+            and c.owner.value = ?#{principal.username}
+            order by c.title.value
+        """,
+        countQuery = """
+            select count(c)
+            from Category c
+            where c.title.value like %?1%
+            and c.owner.value = ?#{principal.username}
+        """
+    )
+    Page<Category> findAllByKeywordIgnoreCase(Pageable pageable, String keyword);
 
+    @Transactional
     @Modifying
-    @Query("delete from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
+    @Query("""
+        delete
+        from Category c
+        where c.categoryId = ?1
+        and c.owner.value = ?#{principal.username}
+    """)
     void deleteByCategoryId(Long categoryId);
-
-    @Query("select c from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
-    Category getByCategoryId(Long categoryId);
-
-    @Query("select count(c) > 0 from Category c where c.categoryId = ?1 and c.owner.value = ?#{principal.username}")
-    boolean existsByCategoryId(Long categoryId);
-
-    @Query("select c from Category c where c.owner = ?1")
-    List<Category> getByUsername(Username username);
-
-    @Query("select c from Category c where c.owner = ?1 and c.assignedTransactionType = ?2")
-    List<Category> getByUsernameAndAssignedTransactionType(Username username, TransactionType transactionType);
-
-    @Query("select count(c) from Category c where c.owner = ?1")
-    int countAllByUsername(Username owner);
 
 }

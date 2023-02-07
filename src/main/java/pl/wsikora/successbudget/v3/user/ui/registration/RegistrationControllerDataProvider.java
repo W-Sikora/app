@@ -30,9 +30,11 @@ class RegistrationControllerDataProvider {
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(REGISTRATION));
 
-        modelMap.addAttribute(FORM, new RegistrationForm());
+        modelMap.addAttribute(COLUMN_SIZE, "is-6");
 
         modelMap.addAttribute(FORM_ACTION, REGISTRATION_PATH);
+
+        modelMap.addAttribute(FORM, new RegistrationForm());
 
         String title = messageProvider.getMessage(REGISTRATION_PAGE_TITLE);
 

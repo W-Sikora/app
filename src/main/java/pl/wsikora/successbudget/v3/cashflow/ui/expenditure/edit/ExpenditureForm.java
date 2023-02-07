@@ -1,26 +1,25 @@
 package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 
 @Getter
 @Setter
-public class ExpenditureForm {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+class ExpenditureForm {
 
     private Long expenditureId;
     private Long cashFlowId;
     private String title;
-    private String description;
     private Long categoryId;
-    private BigDecimal value;
     private Integer currencyId;
+    private BigDecimal value;
     private Integer priorityId;
     private String payee;
-    private Integer scheduleId;
-    private LocalDate date;
+    private String date;
 
 }

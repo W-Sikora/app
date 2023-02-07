@@ -1,5 +1,7 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
+<hr class="is-invisible">
+
 <form:form modelAttribute="form" action="${formAction}" method="post">
     <div class="field">
         <form:label path="username" cssClass="label">

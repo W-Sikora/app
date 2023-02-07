@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.type.*;
 
 import java.time.LocalDate;
@@ -34,18 +33,14 @@ public class Revenue {
     @Embedded
     private Description description;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Embedded
+    private CategoryId categoryId;
 
     @Embedded
     private Money money;
 
     @Embedded
     private Payer payer;
-
-    @Embedded
-    private Schedule schedule;
 
     private LocalDate date;
 

@@ -16,11 +16,11 @@ import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 
 @Controller
 @RequestMapping("/aa")
-public class ExpenditureFormController {
+public class ExpenditureEditController {
 
     private final CategoryQuery categoryQuery;
 
-    public ExpenditureFormController(CategoryQuery categoryQuery) {
+    public ExpenditureEditController(CategoryQuery categoryQuery) {
 
         this.categoryQuery = categoryQuery;
     }

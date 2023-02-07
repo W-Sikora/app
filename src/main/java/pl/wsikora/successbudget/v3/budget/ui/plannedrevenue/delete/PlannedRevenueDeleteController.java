@@ -11,7 +11,7 @@ import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 
 
 @Controller
-@RequestMapping(PLANNED_REVENUE_DELETE_PATH)
+@RequestMapping(BUDGET_PATH + PLANNED_REVENUE_DELETE_PATH)
 class PlannedRevenueDeleteController {
 
     private final PlannedRevenueCommand plannedRevenueCommand;

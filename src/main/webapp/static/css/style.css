@@ -71,7 +71,7 @@ nav.navbar {
     margin-bottom: 0.5rem;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     display: none;
 }
 
@@ -103,7 +103,7 @@ body::-webkit-scrollbar{
 }
 
 .has-large-top-margin {
-    margin-top: min(calc(3rem + 5vh), 30px);
+    margin-top: min(calc(4rem + 5vh), 60px);
 }
 
 .validation-message {
@@ -115,4 +115,18 @@ body::-webkit-scrollbar{
 
 label {
     margin-bottom: 15px !important;
+}
+
+.doughnut-chart {
+    max-width: 800px;
+    width: 100%;
+}
+
+.horizontal-bar-chart {
+    max-height: 500px;
+    width: 100%;
+}
+
+.is-page {
+    text-align: right;
 }

@@ -30,6 +30,8 @@ class LoginControllerDataProvider {
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(LOGIN));
 
+        modelMap.addAttribute(COLUMN_SIZE, "is-6");
+
         modelMap.addAttribute(FORM_ACTION, LOGIN_PATH);
 
         String title = messageProvider.getMessage(LOGIN_PAGE_TITLE);

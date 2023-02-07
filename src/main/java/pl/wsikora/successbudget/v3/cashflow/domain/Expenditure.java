@@ -3,12 +3,11 @@ package pl.wsikora.successbudget.v3.cashflow.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.type.*;
 
 import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "expenditures")
@@ -34,9 +33,8 @@ public class Expenditure {
     @Embedded
     private Description description;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Embedded
+    private CategoryId categoryId;
 
     @Embedded
     private Money money;
@@ -46,9 +44,6 @@ public class Expenditure {
 
     @Embedded
     private Payee payee;
-
-    @Embedded
-    private Schedule schedule;
 
     private LocalDate date;
 

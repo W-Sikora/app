@@ -1,13 +1,16 @@
 package pl.wsikora.successbudget.v3.common.type;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 
 
+@Embeddable
+@NoArgsConstructor
+@Getter
 public class Money {
 
     public static final BigDecimal MINIMUM_VALUE = BigDecimal.ZERO;

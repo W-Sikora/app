@@ -32,11 +32,10 @@ class CategoryViewController {
     @ModelAttribute
     private void data(@RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int page,
                       @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE) int size,
+                      @RequestParam(required = false) String keyword,
                       Model model) {
 
-        Pageable pageable = PageRequest.of(page, size);
-
-        model.addAllAttributes(categoryViewControllerDataProvider.provideData(pageable));
+        model.addAllAttributes(categoryViewControllerDataProvider.provideData(page, size, keyword));
     }
 
 }

@@ -1,5 +1,7 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
+<hr class="is-invisible">
+
 <form action="<c:url value="${formAction}"/>" method="post">
 
     <sec:csrfMetaTags/>

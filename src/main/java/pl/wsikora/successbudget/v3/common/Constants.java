@@ -4,6 +4,7 @@ public class Constants {
 
     public static final String SLASH = "/";
     public static final String EDIT_PATH = "/edit";
+    public static final String CREATE_PATH = "/create";
     public static final String DELETE_PATH = "/delete/";
     public static final String COMPLETED_PATH = "/completed";
     public static final String ID_PATH_VARIABLE = "{id}";
@@ -16,14 +17,19 @@ public class Constants {
 
     public static final String VIEW = "common/view";
     public static final String PAGE_PATH = "pagePath";
+    public static final String COLUMN_SIZE = "columnSize";
     public static final String PAGE_TITLE = "pageTitle";
     public static final String BREADCRUMB_ELEMENTS = "breadcrumbElements";
     public static final String LOGO_APP_URL = "logoAppUrl";
+
+    public static final String ADD_URL = "addUrl";
     public static final String EDIT_URL = "editUrl";
     public static final String DELETE_URL = "deleteUrl";
 
     public static final String DEFAULT_PAGINATION_PAGE = "0";
     public static final String DEFAULT_PAGINATION_SIZE = "20";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String KEYWORD = "keyword";
 
     public static final String LANDING_PAGE_TITLE = "landing.page.title";
 
@@ -56,6 +62,8 @@ public class Constants {
 
     public static final String BUDGET = "budget";
     public static final String BUDGET_PATH = "/budgets";
+    public static final String BUDGET_CREATE_PATH = BUDGET_PATH + CREATE_PATH;
+
     public static final String BUDGET_TITLE = "budget.page.title";
 
     public static final String PLANNED_EXPENDITURE = "planned-expenditure";
@@ -68,11 +76,15 @@ public class Constants {
 
     public static final String PLANNED_REVENUE = "planned-revenue";
     public static final String PLANNED_REVENUE_PATH = "/planned-revenues";
-    public static final String PLANNED_REVENUE_EDIT_PATH = PLANNED_REVENUE_PATH + EDIT_PATH;
+    public static final String PLANNED_REVENUE_EDIT_PATH =  PLANNED_REVENUE_PATH + EDIT_PATH;
     public static final String PLANNED_REVENUE_DELETE_PATH = PLANNED_REVENUE_PATH + DELETE_PATH;
+
+
     public static final String PLANNED_REVENUE_LIST_TITLE = "planned.revenue.list.page.title";
     public static final String PLANNED_REVENUE_ADD_TITLE = "planned.revenue.add.page.title";
     public static final String PLANNED_REVENUE_EDIT_TITLE = "planned.revenue.edit.page.title";
+
+    public static final String CASH_FLOW_PATH = "/cash-flows";
 
     public static final String EXPENDITURE = "expenditure";
     public static final String EXPENDITURE_PATH = "/expenditures";

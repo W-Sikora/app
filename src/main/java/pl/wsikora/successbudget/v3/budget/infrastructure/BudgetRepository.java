@@ -14,10 +14,9 @@ interface BudgetRepository extends JpaRepository<Budget, Long> {
     @Query("""
         select b
         from Budget b
-        where b.budgetId = ?1
-        and b.yearMonth = ?2
+        where b.period = ?1
         and b.owner.value = ?#{principal.username}
     """)
-    Budget getByBudgetIdAndYearMonth(Long budgetId, YearMonth yearMonth);
+    Budget getByPeriod(YearMonth period);
 
 }

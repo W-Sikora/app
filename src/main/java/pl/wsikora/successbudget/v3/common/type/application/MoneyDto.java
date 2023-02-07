@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Value
 public class MoneyDto {
 
-    Long currencyId;
+    Integer currencyId;
     BigDecimal value;
 
 }

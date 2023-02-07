@@ -1,17 +1,29 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<c:set var="addUrl" value="aa"/>
-<%@ include file="../common/add.jsp" %>
+<c:set var="_addUrl" value="${addUrl}"/>
+<c:set var="_editUrl" value="${editUrl}"/>
+<c:set var="_deleteUrl" value="${deleteUrl}"/>
+<c:set var="_currentPage" value="${currentPage}"/>
+<c:set var="_lastPage" value="${lastPage}"/>
 
+<c:if test="${not empty _addUrl}">
+
+    <%@ include file="../common/add.jsp" %>
+
+</c:if>
+
+<c:set var="_keyword" value="${keyword}"/>
+<%@ include file="../common/keyword-filter.jsp" %>
 
 <c:choose>
-    <c:when test="${empty categories}">
+    <c:when test="${empty categories.toList()}">
 
         <%@include file="../common/no-elements.jsp" %>
 
     </c:when>
 
     <c:otherwise>
+
         <table class="table is-fullwidth">
             <thead>
             <tr>
@@ -27,51 +39,33 @@
             </thead>
 
             <tbody>
-            <c:forEach items="${categories}" var="category" varStatus="loop">
+            <c:forEach items="${categories.toList()}" var="category" varStatus="loop">
                 <tr>
-                    <th>${loop.index + 1}</th>
-                    <td>${category.title}</td>
-                    <td>${category.assignedTransactionType}</td>
+                    <th>
+                        ${loop.index + 1}
+                    </th>
                     <td>
-                        <div class="field is-grouped">
-                            <p class="control mr-6">
-                                <a class="button is-small is-info is-outlined" href="${editUrl}${category.categoryId}">
-                                    <fmt:message key="edit.text"/>
-                                </a>
-                            </p>
-                            <p class="control">
-                                <button class="button is-small is-danger is-outlined">
-                                    <fmt:message key="delete.text"/>
-                                </button>
-                            </p>
-                        </div>
+                        ${category.title}
+                    </td>
+                    <td>
+                        <fmt:message key="assigned.transaction.type.${category.assignedTransactionType}"/>
+                    </td>
+                    <td>
+                        <c:set var="_fullEditUrl" value="${_editUrl}${category.categoryId}"/>
+                        <c:set var="_fullDeleteUrl" value="${_deleteUrl}${category.categoryId}"/>
+
+                        <%@include file="../common/options.jsp" %>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
 
-        <div class="field has-addons has-addons-centered mt-6">
-            <p class="control">
-                <a class="button">
-                  <span class="icon is-small">
-                    <i class="fas fa-chevron-left"></i>
-                  </span>
-                </a>
-            </p>
-            <p class="control mx-6 mt-2">
-                <strong>
-                    AAAAB${currentPage}
-                </strong>
-            </p>
-            <p>
-                <a class="button">
-                  <span class="icon is-small">
-                    <i class="fas fa-chevron-right"></i>
-                  </span>
-                </a>
-            </p>
-        </div>
+        <c:set var="_currentPage" value="${currentPage}"/>
+        <c:set var="_lastPage" value="${categories.totalPages}"/>
+        <%@ include file="../common/pagination.jsp" %>
+
+        <%@ include file="../common/modal.jsp" %>
 
     </c:otherwise>
 </c:choose>

@@ -1,21 +1,20 @@
 package pl.wsikora.successbudget.v3.cashflow.application;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.common.type.Money;
-
-import java.time.LocalDate;
+import pl.wsikora.successbudget.v3.common.type.application.CategoryDto;
+import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
 
 
 @Value
 public class RevenueDto {
 
     Long revenueId;
+    Long cashFlowId;
     String title;
     String description;
-    String categoryTitle;
-    Money money;
+    CategoryDto categoryDto;
+    MoneyDto moneyDto;
     String payer;
-    Integer scheduleId;
-    LocalDate date;
+    String date;
 
 }

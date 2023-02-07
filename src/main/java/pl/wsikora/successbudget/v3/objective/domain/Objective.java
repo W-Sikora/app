@@ -10,6 +10,8 @@ import pl.wsikora.successbudget.v3.common.type.Money;
 import pl.wsikora.successbudget.v3.common.type.Title;
 import pl.wsikora.successbudget.v3.common.type.Username;
 
+import java.util.Set;
+
 
 @Entity
 @Table(name = "objectives")
@@ -24,7 +26,7 @@ public class Objective {
     private Long objectiveId;
 
     @Embedded
-    private Username username;
+    private Username owner;
 
     @Embedded
     private Title title;
@@ -34,17 +36,18 @@ public class Objective {
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name="currency", column=@Column(name="necessary_money_currency")),
-        @AttributeOverride(name="value", column=@Column(name="necessary_money_value"))
+        @AttributeOverride(name = "currency", column = @Column(name = "necessary_money_currency")),
+        @AttributeOverride(name = "value", column = @Column(name = "necessary_money_value"))
     })
     private Money necessaryMoney;
 
-    @Embedded
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "objective_raised_money", joinColumns = @JoinColumn(name = "objective_id"))
     @AttributeOverrides({
-        @AttributeOverride(name="currency", column=@Column(name="raised_money_currency")),
-        @AttributeOverride(name="value", column=@Column(name="raised_money_value"))
+        @AttributeOverride(name = "currency", column = @Column(name = "raised_money_currency")),
+        @AttributeOverride(name = "value", column = @Column(name = "raised_money_value"))
     })
-    private Money raisedMoney;
+    private Set<Money> raisedMoney;
 
     private boolean realized;
 

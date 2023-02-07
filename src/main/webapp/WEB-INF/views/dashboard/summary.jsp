@@ -5,7 +5,7 @@
     <div class="column mr-6">
         <div class="box">
             <p class="title is-4">
-                <fmt:message key="incomes"/>
+                <fmt:message key="revenues"/>
             </p>
 
             <div class="columns">

@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.util.YearMonthConverter;
 
-import java.util.List;
+import java.time.YearMonth;
 
 
 @Entity
@@ -23,10 +24,7 @@ public class CashFlow {
     @Embedded
     private Username owner;
 
-    @OneToMany
-    private List<Expenditure> expenditures;
-
-    @OneToMany
-    private List<Revenue> revenues;
+    @Convert(converter = YearMonthConverter.class)
+    private YearMonth period;
 
 }
