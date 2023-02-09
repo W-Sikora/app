@@ -4,4 +4,6 @@ public interface UserCommand {
 
     void save(RegistrationAttributes registrationAttributes);
 
+    void save(MajorCurrencyAttributes majorCurrencyAttributes);
+
 }

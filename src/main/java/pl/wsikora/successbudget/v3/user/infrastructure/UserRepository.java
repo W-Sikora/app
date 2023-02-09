@@ -26,4 +26,11 @@ interface UserRepository extends JpaRepository<User, Username> {
     """)
     boolean existsByUsername(Username username);
 
+    @Query("""
+        select u.majorCurrency
+        from User u
+        where u.username = ?1
+    """)
+    Optional<Integer> findMajorCurrency(Username username);
+
 }

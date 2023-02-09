@@ -36,7 +36,9 @@ class PlannedRevenueEditController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute PlannedRevenueForm plannedRevenueForm, BindingResult bindingResult) {
+    private String save(@Valid @ModelAttribute PlannedRevenueForm plannedRevenueForm,
+                        BindingResult bindingResult,
+                        @PathVariable Long budgetId) {
 
         if (bindingResult.hasErrors()) {
 
@@ -45,7 +47,7 @@ class PlannedRevenueEditController {
 
         plannedRevenueCommand.save(plannedRevenueForm);
 
-        return redirect(BUDGET_PATH);
+        return redirect(BUDGET_PATH, budgetId);
     }
 
     @InitBinder

@@ -2,14 +2,18 @@ package pl.wsikora.successbudget.v3.objective.infrastructure;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.common.currencyconverter.CurrencyConverter;
+import pl.wsikora.successbudget.v3.common.money.Money;
 import pl.wsikora.successbudget.v3.common.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 import pl.wsikora.successbudget.v3.objective.domain.Objective;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -20,10 +24,16 @@ import static org.springframework.util.StringUtils.hasText;
 class ObjectiveQueryImpl implements ObjectiveQuery {
 
     private final ObjectiveRepository objectiveRepository;
+    private final RaisedMoneyRepository raisedMoneyRepository;
+    private final CurrencyConverter currencyConverter;
 
-    private ObjectiveQueryImpl(ObjectiveRepository objectiveRepository) {
+    private ObjectiveQueryImpl(ObjectiveRepository objectiveRepository,
+                               RaisedMoneyRepository raisedMoneyRepository,
+                               CurrencyConverter currencyConverter) {
 
         this.objectiveRepository = objectiveRepository;
+        this.raisedMoneyRepository = raisedMoneyRepository;
+        this.currencyConverter = currencyConverter;
     }
 
     @Override
@@ -36,7 +46,9 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
     }
 
     @Override
-    public Page<ObjectiveDto> findAll(Pageable pageable, String keyword) {
+    public Page<ObjectiveDto> findAll(Pageable pageable, @Nullable String keyword) {
+
+        Assert.notNull(pageable, "pageable must not be null");
 
         if (hasText(keyword)) {
 
@@ -50,19 +62,23 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
     private ObjectiveDto toDto(Objective objective) {
 
-        MoneyDto necessaryMoney = MoneyDtoConverter.convert(objective.getNecessaryMoney());
+        Long objectiveId = objective.getObjectiveId();
 
-//        objective.getRaisedMoney()
+        Money necessaryMoney = objective.getNecessaryMoney();
 
-//        Set<MoneyDto> raisedMoney = MoneyDtoConverter.convert();
+        MoneyDto necessaryMoneyDto = MoneyDtoConverter.convert(necessaryMoney);
+
+        List<Money> moneys = raisedMoneyRepository.findAllMoney(objectiveId);
+
+        MoneyDto raisedMoneyDto = currencyConverter.convert(moneys, necessaryMoney.getCurrency());
 
         return new ObjectiveDto(
-            objective.getObjectiveId(),
+            objectiveId,
             objective.getTitle().getValue(),
             objective.getDescription().getValue(),
-            necessaryMoney,
-            necessaryMoney, ///TO DO
-            objective.isRealized()
+            necessaryMoneyDto,
+            objective.isRealized(),
+            raisedMoneyDto
         );
     }
 

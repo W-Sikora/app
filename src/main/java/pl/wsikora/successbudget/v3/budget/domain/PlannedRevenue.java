@@ -17,7 +17,7 @@ import pl.wsikora.successbudget.v3.common.username.Username;
 public class PlannedRevenue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long plannedRevenueId;
 
     @ManyToOne

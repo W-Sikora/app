@@ -51,7 +51,7 @@ class SecurityConfig {
 
         return http
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers(SLASH, I18N_PATH, REGISTRATION_PATH).permitAll();
+                auth.requestMatchers(LANDING_PAGE_PATH, I18N_PATH, REGISTRATION_PATH).permitAll();
                 auth.requestMatchers(STATIC_RESOURCES_PATH, WEB_INF_RESOURCES_PATH).permitAll();
                 auth.anyRequest().authenticated();
             })
@@ -64,7 +64,7 @@ class SecurityConfig {
                 login.permitAll();
             })
             .logout(logout -> {
-                logout.logoutSuccessUrl(SLASH);
+                logout.logoutSuccessUrl(LANDING_PAGE_PATH);
                 logout.permitAll();
             })
             .build();

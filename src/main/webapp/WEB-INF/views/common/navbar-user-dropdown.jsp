@@ -9,7 +9,7 @@
 
     <div class="dropdown-menu mt-2">
         <div class="dropdown-content has-rounded-corners">
-            <div class="field has-addons has-addons-centered mt-4">
+            <div class="field has-addons has-addons-centered has-small-bottom-margin mt-4">
                 <div class="control">
                     <label>
                         <input class="input is-small" type="text" id="uuidInput"
@@ -24,11 +24,15 @@
                 </div>
             </div>
 
+            <a href="/major-currency/edit" class="navbar-item button is-small mb-3">
+                <fmt:message key="major.currency"/>
+            </a>
+
             <form id="logout" class="is-hidden" action="<c:url value="/logout"/>" method="post">
                 <sec:csrfInput/>
             </form>
 
-            <a id="logoutButton" class="navbar-item button is-danger is-light">
+            <a id="logoutButton" class="navbar-item button is-small is-danger is-light">
                 <fmt:message key="navbar.log.out.text"/>
             </a>
         </div>

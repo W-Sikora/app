@@ -1,27 +1,29 @@
 package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
 import pl.wsikora.successbudget.v3.user.domain.Password;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.springframework.util.StringUtils.hasText;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.EMPTY;
 
 
 @Service
 class PasswordValidator extends AbstractFormValidator<String> {
 
+    static final String F_PASSWORD = "password";
+
     @Override
     public void validateForm(String password, Errors errors) {
 
-        if (!StringUtils.hasText(password)) {
+        if (!hasText(password)) {
 
-            errors.rejectValue(RegistrationForm.F_PASSWORD, E_FIELD_MUST_NOT_BE_EMPTY);
+            errors.rejectValue(F_PASSWORD, E_FIELD_MUST_NOT_BE_EMPTY);
         }
         else if (!Password.hasValidLength(password)) {
 
-            errors.rejectValue(RegistrationForm.F_PASSWORD, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
+            errors.rejectValue(F_PASSWORD, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Password.getLengthRange(), EMPTY);
         }
     }

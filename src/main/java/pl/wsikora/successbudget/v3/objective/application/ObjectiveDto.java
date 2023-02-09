@@ -11,7 +11,7 @@ public class ObjectiveDto {
     String title;
     String description;
     MoneyDto necessaryMoneyDto;
-    MoneyDto raisedMoneyDto;
     boolean realized;
+    MoneyDto raisedMoneyDto;
 
 }

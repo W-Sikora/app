@@ -38,20 +38,13 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
     }
 
     @Override
-    public Page<PlannedExpenditureDto> findAll(Pageable pageable) {
+    public Page<PlannedExpenditureDto> findAll(Pageable pageable, Long budgetId) {
 
         Assert.notNull(pageable, "pageable must not be null");
-
-        return plannedExpenditureRepository.findAll(pageable)
-            .map(this::toDto);
-    }
-
-    @Override
-    public boolean hasRepeatable(Long budgetId) {
-
         Assert.notNull(budgetId, "budgetId must not be null");
 
-        return plannedExpenditureRepository.hasRepeatableByBudgetId(budgetId);
+        return plannedExpenditureRepository.findAll(pageable, budgetId)
+            .map(this::toDto);
     }
 
     private PlannedExpenditureDto toDto(PlannedExpenditure plannedExpenditure) {

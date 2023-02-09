@@ -18,7 +18,7 @@ import java.time.YearMonth;
 public class Budget {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long budgetId;
 
     @Embedded

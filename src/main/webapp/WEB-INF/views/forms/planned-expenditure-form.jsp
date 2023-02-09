@@ -40,8 +40,10 @@
             <p class="control">
                 <span class="select">
                     <form:select path="currencyId" required="required" cssClass="select" cssErrorClass="select is-danger">
-                        <c:forEach items="${currencies}" var="currency">
-                            <form:option value="${currency.id}" label="${currency.code}"/>
+                        <c:forEach items="${currencies}" var="currencyId">
+                            <form:option value="${currencyId}">
+                                <fmt:message key="currency.${currencyId}"/>
+                            </form:option>
                         </c:forEach>
                     </form:select>
                 </span>

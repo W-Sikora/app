@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.type.Description;
 import pl.wsikora.successbudget.v3.common.money.Money;
+import pl.wsikora.successbudget.v3.common.type.Description;
 import pl.wsikora.successbudget.v3.common.type.Title;
 import pl.wsikora.successbudget.v3.common.username.Username;
 
@@ -20,7 +20,7 @@ import pl.wsikora.successbudget.v3.common.username.Username;
 public class Objective {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long objectiveId;
 
     @Embedded
@@ -33,18 +33,7 @@ public class Objective {
     private Description description;
 
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "currency", column = @Column(name = "necessary_money_currency")),
-        @AttributeOverride(name = "value", column = @Column(name = "necessary_money_value"))
-    })
     private Money necessaryMoney;
-
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "currency", column = @Column(name = "raised_money_currency")),
-        @AttributeOverride(name = "value", column = @Column(name = "raised_money_value"))
-    })
-    private Money raisedMoney;
 
     private boolean realized;
 

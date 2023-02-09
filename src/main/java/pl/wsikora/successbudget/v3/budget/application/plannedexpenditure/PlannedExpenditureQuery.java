@@ -10,8 +10,6 @@ public interface PlannedExpenditureQuery {
 
     Optional<PlannedExpenditureDto> findByPlannedExpenditureId(Long plannedExpenditureId);
 
-    Page<PlannedExpenditureDto> findAll(Pageable pageable);
-
-    boolean hasRepeatable(Long budgetId);
+    Page<PlannedExpenditureDto> findAll(Pageable pageable, Long budgetId);
 
 }

@@ -14,7 +14,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
 import static pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
 import static pl.wsikora.successbudget.v3.user.domain.Password.MINIMUM_LENGTH;
-import static pl.wsikora.successbudget.v3.user.ui.registration.RegistrationForm.F_PASSWORD;
+import static pl.wsikora.successbudget.v3.user.ui.registration.PasswordValidator.F_PASSWORD;
 
 
 class PasswordValidatorTest {

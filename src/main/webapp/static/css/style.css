@@ -135,3 +135,7 @@ label {
     width: 450px;
     display: inline-block;
 }
+
+.has-small-bottom-margin {
+    margin-bottom: 11px !important;
+}

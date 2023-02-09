@@ -10,6 +10,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator.E_REPEATED_PASSWORD_IS_DIFFERENT;
+import static pl.wsikora.successbudget.v3.user.ui.registration.RegistrationFormValidator.F_REPEATED_PASSWORD;
 
 
 class RegistrationFormValidatorTest {
@@ -49,6 +50,6 @@ class RegistrationFormValidatorTest {
         registrationFormValidator.validateForm(form, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
+        verify(errors).rejectValue(F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
     }
 }

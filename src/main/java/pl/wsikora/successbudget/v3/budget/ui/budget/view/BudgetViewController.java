@@ -2,13 +2,10 @@ package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import static pl.wsikora.successbudget.v3.common.Constants.BUDGET_PATH;
-import static pl.wsikora.successbudget.v3.common.Constants.VIEW;
+import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.Constants.DEFAULT_PAGINATION_SIZE;
 
 
 @Controller
@@ -29,9 +26,20 @@ class BudgetViewController {
     }
 
     @ModelAttribute
-    private void data(@RequestParam(required = false) String period, Model model) {
+    private void data(@PathVariable Long budgetId,
+                      @RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int plannedExpenditurePage,
+                      @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE) int plannedExpenditureSize,
+                      @RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int plannedRevenuePage,
+                      @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE) int plannedRevenueSize,
+                      Model model) {
 
-        model.addAllAttributes(budgetViewControllerDataProvider.provideData(period));
+        model.addAllAttributes(budgetViewControllerDataProvider.provideData(
+            budgetId,
+            plannedExpenditurePage,
+            plannedExpenditureSize,
+            plannedRevenuePage,
+            plannedRevenueSize
+        ));
     }
 
 }

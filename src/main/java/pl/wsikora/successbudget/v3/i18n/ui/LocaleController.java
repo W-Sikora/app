@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static pl.wsikora.successbudget.v3.common.Constants.I18N_PATH;
-import static pl.wsikora.successbudget.v3.common.Constants.SLASH;
+import static pl.wsikora.successbudget.v3.common.Constants.LANDING_PAGE_PATH;
 
 
 @RestController
 @RequestMapping(I18N_PATH)
 class LocaleController {
 
-    private static final String LOCALE = "locale";
+    private static final String LANGUAGE = "language";
     private static final int MAX_AGE = 1209600;
 
     @PostMapping
     private void changeLocale(String code, HttpServletResponse response) {
 
-        Cookie cookie = new Cookie(LOCALE, code);
+        Cookie cookie = new Cookie(LANGUAGE, code);
         cookie.setMaxAge(MAX_AGE);
-        cookie.setPath(SLASH);
+        cookie.setPath(LANDING_PAGE_PATH);
 
         response.addCookie(cookie);
     }

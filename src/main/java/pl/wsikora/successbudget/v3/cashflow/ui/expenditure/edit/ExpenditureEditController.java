@@ -15,7 +15,7 @@ import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFor
 import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 
 @Controller
-@RequestMapping("/aa")
+@RequestMapping(EXPENDITURE_EDIT_PATH)
 public class ExpenditureEditController {
 
     private final CategoryQuery categoryQuery;

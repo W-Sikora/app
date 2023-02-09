@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
+import pl.wsikora.successbudget.v3.common.money.Money;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,16 +31,18 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
         value = """
             select r
             from PlannedRevenue r
-            where r.owner.value = ?#{principal.username}
-            order by r.plannedRevenueId
+            where r.budget.budgetId = ?1
+            and r.owner.value = ?#{principal.username}
+            order by r.money.value
         """,
         countQuery = """
             select count(r)
             from PlannedRevenue r
-            where r.owner.value = ?#{principal.username}
+            where r.budget.budgetId = ?1
+            and r.owner.value = ?#{principal.username}
         """
     )
-    Page<PlannedRevenue> findAll(Pageable pageable);
+    Page<PlannedRevenue> findAll(Pageable pageable, Long budgetId);
 
     @Query(
         """
@@ -62,6 +65,16 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
         """
     )
     boolean hasRepeatableByBudgetId(Long budgetId);
+
+    @Query("""
+        select r.money.currency, sum(r.money.value)
+        from PlannedRevenue r
+        where r.budget.budgetId = ?1
+        and r.owner.value = ?#{principal.username}
+        group by r.money.currency
+        
+    """)
+    List<Money> findAllMoney(Long budgetId);
 
     @Transactional
     @Modifying

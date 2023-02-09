@@ -16,6 +16,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
 import static pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
 import static pl.wsikora.successbudget.v3.user.ui.registration.UsernameValidator.E_USERNAME_MUST_BE_UNIQUE;
+import static pl.wsikora.successbudget.v3.user.ui.registration.UsernameValidator.F_USER_NAME;
 
 
 class UsernameValidatorTest {
@@ -45,7 +46,7 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
+        verify(errors).rejectValue(F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
     }
 
     @Test
@@ -58,7 +59,7 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
+        verify(errors).rejectValue(F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
     }
 
     @Test
@@ -71,7 +72,7 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
+        verify(errors).rejectValue(F_USER_NAME, E_FIELD_MUST_NOT_BE_EMPTY);
     }
 
     @Test
@@ -84,7 +85,7 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
+        verify(errors).rejectValue(F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
             Username.getLengthRange(), EMPTY);
     }
 
@@ -98,7 +99,7 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
+        verify(errors).rejectValue(F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
             Username.getLengthRange(), EMPTY);
     }
 
@@ -115,6 +116,6 @@ class UsernameValidatorTest {
         usernameValidator.validateForm(this.username, errors);
 
         // then
-        verify(errors).rejectValue(RegistrationForm.F_USER_NAME, E_USERNAME_MUST_BE_UNIQUE);
+        verify(errors).rejectValue(F_USER_NAME, E_USERNAME_MUST_BE_UNIQUE);
     }
 }

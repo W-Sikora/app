@@ -16,13 +16,13 @@ import java.util.Locale;
 class LocaleConfig implements WebMvcConfigurer {
 
     private static final Locale POLISH = new Locale("pl");
-    private static final String LOCALE = "locale";
+    private static final String LANGUAGE = "language";
     private static final Duration COOKIE_MAX_AGE = Duration.ofDays(14L);
 
     @Bean
     LocaleResolver localeResolver() {
 
-        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver(LOCALE);
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver(LANGUAGE);
         cookieLocaleResolver.setDefaultLocale(POLISH);
         cookieLocaleResolver.setCookieMaxAge(COOKIE_MAX_AGE);
 
@@ -33,7 +33,7 @@ class LocaleConfig implements WebMvcConfigurer {
     LocaleChangeInterceptor localeChangeInterceptor() {
 
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName(LOCALE);
+        localeChangeInterceptor.setParamName(LANGUAGE);
 
         return localeChangeInterceptor;
     }

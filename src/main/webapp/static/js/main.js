@@ -51,15 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             element.classList.remove(activeClass);
         }
 
-        function postRedirect(element, url) {
-
-            const id = 'modalDelete';
-
-            element.innerHTML = '<form id="' + id + '" method="post" action="' + url + '"/>'
-
-            element.querySelector('#' + id).submit();
-        }
-
         deleteButtons.forEach(deleteButton => {
 
             deleteButton.addEventListener('click', () => {
@@ -73,8 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.querySelector('.js-cancel-button')
                     .addEventListener('click', () => closeModal(modal));
 
-                modal.querySelector('.js-final-delete-button')
-                    .addEventListener('click', () => postRedirect(modal, deleteUrl));
+                modal.querySelector('.js-final-delete').action = deleteUrl;
             });
         });
     }

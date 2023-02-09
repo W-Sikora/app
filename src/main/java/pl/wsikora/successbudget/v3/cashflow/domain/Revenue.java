@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.type.*;
+import pl.wsikora.successbudget.v3.common.type.Description;
+import pl.wsikora.successbudget.v3.common.type.Payer;
+import pl.wsikora.successbudget.v3.common.type.Title;
 import pl.wsikora.successbudget.v3.common.username.Username;
 
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ import java.time.LocalDate;
 public class Revenue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revenueId;
 
     @ManyToOne

@@ -11,7 +11,7 @@ class LandingViewControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, SLASH);
+        modelMap.addAttribute(LOGO_APP_URL, LANDING_PAGE_PATH);
 
         modelMap.addAttribute(REGISTRATION, REGISTRATION_PATH);
 

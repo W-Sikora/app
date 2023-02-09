@@ -18,9 +18,12 @@
             </p>
 
             <p class="control">
-                <button class="button is-danger is-outlined js-final-delete-button">
-                    <fmt:message key="delete.text"/>
-                </button>
+                <form class="js-final-delete" method="post">
+                    <sec:csrfInput/>
+                    <button type="submit" class="button is-danger is-outlined">
+                        <fmt:message key="delete.text"/>
+                    </button>
+                </form>
             </p>
         </div>
     </div>

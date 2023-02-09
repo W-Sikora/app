@@ -1,13 +1,11 @@
 package pl.wsikora.successbudget.v3.user.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.wsikora.successbudget.v3.common.type.Currency;
 import pl.wsikora.successbudget.v3.common.username.Username;
 
 
@@ -24,5 +22,8 @@ public class User {
 
     @Embedded
     private Password password;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Currency majorCurrency;
 
 }

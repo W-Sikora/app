@@ -18,7 +18,6 @@ class ObjectiveForm implements ObjectiveAttributes {
     private String description;
     private Integer necessaryMoneyCurrencyId;
     private BigDecimal necessaryMoneyValue;
-    private Integer moneyCurrencyId;
-    private BigDecimal moneyValue;
+    private boolean realized;
 
 }

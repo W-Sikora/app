@@ -1,14 +1,14 @@
 package pl.wsikora.successbudget.v3.common.currencyconverter.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.currencyconverter.CurrencyConverter;
+import pl.wsikora.successbudget.v3.common.currencyconverter.CurrencyRateProvider;
 import pl.wsikora.successbudget.v3.common.type.Currency;
 
 import java.math.BigDecimal;
 
 
 @Service
-class MockConverter implements CurrencyConverter {
+class MockCurrencyRate implements CurrencyRateProvider {
 
     @Override
     public BigDecimal convert(Currency fromCurrency, Currency toCurrency) {

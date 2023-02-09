@@ -2,7 +2,8 @@ package pl.wsikora.successbudget.v3.common.util;
 
 import org.springframework.util.Assert;
 
-import static pl.wsikora.successbudget.v3.common.Constants.SLASH;
+import static pl.wsikora.successbudget.v3.common.Constants.LANDING_PAGE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.SLASH;
 
 
 public class Redirector {

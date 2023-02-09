@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
 
 import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirectWithQueryParameter;
+import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 
 
 @Controller
@@ -26,7 +26,7 @@ class PlannedRevenueDeleteController {
 
         plannedRevenueCommand.delete(id);
 
-        return redirectWithQueryParameter(BUDGET_PATH, budgetId);
+        return redirect(BUDGET_PATH, budgetId);
     }
 
 }

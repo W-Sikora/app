@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureCommand;
 
 import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirectWithQueryParameter;
+import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 
 
 @Controller
@@ -47,7 +47,7 @@ class PlannedExpenditureEditController {
 
         plannedExpenditureCommand.save(plannedExpenditureForm);
 
-        return redirectWithQueryParameter(BUDGET_PARTICULAR_PATH, budgetId);
+        return redirect(BUDGET_PATH, budgetId);
     }
 
     @InitBinder

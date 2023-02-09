@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
@@ -38,20 +39,13 @@ class PlannedRevenueQueryImpl implements PlannedRevenueQuery {
     }
 
     @Override
-    public Page<PlannedRevenueDto> findAll(Pageable pageable) {
+    public Page<PlannedRevenueDto> findAll(Pageable pageable, Long budgetId) {
 
         Assert.notNull(pageable, "pageable must not be null");
-
-        return plannedRevenueRepository.findAll(pageable)
-            .map(this::toDto);
-    }
-
-    @Override
-    public boolean hasRepeatable(Long budgetId) {
-
         Assert.notNull(budgetId, "budgetId must not be null");
 
-        return plannedRevenueRepository.hasRepeatableByBudgetId(budgetId);
+        return plannedRevenueRepository.findAll(pageable, budgetId)
+            .map(this::toDto);
     }
 
     private PlannedRevenueDto toDto(PlannedRevenue plannedRevenue) {

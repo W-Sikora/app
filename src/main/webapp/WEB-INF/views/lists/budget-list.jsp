@@ -1,9 +1,5 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<c:set var="_addUrl" value="${addUrl}"/>
-<c:set var="_editUrl" value="${editUrl}"/>
-<c:set var="_deleteUrl" value="${deleteUrl}"/>
-
 <div class="columns">
     <div class="column">
 
@@ -13,14 +9,15 @@
 
         <hr class="is-invisible">
 
+        <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
+        <c:set var="_editUrl" value="${editUrl}"/>
+        <c:set var="_deleteUrl" value="${deleteUrl}"/>
+
         <c:if test="${not empty _addUrl}">
 
             <%@ include file="../common/add.jsp" %>
 
         </c:if>
-
-        <c:set var="_keyword" value="${keyword}"/>
-        <%@ include file="../common/keyword-filter.jsp" %>
 
         <c:choose>
             <c:when test="${empty categories}">
@@ -86,14 +83,15 @@
 
         <hr class="is-invisible">
 
+        <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
+        <c:set var="_editUrl" value="${editUrl}"/>
+        <c:set var="_deleteUrl" value="${deleteUrl}"/>
+
         <c:if test="${not empty _addUrl}">
 
             <%@ include file="../common/add.jsp" %>
 
         </c:if>
-
-        <c:set var="_keyword" value="${keyword}"/>
-        <%@ include file="../common/keyword-filter.jsp" %>
 
         <c:choose>
             <c:when test="${empty categories}">

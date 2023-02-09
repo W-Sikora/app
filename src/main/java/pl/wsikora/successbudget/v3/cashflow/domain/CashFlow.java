@@ -18,7 +18,7 @@ import java.time.YearMonth;
 public class CashFlow {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cashFlowId;
 
     @Embedded

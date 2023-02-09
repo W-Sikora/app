@@ -26,7 +26,7 @@ class LoginControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, SLASH);
+        modelMap.addAttribute(LOGO_APP_URL, LANDING_PAGE_PATH);
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(LOGIN));
 
@@ -34,14 +34,14 @@ class LoginControllerDataProvider {
 
         modelMap.addAttribute(FORM_ACTION, LOGIN_PATH);
 
-        String title = messageProvider.getMessage(LOGIN_PAGE_TITLE);
+        String title = messageProvider.getMessage("login.page.title");
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute("invalid", invalid);
 
         List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(LANDING_PAGE_TITLE), SLASH)
+            .add(messageProvider.getMessage(LANDING_PAGE_TITLE), LANDING_PAGE_PATH)
             .add(title)
             .build();
 

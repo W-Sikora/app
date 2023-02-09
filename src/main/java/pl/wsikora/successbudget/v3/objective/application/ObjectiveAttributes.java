@@ -15,8 +15,6 @@ public interface ObjectiveAttributes {
 
     BigDecimal getNecessaryMoneyValue();
 
-    Integer getMoneyCurrencyId();
-
-    BigDecimal getMoneyValue();
+    boolean isRealized();
 
 }

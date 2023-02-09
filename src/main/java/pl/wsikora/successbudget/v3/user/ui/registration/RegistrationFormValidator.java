@@ -10,6 +10,8 @@ import java.util.Objects;
 @Service
 class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> {
 
+    static final String F_REPEATED_PASSWORD = "repeatedPassword";
+
     private final UsernameValidator usernameValidator;
     private final PasswordValidator passwordValidator;
 
@@ -30,7 +32,7 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
         if (!Objects.equals(password, registrationForm.getRepeatedPassword())) {
 
-            errors.rejectValue(RegistrationForm.F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
+            errors.rejectValue(F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
         }
     }
 

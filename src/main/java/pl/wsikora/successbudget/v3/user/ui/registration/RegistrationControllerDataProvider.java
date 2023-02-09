@@ -26,7 +26,7 @@ class RegistrationControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, SLASH);
+        modelMap.addAttribute(LOGO_APP_URL, LANDING_PAGE_PATH);
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(REGISTRATION));
 
@@ -36,12 +36,12 @@ class RegistrationControllerDataProvider {
 
         modelMap.addAttribute(FORM, new RegistrationForm());
 
-        String title = messageProvider.getMessage(REGISTRATION_PAGE_TITLE);
+        String title = messageProvider.getMessage("registration.page.title");
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
         List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(LANDING_PAGE_TITLE), SLASH)
+            .add(messageProvider.getMessage(LANDING_PAGE_TITLE), LANDING_PAGE_PATH)
             .add(title)
             .build();
 
