@@ -25,7 +25,20 @@ interface ObjectiveRepository extends JpaRepository<Objective, Long> {
             select o
             from Objective o
             where o.owner.value = ?#{principal.username}
+            order by o.title.value
         """)
     Page<Objective> findAll(Pageable pageable);
+
+    @Query("""
+            select o
+            from Objective o
+            where concat(
+                lower(o.title.value),
+                lower(o.description.value)
+            ) like %?1%
+            and o.owner.value = ?#{principal.username}
+            order by o.title.value
+    """)
+    Page<Objective> findAllByKeyword(Pageable pageable, String keyword);
 
 }

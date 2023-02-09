@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.category.domain.Category;
+import pl.wsikora.successbudget.v3.common.category.TransactionType;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,7 +23,7 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
         where c.categoryId = ?1
         and c.owner.value = ?#{principal.username}
     """)
-    Optional<Category> findCategoryByCategoryId(Long categoryId);
+    Optional<Category> findByCategoryId(Long categoryId);
 
     @Query(
         value = """
@@ -53,7 +55,16 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
             and c.owner.value = ?#{principal.username}
         """
     )
-    Page<Category> findAllByKeywordIgnoreCase(Pageable pageable, String keyword);
+    Page<Category> findAllByKeyword(Pageable pageable, String keyword);
+
+    @Query("""
+        select c
+        from Category c
+        where c.assignedTransactionType = ?1
+        and c.owner.value = ?#{principal.username}
+        order by c.title.value
+    """)
+    List<Category> findAllByAssignedTransactionType(TransactionType transactionType);
 
     @Transactional
     @Modifying
@@ -63,6 +74,6 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
         where c.categoryId = ?1
         and c.owner.value = ?#{principal.username}
     """)
-    void deleteByCategoryId(Long categoryId);
+    void delete(Long categoryId);
 
 }

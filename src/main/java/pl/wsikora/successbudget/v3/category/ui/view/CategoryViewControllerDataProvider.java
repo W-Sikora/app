@@ -2,11 +2,12 @@ package pl.wsikora.successbudget.v3.category.ui.view;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 import pl.wsikora.successbudget.v3.common.validation.PaginationValidator;
 
@@ -29,7 +30,7 @@ class CategoryViewControllerDataProvider {
         this.categoryQuery = categoryQuery;
     }
 
-    ModelMap provideData(int page, int size, String keyword) {
+    ModelMap provideData(int page, int size, @Nullable String keyword) {
 
         ModelMap modelMap = new ModelMap();
 
@@ -64,7 +65,7 @@ class CategoryViewControllerDataProvider {
 
             modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber() + 1);
 
-            modelMap.addAttribute("categories", categoryQuery.getAll(pageable, keyword));
+            modelMap.addAttribute("categories", categoryQuery.findAll(pageable, keyword));
         }
 
         return modelMap;

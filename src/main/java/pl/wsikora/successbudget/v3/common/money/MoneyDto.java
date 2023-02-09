@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.common.type.application;
+package pl.wsikora.successbudget.v3.common.money;
 
 import lombok.Value;
 
@@ -10,5 +10,6 @@ public class MoneyDto {
 
     Integer currencyId;
     BigDecimal value;
+    String formattedValue;
 
 }

@@ -1,10 +1,11 @@
 package pl.wsikora.successbudget.v3.category.ui.edit;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.type.TransactionType;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.category.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
 import java.util.List;
@@ -27,7 +28,7 @@ class CategoryEditControllerDataProvider {
         this.categoryFormFactory = categoryFormFactory;
     }
 
-    ModelMap provideData(Long categoryId) {
+    ModelMap provideData(@Nullable Long categoryId) {
 
         ModelMap modelMap = new ModelMap();
 

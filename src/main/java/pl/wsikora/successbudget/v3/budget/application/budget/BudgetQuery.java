@@ -1,13 +1,10 @@
 package pl.wsikora.successbudget.v3.budget.application.budget;
 
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetDto;
-
-import java.time.YearMonth;
+import java.util.Optional;
 
 
 public interface BudgetQuery {
 
-
-
+    Optional<BudgetDto> findByBudgetId(Long budgetId);
 
 }

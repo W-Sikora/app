@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.username.Username;
 import pl.wsikora.successbudget.v3.user.application.UserQuery;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;

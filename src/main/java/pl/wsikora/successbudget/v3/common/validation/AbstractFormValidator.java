@@ -8,7 +8,8 @@ public abstract class AbstractFormValidator<Form> implements Validator {
     public static final String E_FIELD_MUST_NOT_BE_EMPTY = "field.must.not.be.empty";
     public static final String E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS = "field.must.contain.specific.number.of.characters";
     public static final String E_REPEATED_PASSWORD_IS_DIFFERENT = "repeated.password.is.different";
-
+    public static final String E_CURRENCY_MUST_NOT_BE_EMPTY = "currency.must.not.be.empty";
+    public static final String E_VALUE_MUST_BE_WITHIN_ALLOWED_RANGE = "value.must.be.within.allowed.range";
 
     public abstract void validateForm(Form form, Errors errors);
 

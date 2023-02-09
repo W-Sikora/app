@@ -2,8 +2,8 @@ package pl.wsikora.successbudget.v3.user.ui.login;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
 import java.util.List;

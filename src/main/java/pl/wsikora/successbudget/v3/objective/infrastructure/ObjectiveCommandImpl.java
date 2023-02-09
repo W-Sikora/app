@@ -1,6 +1,6 @@
 package pl.wsikora.successbudget.v3.objective.infrastructure;
 
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.username.Username;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveAttributes;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveCommand;
 

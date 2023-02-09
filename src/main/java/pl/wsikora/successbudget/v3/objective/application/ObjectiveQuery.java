@@ -10,6 +10,6 @@ public interface ObjectiveQuery {
 
     Optional<ObjectiveDto> findByObjectiveId(Long objectiveId);
 
-    Page<ObjectiveDto> findAll(Pageable pageable);
+    Page<ObjectiveDto> findAll(Pageable pageable, String keyword);
 
 }

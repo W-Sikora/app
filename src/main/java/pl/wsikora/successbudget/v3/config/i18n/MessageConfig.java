@@ -18,4 +18,5 @@ class MessageConfig {
 
         return messageSource;
     }
+
 }

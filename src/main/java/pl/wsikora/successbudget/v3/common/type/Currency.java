@@ -1,6 +1,10 @@
 package pl.wsikora.successbudget.v3.common.type;
 
 import lombok.Getter;
+import org.springframework.util.Assert;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @Getter
@@ -45,4 +49,19 @@ public enum Currency {
 
         return this == SWISS_FRANC;
     }
+
+    public static Currency getByCurrencyId(Integer currencyId) {
+
+        Assert.notNull(currencyId, "currencyId must not be null");
+
+        return Currency.values()[currencyId];
+    }
+
+    public static List<Integer> getOrdinals() {
+
+        return Arrays.stream(Currency.values())
+            .map(Currency::ordinal)
+            .toList();
+    }
+
 }

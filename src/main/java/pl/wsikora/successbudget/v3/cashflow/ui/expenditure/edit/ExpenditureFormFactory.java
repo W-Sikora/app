@@ -3,7 +3,7 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureDto;
 import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureQuery;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
 
 
 @Service

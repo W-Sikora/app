@@ -3,7 +3,7 @@ package pl.wsikora.successbudget.v3.user.infrastructure;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.username.Username;
 import pl.wsikora.successbudget.v3.user.domain.User;
 
 import java.util.Optional;

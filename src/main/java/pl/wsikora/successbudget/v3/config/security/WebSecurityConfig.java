@@ -13,4 +13,5 @@ class WebSecurityConfig {
 
         return new SecurityEvaluationContextExtension();
     }
+
 }

@@ -17,6 +17,6 @@ public interface PlannedExpenditureAttributes {
 
     BigDecimal getValue();
 
-    Integer getScheduleId();
+    boolean isRepeatInNextPeriod();
 
 }

@@ -1,6 +1,6 @@
 package pl.wsikora.successbudget.v3.budget.application.budget;
 
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.username.Username;
 
 import java.time.YearMonth;
 

@@ -4,7 +4,7 @@
 
 <form action="<c:url value="${formAction}"/>" method="post">
 
-    <sec:csrfMetaTags/>
+    <sec:csrfInput/>
 
     <div class="field">
         <label for="username" class="label">

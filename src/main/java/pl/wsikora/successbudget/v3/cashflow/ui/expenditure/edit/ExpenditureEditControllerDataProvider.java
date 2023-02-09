@@ -2,9 +2,9 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.type.TransactionType;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.category.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
 import java.util.List;

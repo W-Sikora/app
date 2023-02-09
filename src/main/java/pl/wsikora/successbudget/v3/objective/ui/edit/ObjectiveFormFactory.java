@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 

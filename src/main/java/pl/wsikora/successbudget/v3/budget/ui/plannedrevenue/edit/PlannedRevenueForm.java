@@ -1,7 +1,6 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedrevenue.edit;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueAttributes;
 
 import java.math.BigDecimal;
@@ -9,6 +8,9 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 class PlannedRevenueForm implements PlannedRevenueAttributes {
 
     private Long plannedRevenueId;
@@ -16,6 +18,6 @@ class PlannedRevenueForm implements PlannedRevenueAttributes {
     private Long categoryId;
     private Integer currencyId;
     private BigDecimal value;
-    private Integer scheduleId;
+    private boolean repeatInNextPeriod;
 
 }

@@ -28,4 +28,5 @@ class CategoryDeleteController {
 
         return redirect(CATEGORY_PATH);
     }
+
 }

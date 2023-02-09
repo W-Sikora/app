@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.type.Username;
+import pl.wsikora.successbudget.v3.common.username.Username;
 
 import javax.validation.Valid;
 import java.security.Principal;

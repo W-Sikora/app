@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
 
 import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
+import static pl.wsikora.successbudget.v3.common.util.Redirector.redirectWithQueryParameter;
 
 
 @Controller
-@RequestMapping(BUDGET_PATH + PLANNED_REVENUE_DELETE_PATH)
+@RequestMapping(PLANNED_REVENUE_DELETE_PATH)
 class PlannedRevenueDeleteController {
 
     private final PlannedRevenueCommand plannedRevenueCommand;
@@ -22,11 +22,11 @@ class PlannedRevenueDeleteController {
     }
 
     @PostMapping(ID_PATH_VARIABLE)
-    private String delete(@PathVariable Long id) {
+    private String delete(@PathVariable Long budgetId, @PathVariable Long id) {
 
         plannedRevenueCommand.delete(id);
 
-        return redirect(BUDGET_PATH);
+        return redirectWithQueryParameter(BUDGET_PATH, budgetId);
     }
 
 }

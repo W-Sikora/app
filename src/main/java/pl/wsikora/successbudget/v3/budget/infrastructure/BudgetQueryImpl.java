@@ -5,7 +5,7 @@ import pl.wsikora.successbudget.v3.budget.application.budget.BudgetDto;
 import pl.wsikora.successbudget.v3.budget.application.budget.BudgetQuery;
 import pl.wsikora.successbudget.v3.budget.domain.Budget;
 
-import java.time.YearMonth;
+import java.util.Optional;
 
 
 @Service
@@ -18,9 +18,11 @@ class BudgetQueryImpl implements BudgetQuery {
         this.budgetRepository = budgetRepository;
     }
 
-    public BudgetDto getByPeriod(YearMonth period) {
+    @Override
+    public Optional<BudgetDto> findByBudgetId(Long budgetId) {
 
-        return toDto(budgetRepository.getByPeriod(period));
+        return budgetRepository.findByBudgetId(budgetId)
+            .map(this::toDto);
     }
 
     private BudgetDto toDto(Budget budget) {
@@ -30,4 +32,5 @@ class BudgetQueryImpl implements BudgetQuery {
             budget.getPeriod().toString()
         );
     }
+
 }

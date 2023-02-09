@@ -7,9 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.category.application.CategoryCommand;
-import pl.wsikora.successbudget.v3.common.type.Username;
-
-import java.security.Principal;
 
 import static pl.wsikora.successbudget.v3.common.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
@@ -39,16 +36,14 @@ class CategoryEditController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute CategoryForm categoryForm, BindingResult bindingResult, Principal principal) {
+    private String save(@Valid @ModelAttribute CategoryForm categoryForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
             return VIEW;
         }
 
-        Username username = new Username(principal.getName());
-
-        categoryCommand.save(categoryForm, username);
+        categoryCommand.save(categoryForm);
 
         return redirect(CATEGORY_PATH);
     }

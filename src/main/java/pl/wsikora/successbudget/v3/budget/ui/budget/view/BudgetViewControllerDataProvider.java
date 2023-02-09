@@ -2,14 +2,12 @@ package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElement;
-import pl.wsikora.successbudget.v3.common.type.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.MessageProvider;
 
-import java.time.YearMonth;
 import java.util.List;
 
-import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
 

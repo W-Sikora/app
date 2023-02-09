@@ -1,6 +1,7 @@
-package pl.wsikora.successbudget.v3.common.type;
+package pl.wsikora.successbudget.v3.common.category;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
@@ -22,4 +23,5 @@ public class CategoryId implements Serializable {
 
         this.value = value;
     }
+
 }

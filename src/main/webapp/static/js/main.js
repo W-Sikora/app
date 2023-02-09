@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener('click', () => document.getElementById('logout').submit())
+    }
+
     const keywordFilters = document.querySelectorAll('.js-keyword-filter');
 
     if (keywordFilters) {
@@ -119,15 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function changeLocale(code) {
 
-            const request = new XMLHttpRequest();
+            const locale = document.getElementById('locale');
 
-            request.open('POST', '/locale', true);
+            locale.querySelector('input[name=code]').value = code;
 
-            request.onload = () => location.reload();
+            locale.submit();
 
-            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-            request.send(JSON.stringify({'code': code}));
+            location.reload();
         }
 
         changeLocaleElements.forEach(el =>
@@ -135,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
             el.addEventListener('click', () => changeLocale(el.dataset.code))
         );
     }
-
 
 
     const colorsArray = [
@@ -220,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 label: "Test",
                 data: [109, 75, 2, 34, 109, 75, 2, 34],
                 backgroundColor: colorsArray,
+                maxBarThickness: 35
             }]
         };
 
@@ -233,10 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             min: 0,
                             max: 100
                         }
-                    }],
-                    yAxes: [{
-                        maxBarThickness: 35,
-                        stacked: true
                     }]
                 },
 

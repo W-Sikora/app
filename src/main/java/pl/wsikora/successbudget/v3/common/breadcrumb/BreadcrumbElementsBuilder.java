@@ -1,4 +1,6 @@
-package pl.wsikora.successbudget.v3.common.type;
+package pl.wsikora.successbudget.v3.common.breadcrumb;
+
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,9 @@ public class BreadcrumbElementsBuilder {
 
     public BreadcrumbElementsBuilder add(String label, String url) {
 
+        Assert.hasText(label, "label must not be empty");
+        Assert.hasText(url, "url must not be empty");
+
         BreadcrumbElement breadcrumbElement = new BreadcrumbElement(label, url);
 
         breadcrumbElements.add(breadcrumbElement);
@@ -28,6 +33,8 @@ public class BreadcrumbElementsBuilder {
     }
 
     public BreadcrumbElementsBuilder add(String label) {
+
+        Assert.hasText(label, "label must not be empty");
 
         BreadcrumbElement breadcrumbElement = new BreadcrumbElement(label);
 
@@ -40,4 +47,5 @@ public class BreadcrumbElementsBuilder {
 
         return breadcrumbElements;
     }
+
 }

@@ -26,6 +26,13 @@
                         </a>
                     </li>
                 </c:if>
+
+                <form id="locale" class="is-hidden" method="post" action="<c:url value="/locale"/>">
+                    <sec:csrfInput/>
+                    <label>
+                        <input name="code">
+                    </label>
+                </form>
             </ul>
         </div>
     </div>

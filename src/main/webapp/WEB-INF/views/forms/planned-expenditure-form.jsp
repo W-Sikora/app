@@ -13,8 +13,8 @@
         <div class="control">
             <div class="select is-fullwidth">
                 <form:select path="categoryId" required="required" cssErrorClass="is-danger">
-                    <c:forEach items="${categories}" var="category">
-                        <form:option value="${category.categoryId}" label="${category.title}"/>
+                    <c:forEach items="${categories}" var="objective">
+                        <form:option value="${objective.categoryId}" label="${objective.title}"/>
                     </c:forEach>
                 </form:select>
             </div>

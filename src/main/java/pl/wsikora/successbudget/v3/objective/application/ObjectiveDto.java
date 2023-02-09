@@ -1,9 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.application;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
-
-import java.util.Set;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
 
 
 @Value
@@ -13,7 +11,7 @@ public class ObjectiveDto {
     String title;
     String description;
     MoneyDto necessaryMoneyDto;
-    Set<MoneyDto> raisedMoneyDto;
+    MoneyDto raisedMoneyDto;
     boolean realized;
 
 }

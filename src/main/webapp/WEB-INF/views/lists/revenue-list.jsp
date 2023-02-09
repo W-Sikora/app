@@ -31,16 +31,16 @@
             </thead>
 
             <tbody>
-            <c:forEach items="${categories}" var="category" varStatus="loop">
+            <c:forEach items="${categories}" var="objective" varStatus="loop">
                 <tr>
                     <th>${loop.index + 1}</th>
-                    <td>${category.title}</td>
-                    <td>${category.description}</td>
-                    <td>${category.assignedTransactionType}</td>
+                    <td>${objective.title}</td>
+                    <td>${objective.description}</td>
+                    <td>${objective.assignedTransactionType}</td>
                     <td>
                         <div class="field is-grouped">
                             <p class="control">
-                                <a href="${editUrl}${category.id}" class="button is-info is-outlined">
+                                <a href="${editUrl}${objective.id}" class="button is-info is-outlined">
                                     <fmt:message key="edit.text"/>
                                 </a>
                             </p>

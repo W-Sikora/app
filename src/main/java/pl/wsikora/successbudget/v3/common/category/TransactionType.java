@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.common.type;
+package pl.wsikora.successbudget.v3.common.category;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,4 +15,5 @@ public enum TransactionType {
             .map(TransactionType::ordinal)
             .toList();
     }
+
 }

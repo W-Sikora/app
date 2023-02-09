@@ -4,14 +4,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 import pl.wsikora.successbudget.v3.objective.domain.Objective;
 
+import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
+
+import static org.springframework.util.StringUtils.hasText;
 
 
 @Service
@@ -34,9 +36,13 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
     }
 
     @Override
-    public Page<ObjectiveDto> findAll(Pageable pageable) {
+    public Page<ObjectiveDto> findAll(Pageable pageable, String keyword) {
 
-        Assert.notNull(pageable, "pageable must not be null");
+        if (hasText(keyword)) {
+
+            return objectiveRepository.findAllByKeyword(pageable, keyword.toLowerCase(Locale.ROOT))
+                .map(this::toDto);
+        }
 
         return objectiveRepository.findAll(pageable)
             .map(this::toDto);
@@ -46,14 +52,16 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
         MoneyDto necessaryMoney = MoneyDtoConverter.convert(objective.getNecessaryMoney());
 
-        Set<MoneyDto> raisedMoney = MoneyDtoConverter.convert(objective.getRaisedMoney());
+//        objective.getRaisedMoney()
+
+//        Set<MoneyDto> raisedMoney = MoneyDtoConverter.convert();
 
         return new ObjectiveDto(
             objective.getObjectiveId(),
             objective.getTitle().getValue(),
             objective.getDescription().getValue(),
             necessaryMoney,
-            raisedMoney,
+            necessaryMoney, ///TO DO
             objective.isRealized()
         );
     }

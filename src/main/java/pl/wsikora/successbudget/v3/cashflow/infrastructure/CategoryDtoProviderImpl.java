@@ -1,9 +1,9 @@
 package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.category.application.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
-import pl.wsikora.successbudget.v3.common.type.application.CategoryDto;
+import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
+import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 
 
 @Service("cashflow-CategoryDtoProviderImpl")

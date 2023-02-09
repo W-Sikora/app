@@ -3,8 +3,6 @@
 <c:set var="_addUrl" value="${addUrl}"/>
 <c:set var="_editUrl" value="${editUrl}"/>
 <c:set var="_deleteUrl" value="${deleteUrl}"/>
-<c:set var="_currentPage" value="${currentPage}"/>
-<c:set var="_lastPage" value="${lastPage}"/>
 
 <c:if test="${not empty _addUrl}">
 
@@ -39,20 +37,20 @@
             </thead>
 
             <tbody>
-            <c:forEach items="${categories.toList()}" var="category" varStatus="loop">
+            <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
                 <tr>
                     <th>
                         ${loop.index + 1}
                     </th>
                     <td>
-                        ${category.title}
+                        ${objective.title}
                     </td>
                     <td>
-                        <fmt:message key="assigned.transaction.type.${category.assignedTransactionType}"/>
+                        <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
                     </td>
                     <td>
-                        <c:set var="_fullEditUrl" value="${_editUrl}${category.categoryId}"/>
-                        <c:set var="_fullDeleteUrl" value="${_deleteUrl}${category.categoryId}"/>
+                        <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
+                        <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
 
                         <%@include file="../common/options.jsp" %>
                     </td>

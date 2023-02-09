@@ -24,10 +24,12 @@
                 </div>
             </div>
 
-            <a class="navbar-item button is-danger is-light" href="<c:url value="/logout"/>">
-                <span>
-                    <fmt:message key="navbar.log.out.text"/>
-                </span>
+            <form id="logout" class="is-hidden" action="<c:url value="/logout"/>" method="post">
+                <sec:csrfInput/>
+            </form>
+
+            <a id="logoutButton" class="navbar-item button is-danger is-light">
+                <fmt:message key="navbar.log.out.text"/>
             </a>
         </div>
     </div>

@@ -130,3 +130,8 @@ label {
 .is-page {
     text-align: right;
 }
+
+.keyword-filter{
+    width: 450px;
+    display: inline-block;
+}

@@ -6,11 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.type.Description;
-import pl.wsikora.successbudget.v3.common.type.Money;
+import pl.wsikora.successbudget.v3.common.money.Money;
 import pl.wsikora.successbudget.v3.common.type.Title;
-import pl.wsikora.successbudget.v3.common.type.Username;
-
-import java.util.Set;
+import pl.wsikora.successbudget.v3.common.username.Username;
 
 
 @Entity
@@ -41,13 +39,12 @@ public class Objective {
     })
     private Money necessaryMoney;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "objective_raised_money", joinColumns = @JoinColumn(name = "objective_id"))
+    @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "currency", column = @Column(name = "raised_money_currency")),
         @AttributeOverride(name = "value", column = @Column(name = "raised_money_value"))
     })
-    private Set<Money> raisedMoney;
+    private Money raisedMoney;
 
     private boolean realized;
 

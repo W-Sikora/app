@@ -1,11 +1,11 @@
 package pl.wsikora.successbudget.v3.common.validation;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.type.Title;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.springframework.util.StringUtils.hasText;
 
 
 @Service
@@ -16,7 +16,7 @@ public class TitleValidator extends AbstractFormValidator<String> {
     @Override
     public void validateForm(String title, Errors errors) {
 
-        if (!StringUtils.hasText(title)) {
+        if (!hasText(title)) {
 
             errors.rejectValue(F_TITLE, E_FIELD_MUST_NOT_BE_EMPTY);
         }
@@ -32,4 +32,5 @@ public class TitleValidator extends AbstractFormValidator<String> {
 
         return clazz.equals(String.class);
     }
+
 }

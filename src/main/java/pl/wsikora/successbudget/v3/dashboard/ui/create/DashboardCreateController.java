@@ -8,7 +8,7 @@
 //import org.springframework.web.bind.annotation.RestController;
 //import pl.wsikora.successbudget.v3.budget.application.budget.BudgetCommand;
 //import pl.wsikora.successbudget.v3.budget.ui.budget.create.BudgetValidator;
-//import pl.wsikora.successbudget.v3.common.type.Username;
+//import pl.wsikora.successbudget.v3.common.username.Username;
 //
 //import java.security.Principal;
 //import java.time.YearMonth;

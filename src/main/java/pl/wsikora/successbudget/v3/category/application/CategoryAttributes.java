@@ -7,4 +7,5 @@ public interface CategoryAttributes {
     String getTitle();
 
     Integer getAssignedTransactionType();
+
 }

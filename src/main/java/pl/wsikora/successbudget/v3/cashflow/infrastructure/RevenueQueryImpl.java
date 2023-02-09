@@ -5,10 +5,10 @@ import pl.wsikora.successbudget.v3.cashflow.application.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.cashflow.application.RevenueDto;
 import pl.wsikora.successbudget.v3.cashflow.application.RevenueQuery;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
-import pl.wsikora.successbudget.v3.common.type.CategoryId;
-import pl.wsikora.successbudget.v3.common.type.application.CategoryDto;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.category.CategoryDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
 
 import java.util.Optional;
 

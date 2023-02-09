@@ -1,8 +1,8 @@
 package pl.wsikora.successbudget.v3.dashboard.application;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.common.type.application.CategoryDto;
-import pl.wsikora.successbudget.v3.common.type.application.MoneyDto;
+import pl.wsikora.successbudget.v3.common.category.CategoryDto;
+import pl.wsikora.successbudget.v3.common.money.MoneyDto;
 
 import java.util.Map;
 

@@ -2,7 +2,9 @@ package pl.wsikora.successbudget.v3.category.infrastructure;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 import pl.wsikora.successbudget.v3.category.domain.Category;
@@ -26,16 +28,20 @@ class CategoryQueryImpl implements CategoryQuery {
     @Override
     public Optional<CategoryDto> findByCategoryId(Long categoryId) {
 
-        return categoryRepository.findCategoryByCategoryId(categoryId)
+        Assert.notNull(categoryId, "categoryId must not be null");
+
+        return categoryRepository.findByCategoryId(categoryId)
             .map(this::toDto);
     }
 
     @Override
-    public Page<CategoryDto> getAll(Pageable pageable, String keyword) {
+    public Page<CategoryDto> findAll(Pageable pageable, @Nullable String keyword) {
+
+        Assert.notNull(pageable, "pageable must not be null");
 
         if (hasText(keyword)) {
 
-            return categoryRepository.findAllByKeywordIgnoreCase(pageable, keyword.toLowerCase(Locale.ROOT))
+            return categoryRepository.findAllByKeyword(pageable, keyword.toLowerCase(Locale.ROOT))
                 .map(this::toDto);
         }
 

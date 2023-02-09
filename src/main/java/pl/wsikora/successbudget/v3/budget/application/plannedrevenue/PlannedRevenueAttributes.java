@@ -15,6 +15,6 @@ public interface PlannedRevenueAttributes {
 
     BigDecimal getValue();
 
-    Integer getScheduleId();
+    boolean isRepeatInNextPeriod();
 
 }

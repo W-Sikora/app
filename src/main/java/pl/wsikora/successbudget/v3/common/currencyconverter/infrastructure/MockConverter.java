@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.common.currencyconverter.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.currencyconverter.application.CurrencyConverter;
+import pl.wsikora.successbudget.v3.common.currencyconverter.CurrencyConverter;
 import pl.wsikora.successbudget.v3.common.type.Currency;
 
 import java.math.BigDecimal;

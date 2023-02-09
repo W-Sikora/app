@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.common.type;
+package pl.wsikora.successbudget.v3.common.username;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -41,4 +41,5 @@ public class Username implements Serializable {
 
         return new Object[]{MINIMUM_LENGTH, MAXIMUM_LENGTH};
     }
+
 }
