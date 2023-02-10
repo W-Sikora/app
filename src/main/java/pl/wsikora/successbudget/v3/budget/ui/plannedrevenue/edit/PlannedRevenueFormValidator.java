@@ -2,9 +2,9 @@ package pl.wsikora.successbudget.v3.budget.ui.plannedrevenue.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.form.MoneyForm;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
-import pl.wsikora.successbudget.v3.common.validation.MoneyValidator;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyForm;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator;
 
 import static java.util.Objects.isNull;
 
@@ -14,9 +14,9 @@ class PlannedRevenueFormValidator extends AbstractFormValidator<PlannedRevenueFo
 
     static final String F_CATEGORY_ID = "categoryId";
 
-    private final MoneyValidator moneyValidator;
+    private final MoneyFormValidator moneyValidator;
 
-    PlannedRevenueFormValidator(MoneyValidator moneyValidator) {
+    PlannedRevenueFormValidator(MoneyFormValidator moneyValidator) {
 
         this.moneyValidator = moneyValidator;
     }
@@ -30,7 +30,7 @@ class PlannedRevenueFormValidator extends AbstractFormValidator<PlannedRevenueFo
         }
 
         MoneyForm moneyForm = new MoneyForm(
-            plannedRevenueForm.getCurrencyId(),
+            plannedRevenueForm.getCurrency(),
             plannedRevenueForm.getValue()
         );
 

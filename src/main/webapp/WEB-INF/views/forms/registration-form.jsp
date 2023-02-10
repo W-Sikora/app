@@ -2,7 +2,7 @@
 
 <hr class="is-invisible">
 
-<form:form modelAttribute="form" action="${formAction}" method="post">
+<form:form modelAttribute="registrationForm" action="${formAction}" method="post">
     <div class="field">
         <form:label path="username" cssClass="label">
             <fmt:message key="username"/>

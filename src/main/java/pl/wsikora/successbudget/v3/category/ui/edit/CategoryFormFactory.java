@@ -31,7 +31,7 @@ class CategoryFormFactory {
         return CategoryForm.builder()
             .categoryId(categoryDto.getCategoryId())
             .title(categoryDto.getTitle())
-            .assignedTransactionType(categoryDto.getAssignedTransactionType())
+            .transactionType(categoryDto.getTransactionType())
             .build();
     }
 

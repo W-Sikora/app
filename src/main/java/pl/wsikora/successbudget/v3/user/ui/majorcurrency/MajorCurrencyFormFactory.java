@@ -1,8 +1,8 @@
 package pl.wsikora.successbudget.v3.user.ui.majorcurrency;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.majorcurrency.MajorCurrencyProvider;
-import pl.wsikora.successbudget.v3.common.type.Currency;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.currency.MajorCurrencyProvider;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ class MajorCurrencyFormFactory {
 
     private MajorCurrencyForm toForm(Currency currency) {
 
-        return new MajorCurrencyForm(currency.ordinal());
+        return new MajorCurrencyForm(currency.getValue());
     }
 
 }

@@ -39,7 +39,7 @@
                             <fmt:message key="title"/>
                         </th>
                         <th>
-                            <fmt:message key="assigned.transaction.type"/>
+                            <fmt:message key="transaction.type"/>
                         </th>
                         <th></th>
                     </tr>
@@ -112,7 +112,7 @@
                             <fmt:message key="title"/>
                         </th>
                         <th>
-                            <fmt:message key="assigned.transaction.type"/>
+                            <fmt:message key="transaction.type"/>
                         </th>
                         <th></th>
                     </tr>

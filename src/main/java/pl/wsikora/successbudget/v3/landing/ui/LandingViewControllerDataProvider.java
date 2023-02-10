@@ -2,7 +2,7 @@ package pl.wsikora.successbudget.v3.landing.ui;
 
 import org.springframework.ui.ModelMap;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 
 
 class LandingViewControllerDataProvider {

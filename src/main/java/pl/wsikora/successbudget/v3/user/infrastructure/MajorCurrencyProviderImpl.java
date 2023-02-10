@@ -1,10 +1,10 @@
 package pl.wsikora.successbudget.v3.user.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.majorcurrency.MajorCurrencyProvider;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.username.Username;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.currency.MajorCurrencyProvider;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 
 import java.util.Optional;
 
@@ -37,7 +37,7 @@ class MajorCurrencyProviderImpl implements MajorCurrencyProvider {
         Username username = usernameProvider.getUsername();
 
         return userRepository.findMajorCurrency(username)
-            .map(Currency::getByCurrencyId)
+            .map(Currency::new)
             .orElse(null);
     }
 

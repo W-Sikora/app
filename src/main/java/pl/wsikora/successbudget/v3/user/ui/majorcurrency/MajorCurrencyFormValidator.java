@@ -2,7 +2,7 @@ package pl.wsikora.successbudget.v3.user.ui.majorcurrency;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
 
 import static java.util.Objects.isNull;
 

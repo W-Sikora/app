@@ -5,14 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.username.Username;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 @Controller
 @RequestMapping(EXPENDITURE_EDIT_PATH)

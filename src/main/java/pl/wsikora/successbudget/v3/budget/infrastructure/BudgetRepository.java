@@ -5,22 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.wsikora.successbudget.v3.budget.domain.Budget;
 
-import java.time.YearMonth;
 import java.util.Optional;
 
 
 @Repository
 interface BudgetRepository extends JpaRepository<Budget, Long> {
-
-    @Query(
-        """
-            select b
-            from Budget b
-            where b.period = ?1
-            and b.owner.value = ?#{principal.username}
-        """
-    )
-    Optional<Budget> findByPeriod(YearMonth period);
 
     @Query(
         """

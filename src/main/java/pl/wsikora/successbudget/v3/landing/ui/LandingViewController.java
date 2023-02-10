@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static pl.wsikora.successbudget.v3.common.Constants.LANDING_PAGE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.LANDING_PAGE_PATH;
 
 
 @Controller

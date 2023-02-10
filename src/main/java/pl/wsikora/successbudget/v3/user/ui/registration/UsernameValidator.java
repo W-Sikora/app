@@ -2,14 +2,13 @@ package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.username.Username;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
 import pl.wsikora.successbudget.v3.user.application.UserQuery;
 
-
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.StringUtils.hasText;
-import static pl.wsikora.successbudget.v3.common.username.Username.hasValidLength;
-import static pl.wsikora.successbudget.v3.common.util.StringUtils.EMPTY;
+import static pl.wsikora.successbudget.v3.common.type.username.Username.hasValidLength;
 
 
 @Service

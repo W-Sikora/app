@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
 import static java.util.Objects.isNull;
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
@@ -34,13 +34,15 @@ class CategoryEditControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
+        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+
         modelMap.addAttribute(PAGE_PATH, getEditFormName(CATEGORY));
 
         modelMap.addAttribute(FORM_ACTION, CATEGORY_EDIT_PATH);
 
         CategoryForm categoryForm = categoryFormFactory.getCategoryForm(categoryId);
 
-        modelMap.addAttribute(FORM, categoryForm);
+        modelMap.addAttribute("categoryForm", categoryForm);
 
         String title = isNull(categoryForm.getCategoryId())
             ? messageProvider.getMessage(CATEGORY_ADD_TITLE)
@@ -56,7 +58,7 @@ class CategoryEditControllerDataProvider {
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
 
-        modelMap.addAttribute("assignedTransactionTypes", TransactionType.getOrdinals());
+        modelMap.addAttribute("transactionTypes", TransactionType.getOrdinals());
 
         return modelMap;
     }

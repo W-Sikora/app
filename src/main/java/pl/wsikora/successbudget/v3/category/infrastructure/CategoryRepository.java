@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,11 +60,10 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("""
         select c
         from Category c
-        where c.assignedTransactionType = ?1
+        where c.transactionType = ?1
         and c.owner.value = ?#{principal.username}
-        order by c.title.value
     """)
-    List<Category> findAllByAssignedTransactionType(TransactionType transactionType);
+    List<Category> findAllByTransactionType(TransactionType transactionType);
 
     @Transactional
     @Modifying

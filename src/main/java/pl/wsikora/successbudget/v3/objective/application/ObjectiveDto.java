@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.application;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
 
 @Value

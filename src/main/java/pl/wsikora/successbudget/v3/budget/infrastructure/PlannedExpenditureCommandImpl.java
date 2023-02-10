@@ -6,12 +6,12 @@ import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.Planned
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureCommand;
 import pl.wsikora.successbudget.v3.budget.domain.Budget;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedExpenditure;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.exception.NotFoundException;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.priority.Priority;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.type.Priority;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
 
 
 @Service
@@ -47,11 +47,11 @@ class PlannedExpenditureCommandImpl implements PlannedExpenditureCommand {
 
         plannedExpenditure.setCategoryId(categoryId);
 
-        Priority priority = Priority.getByPriorityId(plannedExpenditureAttributes.getPriorityId());
+        Priority priority = new Priority(plannedExpenditureAttributes.getPriority());
 
         plannedExpenditure.setPriority(priority);
 
-        Currency currency = Currency.getByCurrencyId(plannedExpenditureAttributes.getCurrencyId());
+        Currency currency = new Currency(plannedExpenditureAttributes.getCurrency());
 
         Money money = new Money(
             currency,

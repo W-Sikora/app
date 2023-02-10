@@ -11,7 +11,7 @@ public interface PlannedRevenueAttributes {
 
     Long getCategoryId();
 
-    Integer getCurrencyId();
+    Integer getCurrency();
 
     BigDecimal getValue();
 

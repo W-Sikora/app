@@ -1,6 +1,8 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
-<form:form modelAttribute="form" action="${formAction}" method="post">
+<hr class="is-invisible">
+
+<form:form modelAttribute="categoryForm" action="${formAction}" method="post">
 
     <form:hidden path="categoryId"/>
 
@@ -20,26 +22,25 @@
     </div>
 
     <div class="field">
-        <form:label path="assignedTransactionType" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+        <form:label path="transactionType" cssClass="label">
+            <fmt:message key="transaction.type"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="control">
             <div class="select is-fullwidth">
-                <form:select path="assignedTransactionType" required="required" cssErrorClass="is-danger">
-                    <c:forEach items="${assignedTransactionTypes}" var="type">
-                        <c:set var="typeLabel">
-                            <fmt:message key="assigned.transaction.type.${type}"/>
-                        </c:set>
-                        <form:option value="${type}" label="${typeLabel}"/>
+                <form:select path="transactionType" required="required" cssErrorClass="is-danger">
+                    <c:forEach items="${transactionTypes}" var="type">
+                        <form:option value="${type}">
+                            <fmt:message key="transaction.type.${type}"/>
+                        </form:option>
                     </c:forEach>
                 </form:select>
             </div>
         </div>
 
         <p class="help">
-            <form:errors path="assignedTransactionType" cssClass="has-text-danger"/>
+            <form:errors path="transactionType" cssClass="has-text-danger"/>
         </p>
     </div>
 

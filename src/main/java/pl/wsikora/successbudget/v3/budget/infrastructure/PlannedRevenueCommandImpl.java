@@ -6,11 +6,11 @@ import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedReve
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
 import pl.wsikora.successbudget.v3.budget.domain.Budget;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.exception.NotFoundException;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.money.Money;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
 
 
 @Service
@@ -46,7 +46,7 @@ class PlannedRevenueCommandImpl implements PlannedRevenueCommand {
 
         plannedRevenue.setCategoryId(categoryId);
 
-        Currency currency = Currency.getByCurrencyId(plannedRevenueAttributes.getCurrencyId());
+        Currency currency = new Currency(plannedRevenueAttributes.getCurrency());
 
         Money money = new Money(
             currency,

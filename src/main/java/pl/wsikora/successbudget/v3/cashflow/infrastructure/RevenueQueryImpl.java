@@ -7,8 +7,8 @@ import pl.wsikora.successbudget.v3.cashflow.application.RevenueQuery;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ class RevenueQueryImpl implements RevenueQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.provideCategoryDto(categoryId);
 
-        MoneyDto moneyDto = MoneyDtoConverter.convert(revenue.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.convert(revenue.getMoney());
 
         return new RevenueDto(
             revenue.getRevenueId(),

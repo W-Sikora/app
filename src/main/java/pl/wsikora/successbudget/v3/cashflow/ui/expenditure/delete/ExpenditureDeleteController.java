@@ -8,7 +8,7 @@
 //
 //import java.security.Principal;
 //
-//import static pl.wsikora.successbudget.v3.common.Constants.ID_PATH_VARIABLE;
+//import static pl.wsikora.successbudget.v3.common.util.Constants.ID_PATH_VARIABLE;
 //import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
 //
 //

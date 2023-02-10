@@ -2,12 +2,12 @@ package pl.wsikora.successbudget.v3.objective.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.exception.NotFoundException;
-import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.type.Description;
-import pl.wsikora.successbudget.v3.common.type.Title;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.description.Description;
+import pl.wsikora.successbudget.v3.common.type.title.Title;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveAttributes;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveCommand;
 import pl.wsikora.successbudget.v3.objective.domain.Objective;
@@ -39,7 +39,7 @@ class ObjectiveCommandImpl implements ObjectiveCommand {
 
         objective.setDescription(new Description(objectiveAttributes.getDescription()));
 
-        Currency currency = Currency.getByCurrencyId(objectiveAttributes.getNecessaryMoneyCurrencyId());
+        Currency currency = new Currency(objectiveAttributes.getNecessaryMoneyCurrencyId());
 
         Money money = new Money(
             currency,

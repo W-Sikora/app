@@ -7,14 +7,14 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
 import static java.util.Objects.isNull;
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
@@ -49,7 +49,7 @@ class PlannedRevenueEditControllerDataProvider {
         PlannedRevenueForm plannedRevenueForm = plannedExpenditureFormFactory.getPlannedExpenditureForm(
             budgetId, plannedExpenditureId);
 
-        modelMap.addAttribute(FORM, plannedRevenueForm);
+        modelMap.addAttribute("plannedRevenueForm", plannedRevenueForm);
 
         String title = isNull(plannedRevenueForm.getCategoryId())
             ? messageProvider.getMessage(PLANNED_EXPENDITURE_ADD_TITLE)

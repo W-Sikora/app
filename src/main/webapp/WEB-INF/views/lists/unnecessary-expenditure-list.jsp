@@ -24,7 +24,7 @@
                     <fmt:message key="description"/>
                 </th>
                 <th>
-                    <fmt:message key="assigned.transaction.type"/>
+                    <fmt:message key="transaction.type"/>
                 </th>
                 <th></th>
             </tr>

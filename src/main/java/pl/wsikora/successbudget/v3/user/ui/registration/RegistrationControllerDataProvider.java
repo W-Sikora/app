@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
@@ -30,11 +30,11 @@ class RegistrationControllerDataProvider {
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(REGISTRATION));
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-6");
+        modelMap.addAttribute(COLUMN_SIZE, "is-5");
 
         modelMap.addAttribute(FORM_ACTION, REGISTRATION_PATH);
 
-        modelMap.addAttribute(FORM, new RegistrationForm());
+        modelMap.addAttribute("registrationForm", new RegistrationForm());
 
         String title = messageProvider.getMessage("registration.page.title");
 

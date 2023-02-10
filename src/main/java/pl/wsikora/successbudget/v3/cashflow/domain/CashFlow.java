@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.username.Username;
-import pl.wsikora.successbudget.v3.common.util.YearMonthConverter;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.util.databaseconverter.YearMonthDatabaseConverter;
 
 import java.time.YearMonth;
 
@@ -24,7 +24,7 @@ public class CashFlow {
     @Embedded
     private Username owner;
 
-    @Convert(converter = YearMonthConverter.class)
+    @Convert(converter = YearMonthDatabaseConverter.class)
     private YearMonth period;
 
 }

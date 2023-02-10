@@ -2,9 +2,10 @@ package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.form.MoneyForm;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
-import pl.wsikora.successbudget.v3.common.validation.MoneyValidator;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyForm;
+import pl.wsikora.successbudget.v3.common.type.priority.PriorityValidator;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator;
 
 import static java.util.Objects.isNull;
 
@@ -13,13 +14,15 @@ import static java.util.Objects.isNull;
 class PlannedExpenditureFormValidator extends AbstractFormValidator<PlannedExpenditureForm> {
 
     static final String F_CATEGORY_ID = "categoryId";
-    static final String F_PRIORITY_ID = "priorityId";
 
-    private final MoneyValidator moneyValidator;
+    private final MoneyFormValidator moneyValidator;
+    private final PriorityValidator priorityValidator;
 
-    PlannedExpenditureFormValidator(MoneyValidator moneyValidator) {
+    PlannedExpenditureFormValidator(MoneyFormValidator moneyValidator,
+                                    PriorityValidator priorityValidator) {
 
         this.moneyValidator = moneyValidator;
+        this.priorityValidator = priorityValidator;
     }
 
     @Override
@@ -30,13 +33,10 @@ class PlannedExpenditureFormValidator extends AbstractFormValidator<PlannedExpen
             errors.rejectValue(F_CATEGORY_ID, E_FIELD_MUST_NOT_BE_EMPTY);
         }
 
-        if (isNull(plannedExpenditureForm.getPriorityId())) {
-
-            errors.rejectValue(F_PRIORITY_ID, E_FIELD_MUST_NOT_BE_EMPTY);
-        }
+        priorityValidator.validateForm(plannedExpenditureForm.getPriority(), errors);
 
         MoneyForm moneyForm = new MoneyForm(
-            plannedExpenditureForm.getCurrencyId(),
+            plannedExpenditureForm.getCurrency(),
             plannedExpenditureForm.getValue()
         );
 

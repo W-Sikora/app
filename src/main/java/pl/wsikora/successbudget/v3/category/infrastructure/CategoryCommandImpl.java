@@ -5,9 +5,9 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.application.CategoryAttributes;
 import pl.wsikora.successbudget.v3.category.application.CategoryCommand;
 import pl.wsikora.successbudget.v3.category.domain.Category;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.type.Title;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.type.title.Title;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 
 
 @Service
@@ -33,9 +33,7 @@ class CategoryCommandImpl implements CategoryCommand {
         category.setCategoryId(categoryAttributes.getCategoryId());
         category.setTitle(new Title(categoryAttributes.getTitle()));
         category.setOwner(usernameProvider.getUsername());
-
-        TransactionType transactionType = TransactionType.values()[categoryAttributes.getAssignedTransactionType()];
-        category.setAssignedTransactionType(transactionType);
+        category.setTransactionType(new TransactionType(categoryAttributes.getTransactionType()));
 
         categoryRepository.save(category);
     }

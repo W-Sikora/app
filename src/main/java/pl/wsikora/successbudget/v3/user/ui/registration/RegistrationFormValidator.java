@@ -2,7 +2,7 @@ package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
 
 import java.util.Objects;
 
@@ -23,6 +23,8 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
     @Override
     public void validateForm(RegistrationForm registrationForm, Errors errors) {
+
+        errors.rejectValue(F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
 
         usernameValidator.validateForm(registrationForm.getUsername(), errors);
 

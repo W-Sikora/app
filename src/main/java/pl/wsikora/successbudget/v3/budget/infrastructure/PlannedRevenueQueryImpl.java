@@ -4,14 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 
 import java.util.Optional;
 
@@ -52,7 +51,7 @@ class PlannedRevenueQueryImpl implements PlannedRevenueQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedRevenue.getCategoryId());
 
-        MoneyDto moneyDto = MoneyDtoConverter.convert(plannedRevenue.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.convert(plannedRevenue.getMoney());
 
         return new PlannedRevenueDto(
             plannedRevenue.getPlannedRevenueId(),

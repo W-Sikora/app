@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
@@ -38,7 +38,7 @@ class MajorCurrencyControllerDataProvider {
 
         modelMap.addAttribute(FORM_ACTION, MAJOR_CURRENCY_EDIT_PATH);
 
-        modelMap.addAttribute(FORM, majorCurrencyFormFactory.getMajorCurrencyForm());
+        modelMap.addAttribute("majorCurrencyForm", majorCurrencyFormFactory.getMajorCurrencyForm());
 
         String title = messageProvider.getMessage("major.currency.page.title");
 

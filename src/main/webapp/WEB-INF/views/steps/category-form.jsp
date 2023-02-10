@@ -16,7 +16,7 @@
 
     <div class="field">
         <form:label path="category.type" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+            <fmt:message key="transaction.type"/>
         </form:label>
 
         <div class="control">

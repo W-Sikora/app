@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.budget.domain.Budget;
 import pl.wsikora.successbudget.v3.common.budget.BudgetId;
 import pl.wsikora.successbudget.v3.common.budget.BudgetService;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 
 import java.time.YearMonth;
 
@@ -33,7 +33,5 @@ class BudgetServiceImpl implements BudgetService {
 
         return new BudgetId(budget.getBudgetId());
     }
-
-
 
 }

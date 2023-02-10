@@ -35,7 +35,7 @@
 
     <div class="field">
         <form:label path="assignedTransactionType" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+            <fmt:message key="transaction.type"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 

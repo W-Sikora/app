@@ -16,7 +16,7 @@ class PlannedRevenueForm implements PlannedRevenueAttributes {
     private Long plannedRevenueId;
     private Long budgetId;
     private Long categoryId;
-    private Integer currencyId;
+    private Integer currency;
     private BigDecimal value;
     private boolean repeatInNextPeriod;
 

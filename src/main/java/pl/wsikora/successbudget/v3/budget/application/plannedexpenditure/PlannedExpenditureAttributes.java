@@ -11,9 +11,9 @@ public interface PlannedExpenditureAttributes {
 
     Long getCategoryId();
 
-    Integer getPriorityId();
+    Integer getPriority();
 
-    Integer getCurrencyId();
+    Integer getCurrency();
 
     BigDecimal getValue();
 

@@ -9,8 +9,8 @@ import pl.wsikora.successbudget.v3.user.application.UserCommand;
 
 import javax.validation.Valid;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 
 @Controller

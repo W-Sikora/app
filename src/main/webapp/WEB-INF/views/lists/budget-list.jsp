@@ -10,8 +10,8 @@
         <hr class="is-invisible">
 
         <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
-        <c:set var="_editUrl" value="${editUrl}"/>
-        <c:set var="_deleteUrl" value="${deleteUrl}"/>
+        <c:set var="_editUrl" value="${plannedExpenditureEditUrl}"/>
+        <c:set var="_deleteUrl" value="${plannedExpenditureDeleteUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -20,7 +20,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${empty categories}">
+            <c:when test="${empty plannedExpenditures}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -33,30 +33,37 @@
                     <tr>
                         <th></th>
                         <th>
-                            <fmt:message key="title"/>
+                            <fmt:message key="category"/>
                         </th>
                         <th>
-                            <fmt:message key="assigned.transaction.type"/>
+                            <fmt:message key="priority"/>
+                        </th>
+                        <th>
+                            <fmt:message key="money"/>
                         </th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
+                    <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
                         <tr>
                             <th>
-                                    ${loop.index + 1}
+                                ${loop.index + 1}
                             </th>
                             <td>
-                                    ${objective.title}
+                                ${plannedExpenditure.categoryDto.title}
                             </td>
                             <td>
-                                <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
+                                <fmt:message key="priority.${plannedExpenditure.plannedExpenditureId}"/>
+                            </td>
+                            <td class="has-text-right">
+                                ${plannedExpenditure.moneyDto.formattedValue}
+                                <fmt:message key="currency.${plannedExpenditure.moneyDto.currencyId}.sign"/>
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
+                                <c:set var="_fullEditUrl" value="${_editUrl}${plannedExpenditure.plannedExpenditureId}"/>
+                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${plannedExpenditure.plannedExpenditureId}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -84,8 +91,8 @@
         <hr class="is-invisible">
 
         <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
-        <c:set var="_editUrl" value="${editUrl}"/>
-        <c:set var="_deleteUrl" value="${deleteUrl}"/>
+        <c:set var="_editUrl" value="${plannedRevenueEditUrl}"/>
+        <c:set var="_deleteUrl" value="${plannedRevenueDeleteUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -94,7 +101,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${empty categories}">
+            <c:when test="${empty plannedRevenues}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -110,27 +117,27 @@
                             <fmt:message key="title"/>
                         </th>
                         <th>
-                            <fmt:message key="assigned.transaction.type"/>
+                            <fmt:message key="transaction.type"/>
                         </th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
+                    <c:forEach items="${plannedRevenues.toList()}" var="plannedRevenue" varStatus="loop">
                         <tr>
                             <th>
-                                    ${loop.index + 1}
+                                ${loop.index + 1}
                             </th>
                             <td>
-                                    ${objective.title}
+
                             </td>
                             <td>
-                                <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
+
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
+                                <c:set var="_fullEditUrl" value="${_editUrl}${plannedRevenue.plannedRevenueId}"/>
+                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${plannedRevenue.plannedRevenueId}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>

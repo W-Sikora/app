@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.user.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.common.username.Username;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
 import pl.wsikora.successbudget.v3.user.application.UserQuery;
 
 

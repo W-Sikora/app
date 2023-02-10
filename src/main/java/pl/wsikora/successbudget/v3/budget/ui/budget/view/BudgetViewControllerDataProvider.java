@@ -5,14 +5,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
+import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
-import pl.wsikora.successbudget.v3.common.validation.PaginationValidator;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.validation.PaginationValidator;
 
 import java.util.List;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.formAttributeNameCamelCase;
@@ -23,12 +24,15 @@ class BudgetViewControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final PlannedExpenditureQuery plannedExpenditureQuery;
+    private final PlannedRevenueQuery plannedRevenueQuery;
 
     private BudgetViewControllerDataProvider(MessageProvider messageProvider,
-                                             PlannedExpenditureQuery plannedExpenditureQuery) {
+                                             PlannedExpenditureQuery plannedExpenditureQuery,
+                                             PlannedRevenueQuery plannedRevenueQuery) {
 
         this.messageProvider = messageProvider;
         this.plannedExpenditureQuery = plannedExpenditureQuery;
+        this.plannedRevenueQuery = plannedRevenueQuery;
     }
 
     ModelMap provideData(Long budgetId,
@@ -36,7 +40,6 @@ class BudgetViewControllerDataProvider {
                          int plannedExpenditureSize,
                          int plannedRevenuePage,
                          int plannedRevenueSize) {
-
 
         ModelMap modelMap = new ModelMap();
 
@@ -58,13 +61,13 @@ class BudgetViewControllerDataProvider {
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, ADD_URL),
-            fillPath(PLANNED_EXPENDITURE_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, EDIT_URL),
-            fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, DELETE_URL),
-            fillPath(PLANNED_EXPENDITURE_DELETE_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_EXPENDITURE_DELETE_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         if (PaginationValidator.isValid(plannedExpenditurePage, plannedExpenditureSize)) {
 
@@ -77,13 +80,13 @@ class BudgetViewControllerDataProvider {
         }
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, ADD_URL),
-            fillPath(PLANNED_REVENUE_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, EDIT_URL),
-            fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, DELETE_URL),
-            fillPath(PLANNED_REVENUE_DELETE_PATH, BUDGET_ID, budgetId));
+            fillPath(PLANNED_REVENUE_DELETE_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         if (PaginationValidator.isValid(plannedRevenuePage, plannedRevenueSize)) {
 
@@ -91,8 +94,8 @@ class BudgetViewControllerDataProvider {
 
             modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber() + 1);
 
-            modelMap.addAttribute("plannedExpenditures",
-                plannedExpenditureQuery.findAll(pageable, budgetId));
+            modelMap.addAttribute("plannedRevenues",
+                plannedRevenueQuery.findAll(pageable, budgetId));
         }
 
         return modelMap;

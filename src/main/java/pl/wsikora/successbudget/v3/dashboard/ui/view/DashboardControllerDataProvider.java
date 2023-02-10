@@ -2,11 +2,11 @@ package pl.wsikora.successbudget.v3.dashboard.ui.view;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
-import pl.wsikora.successbudget.v3.common.validation.YearMonthValidator;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import static java.util.Objects.nonNull;
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 @Service
@@ -21,7 +21,7 @@ class DashboardControllerDataProvider {
 
     ModelMap provideData(String period) {
 
-        if (nonNull(period) && !YearMonthValidator.isValid(period)) {
+        if (nonNull(period)) {
 
             return new ModelMap();
         }
@@ -42,9 +42,11 @@ class DashboardControllerDataProvider {
 
         modelMap.addAttribute("categoryUrl", CATEGORY_PATH);
 
-        modelMap.addAttribute("budgetUrl", BUDGET_PATH);
+        modelMap.addAttribute("budgetUrl",
+            fillPath(BUDGET_PATH, ID_PATH_VARIABLE, 1));
 
-        modelMap.addAttribute("cashFlowUrl", CASH_FLOW_PATH);
+        modelMap.addAttribute("cashFlowUrl",
+            fillPath(CASH_FLOW_PATH, ID_PATH_VARIABLE, 1));
 
         return modelMap;
     }

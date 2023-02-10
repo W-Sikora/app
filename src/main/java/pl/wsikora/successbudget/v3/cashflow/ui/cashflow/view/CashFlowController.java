@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static pl.wsikora.successbudget.v3.common.Constants.CASH_FLOW_PATH;
-import static pl.wsikora.successbudget.v3.common.Constants.VIEW;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CASH_FLOW_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.VIEW;
 
 
 @Controller

@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.currencyconverter.CurrencyConverter;
-import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.currencyrate.CurrencyRateConverter;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 import pl.wsikora.successbudget.v3.objective.domain.Objective;
@@ -25,15 +25,15 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
     private final ObjectiveRepository objectiveRepository;
     private final RaisedMoneyRepository raisedMoneyRepository;
-    private final CurrencyConverter currencyConverter;
+    private final CurrencyRateConverter currencyRateConverter;
 
     private ObjectiveQueryImpl(ObjectiveRepository objectiveRepository,
                                RaisedMoneyRepository raisedMoneyRepository,
-                               CurrencyConverter currencyConverter) {
+                               CurrencyRateConverter currencyRateConverter) {
 
         this.objectiveRepository = objectiveRepository;
         this.raisedMoneyRepository = raisedMoneyRepository;
-        this.currencyConverter = currencyConverter;
+        this.currencyRateConverter = currencyRateConverter;
     }
 
     @Override
@@ -66,11 +66,11 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
         Money necessaryMoney = objective.getNecessaryMoney();
 
-        MoneyDto necessaryMoneyDto = MoneyDtoConverter.convert(necessaryMoney);
+        MoneyDto necessaryMoneyDto = MoneyDtoFactory.convert(necessaryMoney);
 
         List<Money> moneys = raisedMoneyRepository.findAllMoney(objectiveId);
 
-        MoneyDto raisedMoneyDto = currencyConverter.convert(moneys, necessaryMoney.getCurrency());
+        MoneyDto raisedMoneyDto = currencyRateConverter.convert(moneys, necessaryMoney.getCurrency());
 
         return new ObjectiveDto(
             objectiveId,

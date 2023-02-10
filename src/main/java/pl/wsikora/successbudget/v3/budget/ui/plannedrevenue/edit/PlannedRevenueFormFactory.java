@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
 import java.util.Optional;
 
@@ -38,7 +38,7 @@ class PlannedRevenueFormFactory {
             .plannedRevenueId(plannedRevenueDto.getPlannedRevenueId())
             .budgetId(plannedRevenueDto.getBudgetId())
             .categoryId(plannedRevenueDto.getCategoryDto().getCategoryId())
-            .currencyId(moneyDto.getCurrencyId())
+            .currency(moneyDto.getCurrencyId())
             .value(moneyDto.getValue())
             .repeatInNextPeriod(plannedRevenueDto.isRepeatInNextPeriod())
             .build();

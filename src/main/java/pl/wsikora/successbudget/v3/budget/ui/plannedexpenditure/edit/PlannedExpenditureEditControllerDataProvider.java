@@ -7,16 +7,17 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.type.Priority;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.priority.Priority;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
 import static java.util.Objects.isNull;
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 @Service
@@ -43,14 +44,16 @@ class PlannedExpenditureEditControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
+        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+
         modelMap.addAttribute(PAGE_PATH, getEditFormName(PLANNED_EXPENDITURE));
 
-        modelMap.addAttribute(FORM_ACTION, PLANNED_EXPENDITURE_EDIT_PATH);
+        modelMap.addAttribute(FORM_ACTION, fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         PlannedExpenditureForm plannedExpenditureForm = plannedExpenditureFormFactory.getPlannedExpenditureForm(
             budgetId, plannedExpenditureId);
 
-        modelMap.addAttribute(FORM, plannedExpenditureForm);
+        modelMap.addAttribute("plannedExpenditureForm", plannedExpenditureForm);
 
         String title = isNull(plannedExpenditureForm.getCategoryId())
             ? messageProvider.getMessage(PLANNED_EXPENDITURE_ADD_TITLE)

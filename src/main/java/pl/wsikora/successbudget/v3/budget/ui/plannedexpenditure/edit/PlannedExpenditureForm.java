@@ -16,8 +16,8 @@ class PlannedExpenditureForm implements PlannedExpenditureAttributes {
     private Long plannedExpenditureId;
     private Long budgetId;
     private Long categoryId;
-    private Integer priorityId;
-    private Integer currencyId;
+    private Integer priority;
+    private Integer currency;
     private BigDecimal value;
     private boolean repeatInNextPeriod;
 

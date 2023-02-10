@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.wsikora.successbudget.v3.common.validation.YearMonthValidator;
 
 import static java.util.Objects.nonNull;
-import static pl.wsikora.successbudget.v3.common.Constants.DASHBOARD_PATH;
-import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
+import static pl.wsikora.successbudget.v3.common.util.Constants.DASHBOARD_PATH;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 
 @Controller
@@ -29,7 +28,7 @@ public class DashboardController {
     @GetMapping
     private String view(@RequestParam(required = false) String period) {
 
-        if (nonNull(period) && !YearMonthValidator.isValid(period)) {
+        if (nonNull(period)) {
 
             return redirect(DASHBOARD_PATH);
         }

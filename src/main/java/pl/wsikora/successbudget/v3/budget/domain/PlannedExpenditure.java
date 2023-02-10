@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
-import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.type.*;
-import pl.wsikora.successbudget.v3.common.username.Username;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.priority.Priority;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
 
 
 @Getter
@@ -31,7 +31,7 @@ public class PlannedExpenditure {
     @Embedded
     private CategoryId categoryId;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Embedded
     private Priority priority;
 
     @Embedded

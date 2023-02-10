@@ -1,6 +1,6 @@
 <%@include file="../imports/jsp-imports.jsp"%>
 
-<form:form modelAttribute="categoryForm" action="${formAction}" method="post">
+<form:form modelAttribute="plannedRevenueForm" action="${formAction}" method="post">
 
     <form:hidden path="categoryId"/>
 
@@ -35,7 +35,7 @@
 
     <div class="field">
         <form:label path="assignedTransactionType" cssClass="label">
-            <fmt:message key="assigned.transaction.type"/>
+            <fmt:message key="transaction.type"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 

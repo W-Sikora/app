@@ -9,8 +9,8 @@ import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.Planned
 import pl.wsikora.successbudget.v3.budget.domain.PlannedExpenditure;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 
 import java.util.Optional;
 
@@ -51,13 +51,13 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedExpenditure.getCategoryId());
 
-        MoneyDto moneyDto = MoneyDtoConverter.convert(plannedExpenditure.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.convert(plannedExpenditure.getMoney());
 
         return new PlannedExpenditureDto(
             plannedExpenditure.getPlannedExpenditureId(),
             plannedExpenditure.getBudget().getBudgetId(),
             categoryDto,
-            plannedExpenditure.getPriority().ordinal(),
+            plannedExpenditure.getPriority().getValue(),
             moneyDto,
             plannedExpenditure.isRepeatInNextPeriod()
         );

@@ -1,15 +1,15 @@
 package pl.wsikora.successbudget.v3.user.infrastructure;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.exception.NotFoundException;
-import pl.wsikora.successbudget.v3.common.type.Currency;
-import pl.wsikora.successbudget.v3.common.username.Username;
-import pl.wsikora.successbudget.v3.common.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
+import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 import pl.wsikora.successbudget.v3.user.application.MajorCurrencyAttributes;
 import pl.wsikora.successbudget.v3.user.application.RegistrationAttributes;
 import pl.wsikora.successbudget.v3.user.application.UserCommand;
-import pl.wsikora.successbudget.v3.user.application.UserPasswordEncoder;
 import pl.wsikora.successbudget.v3.user.domain.Password;
 import pl.wsikora.successbudget.v3.user.domain.User;
 
@@ -18,16 +18,16 @@ import pl.wsikora.successbudget.v3.user.domain.User;
 class UserCommandImpl implements UserCommand {
 
     private final UserRepository userRepository;
-    private final UserPasswordEncoder userPasswordEncoder;
     private final UsernameProvider usernameProvider;
+    private final PasswordEncoder passwordEncoder;
 
     private UserCommandImpl(UserRepository userRepository,
-                            UserPasswordEncoder userPasswordEncoder,
-                            UsernameProvider usernameProvider) {
+                            UsernameProvider usernameProvider,
+                            PasswordEncoder passwordEncoder) {
 
         this.userRepository = userRepository;
-        this.userPasswordEncoder = userPasswordEncoder;
         this.usernameProvider = usernameProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,8 +36,12 @@ class UserCommandImpl implements UserCommand {
         Assert.notNull(registrationAttributes, "registrationAttributes must not be null");
 
         Username username = new Username(registrationAttributes.getUsername());
+
         Password password = Password.of(registrationAttributes.getPassword());
-        Password encodedPassword = userPasswordEncoder.encodePassword(password);
+
+        String encode = passwordEncoder.encode(password.getValue());
+
+        Password encodedPassword = Password.encoded(encode);
 
         User user = new User(username, encodedPassword, null);
 
@@ -51,7 +55,7 @@ class UserCommandImpl implements UserCommand {
 
         String username = usernameProvider.getUsername().getValue();
 
-        Currency currency = Currency.getByCurrencyId(majorCurrencyAttributes.getMajorCurrencyId());
+        Currency currency = new Currency(majorCurrencyAttributes.getMajorCurrencyId());
 
         userRepository.findByUsernameAsString(username)
             .map(user -> {

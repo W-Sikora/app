@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.money.MoneyDto;
-import pl.wsikora.successbudget.v3.common.money.MoneyDtoConverter;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 import pl.wsikora.successbudget.v3.objective.application.RaisedMoneyDto;
 import pl.wsikora.successbudget.v3.objective.application.RaisedMoneyQuery;
 import pl.wsikora.successbudget.v3.objective.domain.RaisedMoney;
@@ -44,7 +44,7 @@ class RaisedMoneyQueryImpl implements RaisedMoneyQuery {
 
     private RaisedMoneyDto toDto(RaisedMoney raisedMoney) {
 
-        MoneyDto moneyDto = MoneyDtoConverter.convert(raisedMoney.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.convert(raisedMoney.getMoney());
 
         return new RaisedMoneyDto(
             raisedMoney.getRaisedMoneyId(),

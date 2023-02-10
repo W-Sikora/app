@@ -30,7 +30,7 @@
                     <fmt:message key="title"/>
                 </th>
                 <th>
-                    <fmt:message key="assigned.transaction.type"/>
+                    <fmt:message key="transaction.type"/>
                 </th>
                 <th></th>
             </tr>
@@ -46,7 +46,7 @@
                         ${objective.title}
                     </td>
                     <td>
-                        <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
+                        <fmt:message key="transaction.type.${objective.transactionType}"/>
                     </td>
                     <td>
                         <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>

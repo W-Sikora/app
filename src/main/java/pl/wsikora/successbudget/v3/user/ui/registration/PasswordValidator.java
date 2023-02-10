@@ -2,11 +2,11 @@ package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
 import pl.wsikora.successbudget.v3.user.domain.Password;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.StringUtils.hasText;
-import static pl.wsikora.successbudget.v3.common.util.StringUtils.EMPTY;
 
 
 @Service

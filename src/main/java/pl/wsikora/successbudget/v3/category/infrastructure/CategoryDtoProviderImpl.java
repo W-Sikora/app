@@ -5,8 +5,8 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
-import pl.wsikora.successbudget.v3.common.exception.NotFoundException;
-import pl.wsikora.successbudget.v3.common.category.TransactionType;
+import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
 
         Assert.notNull(transactionType, "transactionType must not be null");
 
-        return categoryRepository.findAllByAssignedTransactionType(transactionType)
+        return categoryRepository.findAllByTransactionType(transactionType)
             .stream()
             .map(this::toDto)
             .toList();

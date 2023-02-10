@@ -8,7 +8,7 @@ import pl.wsikora.successbudget.v3.user.domain.User;
 import java.util.Collection;
 import java.util.List;
 
-import static pl.wsikora.successbudget.v3.common.Constants.USER_ROLE;
+import static pl.wsikora.successbudget.v3.common.util.Constants.USER_ROLE;
 
 
 class UserDetailsImpl implements UserDetails {

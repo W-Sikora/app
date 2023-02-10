@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.money.Money;
-import pl.wsikora.successbudget.v3.common.type.Description;
-import pl.wsikora.successbudget.v3.common.type.Title;
-import pl.wsikora.successbudget.v3.common.username.Username;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.description.Description;
+import pl.wsikora.successbudget.v3.common.type.title.Title;
+import pl.wsikora.successbudget.v3.common.type.username.Username;
 
 
 @Entity

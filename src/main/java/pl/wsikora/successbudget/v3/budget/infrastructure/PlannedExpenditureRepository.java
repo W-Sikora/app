@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedExpenditure;
-import pl.wsikora.successbudget.v3.common.money.Money;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
 
 import java.util.List;
 import java.util.Optional;

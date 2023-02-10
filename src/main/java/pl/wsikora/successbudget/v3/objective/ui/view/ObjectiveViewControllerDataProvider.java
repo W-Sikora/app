@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.util.MessageProvider;
-import pl.wsikora.successbudget.v3.common.validation.PaginationValidator;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.validation.PaginationValidator;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 
 import java.util.List;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
 
 

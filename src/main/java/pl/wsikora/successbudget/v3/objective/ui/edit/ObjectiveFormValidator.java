@@ -1,9 +1,9 @@
 package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.validation.AbstractFormValidator;
-import pl.wsikora.successbudget.v3.common.validation.DescriptionValidator;
-import pl.wsikora.successbudget.v3.common.validation.TitleValidator;
+import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.type.description.DescriptionValidator;
+import pl.wsikora.successbudget.v3.common.type.title.TitleValidator;
 
 
 class ObjectiveFormValidator extends AbstractFormValidator<ObjectiveForm> {

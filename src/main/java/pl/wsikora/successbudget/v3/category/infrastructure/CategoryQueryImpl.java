@@ -54,7 +54,7 @@ class CategoryQueryImpl implements CategoryQuery {
         return new CategoryDto(
             category.getCategoryId(),
             category.getTitle().getValue(),
-            category.getAssignedTransactionType().ordinal()
+            category.getTransactionType().getValue()
         );
     }
 

@@ -4,8 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import static pl.wsikora.successbudget.v3.common.Constants.*;
-import static pl.wsikora.successbudget.v3.common.Constants.DEFAULT_PAGINATION_SIZE;
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 
 
 @Controller
@@ -26,7 +25,7 @@ class BudgetViewController {
     }
 
     @ModelAttribute
-    private void data(@PathVariable Long budgetId,
+    private void data(@PathVariable Long id,
                       @RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int plannedExpenditurePage,
                       @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE) int plannedExpenditureSize,
                       @RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int plannedRevenuePage,
@@ -34,7 +33,7 @@ class BudgetViewController {
                       Model model) {
 
         model.addAllAttributes(budgetViewControllerDataProvider.provideData(
-            budgetId,
+            id,
             plannedExpenditurePage,
             plannedExpenditureSize,
             plannedRevenuePage,
