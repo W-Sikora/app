@@ -13,22 +13,22 @@ class MockCurrencyRate {
 
             if (toCurrency.isEur()) {
 
-                return new BigDecimal("4.75");
+                return new BigDecimal("0.21");
             }
 
             if (toCurrency.isUsd()) {
 
-                return new BigDecimal("4.43");
+                return new BigDecimal("0.22");
             }
 
             if (toCurrency.isGbp()) {
 
-                return new BigDecimal("5.33");
+                return new BigDecimal("0.19");
             }
 
             if (toCurrency.isChf()) {
 
-                return new BigDecimal("4.77");
+                return new BigDecimal("0.21");
             }
 
             throw new UnknownCurrencyException();
@@ -38,22 +38,22 @@ class MockCurrencyRate {
 
             if (toCurrency.isPln()) {
 
-                return new BigDecimal("0.21");
+                return new BigDecimal("4.78");
             }
 
             if (toCurrency.isUsd()) {
 
-                return new BigDecimal("0.93");
+                return new BigDecimal("1.07");
             }
 
             if (toCurrency.isGbp()) {
 
-                return new BigDecimal("1.12");
+                return new BigDecimal("0.89");
             }
 
             if (toCurrency.isChf()) {
 
-                return new BigDecimal("1.01");
+                return new BigDecimal("0.99");
             }
 
             throw new UnknownCurrencyException();
@@ -63,22 +63,22 @@ class MockCurrencyRate {
 
             if (toCurrency.isEur()) {
 
-                return new BigDecimal("1.07");
+                return new BigDecimal("0.93");
             }
 
             if (toCurrency.isPln()) {
 
-                return new BigDecimal("0.23");
+                return new BigDecimal("4.47");
             }
 
             if (toCurrency.isGbp()) {
 
-                return new BigDecimal("1.20");
+                return new BigDecimal("0.83");
             }
 
             if (toCurrency.isChf()) {
 
-                return new BigDecimal("1.08");
+                return new BigDecimal("0.92");
             }
 
             throw new UnknownCurrencyException();
@@ -88,22 +88,22 @@ class MockCurrencyRate {
 
             if (toCurrency.isEur()) {
 
-                return new BigDecimal("0.89");
+                return new BigDecimal("1.13");
             }
 
             if (toCurrency.isUsd()) {
 
-                return new BigDecimal("0.83");
+                return new BigDecimal("1.21");
             }
 
             if (toCurrency.isPln()) {
 
-                return new BigDecimal("0.19");
+                return new BigDecimal("5.39");
             }
 
             if (toCurrency.isChf()) {
 
-                return new BigDecimal("0.90");
+                return new BigDecimal("1.12");
             }
 
             throw new UnknownCurrencyException();
@@ -113,22 +113,22 @@ class MockCurrencyRate {
 
             if (toCurrency.isEur()) {
 
-                return new BigDecimal("0.99");
+                return new BigDecimal("1.01");
             }
 
             if (toCurrency.isUsd()) {
 
-                return new BigDecimal("0.93");
+                return new BigDecimal("1.08");
             }
 
             if (toCurrency.isGbp()) {
 
-                return new BigDecimal("1.12");
+                return new BigDecimal("0.90");
             }
 
             if (toCurrency.isPln()) {
 
-                return new BigDecimal("0.21");
+                return new BigDecimal("4.83");
             }
 
             throw new UnknownCurrencyException();

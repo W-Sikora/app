@@ -3,9 +3,9 @@
 <div class="columns">
     <div class="column">
 
-        <h2 class="is-size-4 has-text-centered">
-           <fmt:message key="planned.expenditures"/>
-        </h2>
+        <c:set var="_subtitle" value="planned.expenditures"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
+        <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
 
@@ -55,15 +55,15 @@
                                 ${plannedExpenditure.categoryDto.title}
                             </td>
                             <td>
-                                <fmt:message key="priority.${plannedExpenditure.plannedExpenditureId}"/>
+                                <fmt:message key="priority.${plannedExpenditure.priority}"/>
                             </td>
                             <td class="has-text-right">
                                 ${plannedExpenditure.moneyDto.formattedValue}
-                                <fmt:message key="currency.${plannedExpenditure.moneyDto.currencyId}.sign"/>
+                                ${plannedExpenditure.moneyDto.money.currency.sign}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${plannedExpenditure.plannedExpenditureId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${plannedExpenditure.plannedExpenditureId}"/>
+                                <c:set var="_fullEditUrl" value="${plannedExpenditure.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${plannedExpenditure.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -73,7 +73,7 @@
                 </table>
 
                 <c:set var="_currentPage" value="${currentPage}"/>
-                <c:set var="_lastPage" value="${categories.totalPages}"/>
+                <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
                 <%@ include file="../common/pagination.jsp" %>
 
                 <%@ include file="../common/modal.jsp" %>
@@ -84,15 +84,13 @@
 
     <div class="column">
 
-        <h2 class="is-size-4 has-text-centered">
-            <fmt:message key="planned.revenues"/>
-        </h2>
+        <c:set var="_subtitle" value="planned.revenues"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
+        <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
 
         <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
-        <c:set var="_editUrl" value="${plannedRevenueEditUrl}"/>
-        <c:set var="_deleteUrl" value="${plannedRevenueDeleteUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -114,10 +112,10 @@
                     <tr>
                         <th></th>
                         <th>
-                            <fmt:message key="title"/>
+                            <fmt:message key="category"/>
                         </th>
                         <th>
-                            <fmt:message key="transaction.type"/>
+                            <fmt:message key="money"/>
                         </th>
                         <th></th>
                     </tr>
@@ -130,14 +128,15 @@
                                 ${loop.index + 1}
                             </th>
                             <td>
-
+                                ${plannedRevenue.categoryDto.title}
                             </td>
                             <td>
-
+                                ${plannedRevenue.moneyDto.formattedValue}
+                                ${plannedRevenue.moneyDto.money.currency.sign}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${plannedRevenue.plannedRevenueId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${plannedRevenue.plannedRevenueId}"/>
+                                <c:set var="_fullEditUrl" value="${plannedRevenue.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${plannedRevenue.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -147,7 +146,7 @@
                 </table>
 
                 <c:set var="_currentPage" value="${currentPage}"/>
-                <c:set var="_lastPage" value="${categories.totalPages}"/>
+                <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
                 <%@ include file="../common/pagination.jsp" %>
 
                 <%@ include file="../common/modal.jsp" %>

@@ -3,11 +3,11 @@ package pl.wsikora.successbudget.v3.category.infrastructure;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.domain.Category;
+import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
-import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
-import pl.wsikora.successbudget.v3.common.category.CategoryDto;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
 
@@ -16,10 +16,13 @@ import java.util.List;
 public class CategoryDtoProviderImpl implements CategoryDtoProvider {
 
     private final CategoryRepository categoryRepository;
+    private final MessageProvider messageProvider;
 
-    private CategoryDtoProviderImpl(CategoryRepository categoryRepository) {
+    private CategoryDtoProviderImpl(CategoryRepository categoryRepository,
+                                    MessageProvider messageProvider) {
 
         this.categoryRepository = categoryRepository;
+        this.messageProvider = messageProvider;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
 
         return categoryRepository.findByCategoryId(categoryId.getValue())
             .map(this::toDto)
-            .orElseThrow(() -> new NotFoundException("CategoryDto", categoryId.getValue()));
+            .orElseGet(() -> toDto(categoryId));
     }
 
     @Override
@@ -39,7 +42,7 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
 
         return categoryRepository.findByCategoryId(categoryId.getValue())
             .map(this::toDto)
-            .orElseThrow(() -> new NotFoundException("CategoryDto", categoryId.getValue()));
+            .orElseGet(() -> toDto(categoryId));
     }
 
     @Override
@@ -58,6 +61,18 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
         return new CategoryDto(
             category.getCategoryId(),
             category.getTitle().getValue()
+        );
+    }
+
+    private CategoryDto toDto(CategoryId categoryId) {
+
+
+
+        String message = messageProvider.getMessage("category.was.deleted");
+
+        return new CategoryDto(
+            categoryId.getValue(),
+            message
         );
     }
 

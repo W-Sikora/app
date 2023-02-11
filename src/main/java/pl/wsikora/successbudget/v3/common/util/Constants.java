@@ -43,9 +43,11 @@ public class Constants {
 
     // Pagination
     public static final String DEFAULT_PAGINATION_PAGE = "0";
-    public static final String DEFAULT_PAGINATION_SIZE = "20";
+    public static final String DEFAULT_PAGINATION_SIZE = "15";
     public static final String CURRENT_PAGE = "currentPage";
 
+    // Sizes
+    public static final String FORM_PAGE_SIZE = "is-5";
 
     // Paths
     public static final String LANDING_PAGE_PATH = "/";

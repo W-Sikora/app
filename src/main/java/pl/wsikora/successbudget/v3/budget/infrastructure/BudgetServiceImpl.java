@@ -31,7 +31,7 @@ class BudgetServiceImpl implements BudgetService {
 
         budgetRepository.save(budget);
 
-        return new BudgetId(budget.getBudgetId());
+        return BudgetId.of(budget.getBudgetId());
     }
 
 }

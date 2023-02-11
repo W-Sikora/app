@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.common.currencyrate;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
@@ -9,6 +10,8 @@ import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 
 @Service
@@ -22,35 +25,42 @@ class CurrencyRateConverterImpl implements CurrencyRateConverter {
         Assert.notNull(money, "money must not be null");
         Assert.notNull(toCurrency, "toCurrency must not be null");
 
-        Money newMoney = doConvert(money, toCurrency);
+        Money convertedMoney = doConvert(money, toCurrency);
 
-        return MoneyDtoFactory.convert(newMoney);
+        return MoneyDtoFactory.create(money);
     }
 
     @Override
-    public MoneyDto convert(List<Money> moneys, Currency toCurrency) {
+    public MoneyDto convert(@Nullable List<Money> moneys, Currency toCurrency) {
 
-        Assert.notEmpty(moneys, "moneys must not be null");
         Assert.notNull(toCurrency, "toCurrency must not be null");
 
-        BigDecimal total = moneys.stream()
+        if (isEmpty(moneys)) {
+
+            Money newMoney = Money.of(toCurrency);
+
+            return MoneyDtoFactory.create(newMoney);
+        }
+
+        Money totalMoney = moneys.stream()
             .map(money -> doConvert(money, toCurrency))
-            .map(Money::getValue)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+            .reduce(Money.of(toCurrency), Money::add);
 
-        Money newMoney = new Money(toCurrency, total);
-
-        return MoneyDtoFactory.convert(newMoney);
+        return MoneyDtoFactory.create(totalMoney);
     }
 
     private Money doConvert(Money money, Currency toCurrency) {
 
-        BigDecimal convertRate = mockCurrencyRate.convert(money.getCurrency(), toCurrency);
+        Currency fromCurrency = money.getCurrency();
 
-        return new Money(
-            toCurrency,
-            money.getValue().multiply(convertRate)
-        );
+        if (fromCurrency.equals(toCurrency)) {
+
+            return money;
+        }
+
+        BigDecimal convertRate = mockCurrencyRate.convert(fromCurrency, toCurrency);
+
+        return money.convert(toCurrency, convertRate);
     }
 
 }

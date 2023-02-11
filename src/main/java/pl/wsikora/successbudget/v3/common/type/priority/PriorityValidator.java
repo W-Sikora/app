@@ -19,7 +19,7 @@ public class PriorityValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_PRIORITY, E_FIELD_MUST_NOT_BE_EMPTY);
         }
-        else if (!Priority.hasValidValueRange(priority)) {
+        else if (!Priority.hasValidOrdinalRange(priority)) {
 
             errors.rejectValue(F_PRIORITY, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }

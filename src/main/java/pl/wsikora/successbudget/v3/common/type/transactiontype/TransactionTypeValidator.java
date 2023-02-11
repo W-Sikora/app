@@ -19,7 +19,7 @@ public class TransactionTypeValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_TRANSACTION_TYPE, E_FIELD_MUST_NOT_BE_EMPTY);
         }
-        else if (!TransactionType.hasValidValueRange(transactionType)) {
+        else if (!TransactionType.hasValidOrdinalRange(transactionType)) {
 
             errors.rejectValue(F_TRANSACTION_TYPE, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }

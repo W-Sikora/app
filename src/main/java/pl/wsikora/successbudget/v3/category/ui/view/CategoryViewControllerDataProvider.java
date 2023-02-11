@@ -53,10 +53,6 @@ class CategoryViewControllerDataProvider {
 
         modelMap.addAttribute(ADD_URL, CATEGORY_EDIT_PATH);
 
-        modelMap.addAttribute(EDIT_URL, CATEGORY_EDIT_PATH + ID_PATH_QUERY);
-
-        modelMap.addAttribute(DELETE_URL, CATEGORY_DELETE_PATH);
-
         modelMap.addAttribute(KEYWORD, keyword);
 
         if (PaginationValidator.isValid(page, size)) {

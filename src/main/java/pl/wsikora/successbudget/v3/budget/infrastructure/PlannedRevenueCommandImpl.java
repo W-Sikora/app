@@ -46,9 +46,9 @@ class PlannedRevenueCommandImpl implements PlannedRevenueCommand {
 
         plannedRevenue.setCategoryId(categoryId);
 
-        Currency currency = new Currency(plannedRevenueAttributes.getCurrency());
+        Currency currency = Currency.of(plannedRevenueAttributes.getCurrency());
 
-        Money money = new Money(
+        Money money = Money.of(
             currency,
             plannedRevenueAttributes.getValue()
         );

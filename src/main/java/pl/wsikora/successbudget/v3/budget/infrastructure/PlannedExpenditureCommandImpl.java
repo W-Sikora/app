@@ -37,6 +37,8 @@ class PlannedExpenditureCommandImpl implements PlannedExpenditureCommand {
 
         PlannedExpenditure plannedExpenditure = new PlannedExpenditure();
 
+        plannedExpenditure.setPlannedExpenditureId(plannedExpenditureAttributes.getPlannedExpenditureId());
+
         Budget budget = getBudgetByBudgetId(plannedExpenditureAttributes.getBudgetId());
 
         plannedExpenditure.setBudget(budget);
@@ -47,13 +49,13 @@ class PlannedExpenditureCommandImpl implements PlannedExpenditureCommand {
 
         plannedExpenditure.setCategoryId(categoryId);
 
-        Priority priority = new Priority(plannedExpenditureAttributes.getPriority());
+        Priority priority = Priority.of(plannedExpenditureAttributes.getPriority());
 
         plannedExpenditure.setPriority(priority);
 
-        Currency currency = new Currency(plannedExpenditureAttributes.getCurrency());
+        Currency currency = Currency.of(plannedExpenditureAttributes.getCurrency());
 
-        Money money = new Money(
+        Money money = Money.of(
             currency,
             plannedExpenditureAttributes.getValue()
         );

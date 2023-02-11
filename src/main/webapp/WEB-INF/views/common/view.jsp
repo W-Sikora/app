@@ -20,8 +20,20 @@
 
                             <div class="has-text-centered">
                                 <h1 class="is-size-3">
-                                    <c:out value="${pageTitle}"/>
+                                    <c:choose>
+                                        <c:when test="${empty additionalTitle}">
+                                            <c:out value="${pageTitle}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:out value="${pageTitle} ${additionalTitle}"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </h1>
+                                <c:if test="${not empty dto}">
+
+                                    <%@ include file="total.jsp" %>
+
+                                </c:if>
                             </div>
 
                         </div>

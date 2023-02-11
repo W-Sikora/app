@@ -11,8 +11,13 @@ import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
 import java.util.Optional;
+
+import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_REVENUE_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_REVENUE_EDIT_PATH;
 
 
 @Service
@@ -51,14 +56,22 @@ class PlannedRevenueQueryImpl implements PlannedRevenueQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedRevenue.getCategoryId());
 
-        MoneyDto moneyDto = MoneyDtoFactory.convert(plannedRevenue.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.create(plannedRevenue.getMoney());
+
+        Long budgetId = plannedRevenue.getBudget().getBudgetId();
+
+        Long plannedRevenueId = plannedRevenue.getPlannedRevenueId();
+
+        UrlDto urlDto = UrlDtoFactory.create(PLANNED_REVENUE_EDIT_PATH, PLANNED_REVENUE_DELETE_PATH,
+            budgetId, plannedRevenueId);
 
         return new PlannedRevenueDto(
-            plannedRevenue.getPlannedRevenueId(),
-            plannedRevenue.getBudget().getBudgetId(),
+            plannedRevenueId,
+            budgetId,
             categoryDto,
             moneyDto,
-            plannedRevenue.isRepeatInNextPeriod()
+            plannedRevenue.isRepeatInNextPeriod(),
+            urlDto
         );
     }
 

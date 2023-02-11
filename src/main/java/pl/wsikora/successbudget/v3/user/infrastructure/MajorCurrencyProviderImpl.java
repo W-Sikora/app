@@ -37,7 +37,7 @@ class MajorCurrencyProviderImpl implements MajorCurrencyProvider {
         Username username = usernameProvider.getUsername();
 
         return userRepository.findMajorCurrency(username)
-            .map(Currency::new)
+            .map(Currency::of)
             .orElse(null);
     }
 

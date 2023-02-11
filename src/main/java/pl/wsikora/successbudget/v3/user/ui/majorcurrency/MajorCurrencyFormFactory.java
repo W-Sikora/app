@@ -26,7 +26,7 @@ class MajorCurrencyFormFactory {
 
     private MajorCurrencyForm toForm(Currency currency) {
 
-        return new MajorCurrencyForm(currency.getValue());
+        return new MajorCurrencyForm(currency.ordinal());
     }
 
 }

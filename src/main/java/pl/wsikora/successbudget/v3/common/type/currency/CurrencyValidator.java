@@ -19,7 +19,7 @@ public class CurrencyValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_CURRENCY, E_FIELD_MUST_NOT_BE_EMPTY);
         }
-        else if (!Currency.hasValidValueRange(currency)) {
+        else if (!Currency.hasValidOrdinalRange(currency)) {
 
             errors.rejectValue(F_CURRENCY, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }

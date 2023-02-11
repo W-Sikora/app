@@ -31,7 +31,7 @@ public class PlannedExpenditure {
     @Embedded
     private CategoryId categoryId;
 
-    @Embedded
+    @Enumerated(EnumType.ORDINAL)
     private Priority priority;
 
     @Embedded

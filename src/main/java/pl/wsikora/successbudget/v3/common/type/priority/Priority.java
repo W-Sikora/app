@@ -1,67 +1,39 @@
 package pl.wsikora.successbudget.v3.common.type.priority;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
 
 
-@Embeddable
-@NoArgsConstructor
-@Getter
-public class Priority {
+public enum Priority {
 
-    public static final Priority UNNECESSARY = new Priority(0);
-    public static final Priority LOW = new Priority(1);
-    public static final Priority NORMAL = new Priority(2);
-    public static final Priority HIGH = new Priority(3);
-    public static final Priority CRITICAL = new Priority(4);
+    UNNECESSARY,
+    LOW,
+    NORMAL,
+    HIGH,
+    CRITICAL;
 
-    public static final int MAXIMUM_VALUE = 4;
+    public static Priority of(Integer ordinal) {
 
-    @Column(name = "priority")
-    private Integer value;
+        Assert.isTrue(hasValidOrdinalRange(ordinal), "Priority ordinal must be of valid ordinal");
 
-    public Priority(Integer value) {
-
-        Assert.notNull(value, "Priority value must not be null");
-        Assert.isTrue(hasValidValueRange(value), "Priority value must be of valid value");
-
-        this.value = value;
-    }
-
-    public static boolean hasValidValueRange(Integer value) {
-
-        Assert.notNull(value, "Priority value must not be null");
-
-        return value >= 0 && value <= MAXIMUM_VALUE;
+        return Priority.values()[ordinal];
     }
 
     public static List<Integer> getOrdinals() {
 
-        return IntStream.range(0, MAXIMUM_VALUE + 1)
-            .boxed()
+        return Arrays.stream(Priority.values())
+            .map(Priority::ordinal)
             .toList();
     }
 
-    @Override
-    public boolean equals(Object o) {
+    public static boolean hasValidOrdinalRange(Integer ordinal) {
 
-        if (this == o) return true;
-        if (!(o instanceof Priority priority)) return false;
+        Assert.notNull(ordinal, "Priority ordinal must not be null");
 
-        return Objects.equals(value, priority.value);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return value != null ? value.hashCode() : 0;
+        return ordinal > 0 || ordinal < TransactionType.values().length;
     }
 
 }

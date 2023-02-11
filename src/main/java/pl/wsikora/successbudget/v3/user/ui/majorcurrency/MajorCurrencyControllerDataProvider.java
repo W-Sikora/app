@@ -32,9 +32,9 @@ class MajorCurrencyControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName("major-currency"));
+        modelMap.addAttribute(COLUMN_SIZE, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+        modelMap.addAttribute(PAGE_PATH, getEditFormName("major-currency"));
 
         modelMap.addAttribute(FORM_ACTION, MAJOR_CURRENCY_EDIT_PATH);
 

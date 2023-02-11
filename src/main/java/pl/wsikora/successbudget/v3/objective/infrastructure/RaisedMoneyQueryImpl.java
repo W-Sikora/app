@@ -44,7 +44,7 @@ class RaisedMoneyQueryImpl implements RaisedMoneyQuery {
 
     private RaisedMoneyDto toDto(RaisedMoney raisedMoney) {
 
-        MoneyDto moneyDto = MoneyDtoFactory.convert(raisedMoney.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.create(raisedMoney.getMoney());
 
         return new RaisedMoneyDto(
             raisedMoney.getRaisedMoneyId(),

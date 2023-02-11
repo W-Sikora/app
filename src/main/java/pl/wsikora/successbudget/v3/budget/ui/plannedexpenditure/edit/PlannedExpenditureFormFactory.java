@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
 import java.util.Optional;
@@ -34,13 +35,15 @@ class PlannedExpenditureFormFactory {
 
         MoneyDto moneyDto = plannedExpenditureDto.getMoneyDto();
 
+        Money money = moneyDto.getMoney();
+
         return PlannedExpenditureForm.builder()
             .plannedExpenditureId(plannedExpenditureDto.getPlannedExpenditureId())
             .budgetId(plannedExpenditureDto.getBudgetId())
             .categoryId(plannedExpenditureDto.getCategoryDto().getCategoryId())
-            .priority(plannedExpenditureDto.getPriorityId())
-            .currency(moneyDto.getCurrencyId())
-            .value(moneyDto.getValue())
+            .priority(plannedExpenditureDto.getPriority())
+            .currency(money.getCurrency().ordinal())
+            .value(money.getValue())
             .repeatInNextPeriod(plannedExpenditureDto.isRepeatInNextPeriod())
             .build();
     }

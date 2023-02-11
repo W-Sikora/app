@@ -24,8 +24,6 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
     @Override
     public void validateForm(RegistrationForm registrationForm, Errors errors) {
 
-        errors.rejectValue(F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
-
         usernameValidator.validateForm(registrationForm.getUsername(), errors);
 
         String password = registrationForm.getPassword();

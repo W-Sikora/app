@@ -1,64 +1,35 @@
 package pl.wsikora.successbudget.v3.common.type.transactiontype;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
 
 
-@Embeddable
-@NoArgsConstructor
-@Getter
-public class TransactionType {
+public enum TransactionType {
 
-    public static final TransactionType EXPENDITURE = new TransactionType(0);
-    public static final TransactionType REVENUE = new TransactionType(1);
+    EXPENDITURE,
+    REVENUE;
 
-    public static final int MAXIMUM_VALUE = 1;
+    public static TransactionType of(Integer ordinal) {
 
-    @Column(name = "transaction_type")
-    private Integer value;
+        Assert.isTrue(hasValidOrdinalRange(ordinal), "TransactionType ordinal must be of valid value");
 
-    public TransactionType(Integer value) {
-
-        Assert.notNull(value, "TransactionType value must not be null");
-        Assert.isTrue(hasValidValueRange(value), "TransactionType value must be of valid value");
-
-        this.value = value;
-    }
-
-    public static boolean hasValidValueRange(Integer value) {
-
-        Assert.notNull(value, "TransactionType value must not be null");
-
-        return value >= 0 && value <= MAXIMUM_VALUE;
+        return TransactionType.values()[ordinal];
     }
 
     public static List<Integer> getOrdinals() {
 
-        return IntStream.range(0, MAXIMUM_VALUE + 1)
-            .boxed()
+        return Arrays.stream(TransactionType.values())
+            .map(TransactionType::ordinal)
             .toList();
     }
 
-    @Override
-    public boolean equals(Object o) {
+    public static boolean hasValidOrdinalRange(Integer ordinal) {
 
-        if (this == o) return true;
-        if (!(o instanceof TransactionType that)) return false;
+        Assert.notNull(ordinal, "TransactionType ordinal must not be null");
 
-        return Objects.equals(value, that.value);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return value != null ? value.hashCode() : 0;
+        return ordinal > 0 || ordinal < TransactionType.values().length;
     }
 
 }

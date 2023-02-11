@@ -8,6 +8,8 @@ import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.Planned
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.budget.BudgetDtoProvider;
+import pl.wsikora.successbudget.v3.common.budget.BudgetId;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.validation.PaginationValidator;
 
@@ -25,14 +27,17 @@ class BudgetViewControllerDataProvider {
     private final MessageProvider messageProvider;
     private final PlannedExpenditureQuery plannedExpenditureQuery;
     private final PlannedRevenueQuery plannedRevenueQuery;
+    private final BudgetDtoProvider budgetDtoProvider;
 
     private BudgetViewControllerDataProvider(MessageProvider messageProvider,
                                              PlannedExpenditureQuery plannedExpenditureQuery,
-                                             PlannedRevenueQuery plannedRevenueQuery) {
+                                             PlannedRevenueQuery plannedRevenueQuery,
+                                             BudgetDtoProvider budgetDtoProvider) {
 
         this.messageProvider = messageProvider;
         this.plannedExpenditureQuery = plannedExpenditureQuery;
         this.plannedRevenueQuery = plannedRevenueQuery;
+        this.budgetDtoProvider = budgetDtoProvider;
     }
 
     ModelMap provideData(Long budgetId,
@@ -60,14 +65,10 @@ class BudgetViewControllerDataProvider {
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
 
+        modelMap.addAttribute("dto", budgetDtoProvider.provideBudgetDto(BudgetId.of(budgetId)));
+
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, ADD_URL),
             fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
-
-        modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, EDIT_URL),
-            fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
-
-        modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, DELETE_URL),
-            fillPath(PLANNED_EXPENDITURE_DELETE_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         if (PaginationValidator.isValid(plannedExpenditurePage, plannedExpenditureSize)) {
 
@@ -81,12 +82,6 @@ class BudgetViewControllerDataProvider {
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, ADD_URL),
             fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
-
-        modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, EDIT_URL),
-            fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
-
-        modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, DELETE_URL),
-            fillPath(PLANNED_REVENUE_DELETE_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         if (PaginationValidator.isValid(plannedRevenuePage, plannedRevenueSize)) {
 

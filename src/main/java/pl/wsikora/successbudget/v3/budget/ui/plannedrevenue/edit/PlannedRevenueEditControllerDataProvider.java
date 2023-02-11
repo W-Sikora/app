@@ -16,21 +16,22 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 @Service
 class PlannedRevenueEditControllerDataProvider {
 
     private final MessageProvider messageProvider;
-    private final PlannedRevenueFormFactory plannedExpenditureFormFactory;
+    private final PlannedRevenueFormFactory plannedRevenueFormFactory;
     private final CategoryDtoProvider categoryDtoProvider;
 
     private PlannedRevenueEditControllerDataProvider(MessageProvider messageProvider,
-                                                     PlannedRevenueFormFactory plannedExpenditureFormFactory,
+                                                     PlannedRevenueFormFactory plannedRevenueFormFactory,
                                                      CategoryDtoProvider categoryDtoProvider) {
 
         this.messageProvider = messageProvider;
-        this.plannedExpenditureFormFactory = plannedExpenditureFormFactory;
+        this.plannedRevenueFormFactory = plannedRevenueFormFactory;
         this.categoryDtoProvider = categoryDtoProvider;
     }
 
@@ -42,24 +43,26 @@ class PlannedRevenueEditControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName(PLANNED_EXPENDITURE));
+        modelMap.addAttribute(COLUMN_SIZE, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(FORM_ACTION, PLANNED_EXPENDITURE_EDIT_PATH);
+        modelMap.addAttribute(PAGE_PATH, getEditFormName(PLANNED_REVENUE));
 
-        PlannedRevenueForm plannedRevenueForm = plannedExpenditureFormFactory.getPlannedExpenditureForm(
+        modelMap.addAttribute(FORM_ACTION, fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
+
+        PlannedRevenueForm plannedRevenueForm = plannedRevenueFormFactory.getPlannedExpenditureForm(
             budgetId, plannedExpenditureId);
 
         modelMap.addAttribute("plannedRevenueForm", plannedRevenueForm);
 
         String title = isNull(plannedRevenueForm.getCategoryId())
-            ? messageProvider.getMessage(PLANNED_EXPENDITURE_ADD_TITLE)
-            : messageProvider.getMessage(PLANNED_EXPENDITURE_EDIT_TITLE);
+            ? messageProvider.getMessage(PLANNED_REVENUE_ADD_TITLE)
+            : messageProvider.getMessage(PLANNED_REVENUE_EDIT_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
         List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
             .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
-            .add(messageProvider.getMessage(BUDGET), BUDGET_PATH + ID_PATH_QUERY + budgetId)
+            .add(messageProvider.getMessage(BUDGET), fillPath(BUDGET_PATH, ID_PATH_VARIABLE, budgetId))
             .add(title)
             .build();
 
@@ -68,7 +71,7 @@ class PlannedRevenueEditControllerDataProvider {
         modelMap.addAttribute("categories", categoryDtoProvider.provideAllByAssignedTransactionType(
             TransactionType.REVENUE));
 
-        modelMap.addAttribute("currencies", Currency.getOrdinals());
+        modelMap.addAttribute("currencies", Currency.values());
 
         return modelMap;
     }

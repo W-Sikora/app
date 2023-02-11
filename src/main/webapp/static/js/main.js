@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const paginators = document.querySelectorAll('.js-pagination-form');
+
+    if (paginators) {
+
+
+        document.querySelectorAll('.js-previous-page-button').forEach(previousPageButton => {
+
+
+        })
+
+
+
+        const nextPageButtons = document.querySelectorAll('.js-next-page-button');
+    }
+
     const logoutButton = document.getElementById('logoutButton');
 
     if (logoutButton) {

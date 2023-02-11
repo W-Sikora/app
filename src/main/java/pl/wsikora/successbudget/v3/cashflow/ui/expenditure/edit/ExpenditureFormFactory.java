@@ -3,6 +3,7 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureDto;
 import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureQuery;
+import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
 
@@ -27,13 +28,15 @@ class ExpenditureFormFactory {
 
         MoneyDto moneyDto = expenditureDto.getMoneyDto();
 
+        Money money = moneyDto.getMoney();
+
         return ExpenditureForm.builder()
             .expenditureId(expenditureDto.getExpenditureId())
             .cashFlowId(expenditureDto.getCashFlowId())
             .title(expenditureDto.getTitle())
             .categoryId(expenditureDto.getCategoryDto().getCategoryId())
-            .currencyId(moneyDto.getCurrencyId())
-            .value(moneyDto.getValue())
+            .currencyId(money.getCurrency().ordinal())
+            .value(money.getValue())
             .priorityId(expenditureDto.getPriorityId())
             .payee(expenditureDto.getPayee())
             .date(expenditureDto.getDate())

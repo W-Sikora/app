@@ -39,7 +39,7 @@ class RevenueQueryImpl implements RevenueQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.provideCategoryDto(categoryId);
 
-        MoneyDto moneyDto = MoneyDtoFactory.convert(revenue.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.create(revenue.getMoney());
 
         return new RevenueDto(
             revenue.getRevenueId(),

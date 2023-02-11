@@ -39,9 +39,9 @@ class ObjectiveCommandImpl implements ObjectiveCommand {
 
         objective.setDescription(new Description(objectiveAttributes.getDescription()));
 
-        Currency currency = new Currency(objectiveAttributes.getNecessaryMoneyCurrencyId());
+        Currency currency = Currency.of(objectiveAttributes.getNecessaryMoneyCurrencyId());
 
-        Money money = new Money(
+        Money money = Money.of(
             currency,
             objectiveAttributes.getNecessaryMoneyValue()
         );

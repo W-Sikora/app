@@ -44,7 +44,7 @@ class PlannedExpenditureEditControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+        modelMap.addAttribute(COLUMN_SIZE, FORM_PAGE_SIZE);
 
         modelMap.addAttribute(PAGE_PATH, getEditFormName(PLANNED_EXPENDITURE));
 
@@ -63,7 +63,7 @@ class PlannedExpenditureEditControllerDataProvider {
 
         List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
             .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
-            .add(messageProvider.getMessage(BUDGET), BUDGET_PATH + ID_PATH_QUERY + budgetId)
+            .add(messageProvider.getMessage(BUDGET), fillPath(BUDGET_PATH, ID_PATH_VARIABLE, budgetId))
             .add(title)
             .build();
 
@@ -74,7 +74,7 @@ class PlannedExpenditureEditControllerDataProvider {
 
         modelMap.addAttribute("priorities", Priority.getOrdinals());
 
-        modelMap.addAttribute("currencies", Currency.getOrdinals());
+        modelMap.addAttribute("currencies", Currency.values());
 
         return modelMap;
     }

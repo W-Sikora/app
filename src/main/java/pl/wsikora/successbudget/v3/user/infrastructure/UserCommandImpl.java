@@ -55,7 +55,7 @@ class UserCommandImpl implements UserCommand {
 
         String username = usernameProvider.getUsername().getValue();
 
-        Currency currency = new Currency(majorCurrencyAttributes.getMajorCurrencyId());
+        Currency currency = Currency.of(majorCurrencyAttributes.getMajorCurrencyId());
 
         userRepository.findByUsernameAsString(username)
             .map(user -> {

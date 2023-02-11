@@ -66,7 +66,7 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
         Money necessaryMoney = objective.getNecessaryMoney();
 
-        MoneyDto necessaryMoneyDto = MoneyDtoFactory.convert(necessaryMoney);
+        MoneyDto necessaryMoneyDto = MoneyDtoFactory.create(necessaryMoney);
 
         List<Money> moneys = raisedMoneyRepository.findAllMoney(objectiveId);
 

@@ -1,8 +1,8 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<div class="field is-grouped">
+<div class="field is-grouped is-grouped-centered">
     <c:if test="${not empty _fullEditUrl}">
-        <p class="control mr-6">
+        <p class="control mr-5">
             <a href="${_fullEditUrl}" class="button is-small is-info is-outlined">
                 <fmt:message key="edit.text"/>
             </a>

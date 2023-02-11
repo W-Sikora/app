@@ -1,8 +1,6 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
 <c:set var="_addUrl" value="${addUrl}"/>
-<c:set var="_editUrl" value="${editUrl}"/>
-<c:set var="_deleteUrl" value="${deleteUrl}"/>
 
 <c:if test="${not empty _addUrl}">
 
@@ -37,20 +35,20 @@
             </thead>
 
             <tbody>
-            <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
+            <c:forEach items="${categories.toList()}" var="category" varStatus="loop">
                 <tr>
                     <th>
                         ${loop.index + 1}
                     </th>
                     <td>
-                        ${objective.title}
+                        ${category.title}
                     </td>
                     <td>
-                        <fmt:message key="transaction.type.${objective.transactionType}"/>
+                        <fmt:message key="transaction.type.${category.transactionType}"/>
                     </td>
                     <td>
-                        <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
-                        <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
+                        <c:set var="_fullEditUrl" value="${category.urlDto.editUrl}"/>
+                        <c:set var="_fullDeleteUrl" value="${category.urlDto.deleteUrl}"/>
 
                         <%@include file="../common/options.jsp" %>
                     </td>

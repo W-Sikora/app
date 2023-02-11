@@ -11,6 +11,7 @@ import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.currency.MajorCurrencyProvider;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 
 import java.util.List;
@@ -58,11 +59,16 @@ class BudgetDtoProviderImpl implements BudgetDtoProvider {
 
         MoneyDto totalPlannedRevenues = currencyRateConverter.convert(plannedRevenueTotalMoney, majorCurrency);
 
+        Money balanceValue = totalPlannedRevenues.getMoney().subtract(totalPlannedExpenditures.getMoney());
+
+        MoneyDto balance = MoneyDtoFactory.create(balanceValue);
+
         return new BudgetDto(
             budget.getBudgetId(),
             budget.getPeriod().toString(),
             totalPlannedExpenditures,
-            totalPlannedRevenues
+            totalPlannedRevenues,
+            balance
         );
     }
 

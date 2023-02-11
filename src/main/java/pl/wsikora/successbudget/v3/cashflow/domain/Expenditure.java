@@ -45,7 +45,7 @@ public class Expenditure {
     @Embedded
     private Money money;
 
-    @Embedded
+    @Enumerated(EnumType.ORDINAL)
     private Priority priority;
 
     @Embedded

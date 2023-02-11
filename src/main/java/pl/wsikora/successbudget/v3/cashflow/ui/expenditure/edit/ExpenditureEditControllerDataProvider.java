@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.List;
@@ -54,8 +53,6 @@ class ExpenditureEditControllerDataProvider {
             .build();
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
-
-        modelMap.addAttribute("assignedTransactionTypes", TransactionType.getOrdinals());
 
         return modelMap;
     }

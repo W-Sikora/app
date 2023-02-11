@@ -11,8 +11,13 @@ import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
 import java.util.Optional;
+
+import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_EDIT_PATH;
 
 
 @Service
@@ -51,15 +56,23 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedExpenditure.getCategoryId());
 
-        MoneyDto moneyDto = MoneyDtoFactory.convert(plannedExpenditure.getMoney());
+        MoneyDto moneyDto = MoneyDtoFactory.create(plannedExpenditure.getMoney());
+
+        Long plannedExpenditureId = plannedExpenditure.getPlannedExpenditureId();
+
+        Long budgetId = plannedExpenditure.getBudget().getBudgetId();
+
+        UrlDto urlDto = UrlDtoFactory.create(PLANNED_EXPENDITURE_EDIT_PATH, PLANNED_EXPENDITURE_DELETE_PATH,
+            budgetId, plannedExpenditureId);
 
         return new PlannedExpenditureDto(
-            plannedExpenditure.getPlannedExpenditureId(),
-            plannedExpenditure.getBudget().getBudgetId(),
+            plannedExpenditureId,
+            budgetId,
             categoryDto,
-            plannedExpenditure.getPriority().getValue(),
+            plannedExpenditure.getPriority().ordinal(),
             moneyDto,
-            plannedExpenditure.isRepeatInNextPeriod()
+            plannedExpenditure.isRepeatInNextPeriod(),
+            urlDto
         );
     }
 

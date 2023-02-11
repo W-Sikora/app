@@ -8,11 +8,15 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.application.CategoryDto;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
 import pl.wsikora.successbudget.v3.category.domain.Category;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
+import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
 import java.util.Locale;
 import java.util.Optional;
 
 import static org.springframework.util.StringUtils.hasText;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_EDIT_PATH;
 
 
 @Service
@@ -51,10 +55,15 @@ class CategoryQueryImpl implements CategoryQuery {
 
     private CategoryDto toDto(Category category) {
 
+        Long categoryId = category.getCategoryId();
+
+        UrlDto urlDto = UrlDtoFactory.create(CATEGORY_EDIT_PATH, CATEGORY_DELETE_PATH, categoryId);
+
         return new CategoryDto(
-            category.getCategoryId(),
+            categoryId,
             category.getTitle().getValue(),
-            category.getTransactionType().getValue()
+            category.getTransactionType().ordinal(),
+            urlDto
         );
     }
 

@@ -67,12 +67,14 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
     boolean hasRepeatableByBudgetId(Long budgetId);
 
     @Query("""
-        select r.money.currency, sum(r.money.value)
+        select new pl.wsikora.successbudget.v3.common.type.money.Money(
+            r.money.currency,
+            sum(r.money.value)
+        )
         from PlannedRevenue r
         where r.budget.budgetId = ?1
         and r.owner.value = ?#{principal.username}
         group by r.money.currency
-        
     """)
     List<Money> findAllMoney(Long budgetId);
 

@@ -75,6 +75,17 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 #menu {
     min-width: 150px;
     max-width: 500px;
@@ -138,4 +149,13 @@ label {
 
 .has-small-bottom-margin {
     margin-bottom: 11px !important;
+}
+
+.has-no-bottom-margin {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.form-has-addons {
+    margin-bottom: 10px !important;
 }

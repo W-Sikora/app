@@ -11,5 +11,6 @@ public class BudgetDto {
     String yearMonth;
     MoneyDto totalPlannedExpenditures;
     MoneyDto totalPlannedRevenues;
+    MoneyDto balance;
 
 }

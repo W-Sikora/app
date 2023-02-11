@@ -15,11 +15,16 @@ public class BudgetId {
     @Column(name = "budget_id")
     private Long value;
 
-    public BudgetId(Long value) {
+    private BudgetId(Long value) {
+
+        this.value = value;
+    }
+
+    public static BudgetId of(Long value) {
 
         Assert.notNull(value, "BudgetId value must not be null");
 
-        this.value = value;
+        return new BudgetId(value);
     }
 
 }

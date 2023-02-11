@@ -33,7 +33,7 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
             from PlannedExpenditure e
             where e.budget.budgetId = ?1
             and e.owner.value = ?#{principal.username}
-            order by e.money.value
+            order by e.money.value desc, e.priority desc
         """,
         countQuery = """
             select count(e)
@@ -67,12 +67,14 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
     boolean hasRepeatableByBudgetId(Long budgetId);
 
     @Query("""
-        select e.money.currency, sum(e.money.value)
+        select new pl.wsikora.successbudget.v3.common.type.money.Money(
+            e.money.currency,
+            sum(e.money.value)
+        )
         from PlannedExpenditure e
         where e.budget.budgetId = ?1
         and e.owner.value = ?#{principal.username}
         group by e.money.currency
-        
     """)
     List<Money> findAllMoney(Long budgetId);
 
