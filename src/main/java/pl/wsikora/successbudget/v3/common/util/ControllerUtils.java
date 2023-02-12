@@ -5,28 +5,33 @@ import org.springframework.util.Assert;
 
 public class ControllerUtils {
 
-    private static final String EDIT_FORM_FORMAT = "../forms/%s-form.jsp";
-    private static final String LIST_FORMAT = "../lists/%s-list.jsp";
-    private static final String STEP_FORMAT = "../steps/step%d.jsp";
+    private static final String EDIT_FORM_VIEW_FORMAT = "../forms/%s-form.jsp";
+    private static final String LIST_VIEW_FORMAT = "../lists/%s-list.jsp";
+    private static final String COMMON_VIEW_FORMAT = "../common/%s.jsp";
 
     private ControllerUtils() {}
 
-    public static String getEditFormName(String pathName) {
+    public static String getEditFormViewName(String name) {
 
-        Assert.hasText(pathName, "pathName must not be empty");
-
-        return String.format(EDIT_FORM_FORMAT, pathName);
+        return getViewName(EDIT_FORM_VIEW_FORMAT, name);
     }
 
-    public static String getListName(String pathName) {
+    public static String getListViewName(String name) {
 
-        Assert.hasText(pathName, "pathName must not be empty");
-
-        return String.format(LIST_FORMAT, pathName);
+        return getViewName(LIST_VIEW_FORMAT, name);
     }
 
-    public static String getStep(int step) {
+    public static String getCommonViewName(String name) {
 
-        return String.format(STEP_FORMAT, step);
+        return getViewName(COMMON_VIEW_FORMAT, name);
     }
+
+    private static String getViewName(String format, String name) {
+
+        Assert.hasText(format, "format must not be empty");
+        Assert.hasText(name, "name must not be empty");
+
+        return String.format(format, name);
+    }
+
 }

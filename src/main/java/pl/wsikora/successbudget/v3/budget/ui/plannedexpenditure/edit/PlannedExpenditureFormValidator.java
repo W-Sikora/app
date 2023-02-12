@@ -2,9 +2,10 @@ package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyForm;
 import pl.wsikora.successbudget.v3.common.type.priority.PriorityValidator;
-import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator;
 
 import static java.util.Objects.isNull;
@@ -15,12 +16,15 @@ class PlannedExpenditureFormValidator extends AbstractFormValidator<PlannedExpen
 
     static final String F_CATEGORY_ID = "categoryId";
 
+    private final PlannedExpenditureQuery plannedExpenditureQuery;
     private final MoneyFormValidator moneyValidator;
     private final PriorityValidator priorityValidator;
 
-    PlannedExpenditureFormValidator(MoneyFormValidator moneyValidator,
+    PlannedExpenditureFormValidator(PlannedExpenditureQuery plannedExpenditureQuery,
+                                    MoneyFormValidator moneyValidator,
                                     PriorityValidator priorityValidator) {
 
+        this.plannedExpenditureQuery = plannedExpenditureQuery;
         this.moneyValidator = moneyValidator;
         this.priorityValidator = priorityValidator;
     }
@@ -28,9 +32,17 @@ class PlannedExpenditureFormValidator extends AbstractFormValidator<PlannedExpen
     @Override
     public void validateForm(PlannedExpenditureForm plannedExpenditureForm, Errors errors) {
 
-        if (isNull(plannedExpenditureForm.getCategoryId())) {
+        Long budgetId = plannedExpenditureForm.getBudgetId();
+
+        Long categoryId = plannedExpenditureForm.getCategoryId();
+
+        if (isNull(categoryId)) {
 
             errors.rejectValue(F_CATEGORY_ID, E_FIELD_MUST_NOT_BE_EMPTY);
+        }
+        else if (plannedExpenditureQuery.hasAssignedCategory(budgetId, categoryId)) {
+
+            errors.rejectValue(F_CATEGORY_ID, E_HAS_ASSIGNED_CATEGORY);
         }
 
         priorityValidator.validateForm(plannedExpenditureForm.getPriority(), errors);
@@ -41,7 +53,6 @@ class PlannedExpenditureFormValidator extends AbstractFormValidator<PlannedExpen
         );
 
         moneyValidator.validateForm(moneyForm, errors);
-
     }
 
     @Override

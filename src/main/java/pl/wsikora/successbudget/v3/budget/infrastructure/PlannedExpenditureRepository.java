@@ -66,17 +66,30 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
     )
     boolean hasRepeatableByBudgetId(Long budgetId);
 
-    @Query("""
-        select new pl.wsikora.successbudget.v3.common.type.money.Money(
-            e.money.currency,
-            sum(e.money.value)
-        )
-        from PlannedExpenditure e
-        where e.budget.budgetId = ?1
-        and e.owner.value = ?#{principal.username}
-        group by e.money.currency
-    """)
+    @Query(
+        """
+            select new pl.wsikora.successbudget.v3.common.type.money.Money(
+                e.money.currency,
+                sum(e.money.value)
+            )
+            from PlannedExpenditure e
+            where e.budget.budgetId = ?1
+            and e.owner.value = ?#{principal.username}
+            group by e.money.currency
+        """
+    )
     List<Money> findAllMoney(Long budgetId);
+
+    @Query(
+        """
+            select count(e) > 0
+            from PlannedExpenditure e
+            where e.budget.budgetId = ?1
+            and e.categoryId.value = ?2
+            and e.owner.value = ?#{principal.username}
+        """
+    )
+    boolean hasAssignedCategory(Long budgetId, Long categoryId);
 
     @Transactional
     @Modifying
@@ -84,10 +97,11 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
         """
             delete
             from PlannedExpenditure e
-            where e.plannedExpenditureId = ?1
+            where e.budget.budgetId = ?1
+            and e.plannedExpenditureId = ?2
             and e.owner.value = ?#{principal.username}
         """
     )
-    void delete(Long plannedExpenditureId);
+    void delete(Long budgetId, Long plannedExpenditureId);
 
 }

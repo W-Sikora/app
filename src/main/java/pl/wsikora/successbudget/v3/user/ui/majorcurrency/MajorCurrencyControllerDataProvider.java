@@ -2,25 +2,24 @@ package pl.wsikora.successbudget.v3.user.ui.majorcurrency;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
-
-import java.util.List;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
 @Service
-class MajorCurrencyControllerDataProvider {
+class MajorCurrencyControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final MajorCurrencyFormFactory majorCurrencyFormFactory;
 
-    private MajorCurrencyControllerDataProvider(MessageProvider messageProvider,
-                                                MajorCurrencyFormFactory majorCurrencyFormFactory) {
+    private MajorCurrencyControllerDataProvider(
+        MessageProvider messageProvider,
+        MajorCurrencyFormFactory majorCurrencyFormFactory
+    ) {
 
         this.messageProvider = messageProvider;
         this.majorCurrencyFormFactory = majorCurrencyFormFactory;
@@ -30,13 +29,13 @@ class MajorCurrencyControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlLandingPagePath(modelMap);
 
-        modelMap.addAttribute(COLUMN_SIZE, FORM_PAGE_SIZE);
+        addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName("major-currency"));
+        addAttributePagePathFromForm(modelMap, MAJOR_CURRENCY);
 
-        modelMap.addAttribute(FORM_ACTION, MAJOR_CURRENCY_EDIT_PATH);
+        addAttributeFormAction(modelMap, MAJOR_CURRENCY_EDIT_PATH);
 
         modelMap.addAttribute("majorCurrencyForm", majorCurrencyFormFactory.getMajorCurrencyForm());
 
@@ -44,12 +43,10 @@ class MajorCurrencyControllerDataProvider {
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
+            .addDashboard()
             .add(title)
-            .build();
-
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
+            .build());
 
         modelMap.addAttribute("currencies", Currency.getOrdinals());
 

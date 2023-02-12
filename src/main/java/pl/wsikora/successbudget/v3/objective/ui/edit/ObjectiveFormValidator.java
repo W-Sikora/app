@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
 import pl.wsikora.successbudget.v3.common.type.description.DescriptionValidator;
 import pl.wsikora.successbudget.v3.common.type.title.TitleValidator;
 

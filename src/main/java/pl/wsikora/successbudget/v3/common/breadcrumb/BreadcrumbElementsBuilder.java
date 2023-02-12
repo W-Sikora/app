@@ -1,33 +1,58 @@
 package pl.wsikora.successbudget.v3.common.breadcrumb;
 
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 
 
 public class BreadcrumbElementsBuilder {
 
     private final List<BreadcrumbElement> breadcrumbElements;
+    private final MessageProvider messageProvider;
 
-    private BreadcrumbElementsBuilder() {
+    private BreadcrumbElementsBuilder(MessageProvider messageProvider) {
 
-        breadcrumbElements = new ArrayList<>();
+        Assert.notNull(messageProvider, "messageProvider must not be null");
+
+        this.breadcrumbElements = new ArrayList<>();
+        this.messageProvider = messageProvider;
     }
 
-    public static BreadcrumbElementsBuilder builder() {
+    public static BreadcrumbElementsBuilder builder(MessageProvider messageProvider) {
 
-        return new BreadcrumbElementsBuilder();
+        return new BreadcrumbElementsBuilder(messageProvider);
     }
 
-    public BreadcrumbElementsBuilder add(String label, String url) {
+    public BreadcrumbElementsBuilder add(String labelCode, String url) {
 
-        Assert.hasText(label, "label must not be empty");
+        Assert.hasText(labelCode, "labelCode must not be empty");
         Assert.hasText(url, "url must not be empty");
 
-        BreadcrumbElement breadcrumbElement = new BreadcrumbElement(label, url);
+        String label = messageProvider.getMessage(labelCode);
 
-        breadcrumbElements.add(breadcrumbElement);
+        breadcrumbElements.add(BreadcrumbElement.of(label, url));
+
+        return this;
+    }
+
+    public BreadcrumbElementsBuilder addLandingPage() {
+
+        String label = messageProvider.getMessage(LANDING_PAGE_TITLE);
+
+        breadcrumbElements.add(BreadcrumbElement.of(label, LANDING_PAGE_PATH));
+
+        return this;
+    }
+
+    public BreadcrumbElementsBuilder addDashboard() {
+
+        String label = messageProvider.getMessage(DASHBOARD_TITLE);
+
+        breadcrumbElements.add(BreadcrumbElement.of(label, DASHBOARD_PATH));
 
         return this;
     }
@@ -36,9 +61,7 @@ public class BreadcrumbElementsBuilder {
 
         Assert.hasText(label, "label must not be empty");
 
-        BreadcrumbElement breadcrumbElement = new BreadcrumbElement(label);
-
-        breadcrumbElements.add(breadcrumbElement);
+        breadcrumbElements.add(BreadcrumbElement.of(label));
 
         return this;
     }

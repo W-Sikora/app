@@ -1,6 +1,5 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedrevenue.edit;
 
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDto;
@@ -21,14 +20,14 @@ class PlannedRevenueFormFactory {
         this.plannedRevenueQuery = plannedRevenueQuery;
     }
 
-    PlannedRevenueForm getPlannedExpenditureForm(Long budgetId, @Nullable Long plannedExpenditureId) {
+    PlannedRevenueForm getPlannedExpenditureForm(PlannedRevenueEditCommand editCommand) {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(editCommand, "editCommand must not be null");
 
-        return Optional.ofNullable(plannedExpenditureId)
+        return Optional.ofNullable(editCommand.plannedRevenueId())
             .flatMap(plannedRevenueQuery::findByPlannedRevenueId)
             .map(this::toForm)
-            .orElseGet(() -> newForm(budgetId));
+            .orElseGet(() -> newForm(editCommand.budgetId()));
     }
 
     private PlannedRevenueForm toForm(PlannedRevenueDto plannedRevenueDto) {

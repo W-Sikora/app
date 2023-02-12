@@ -21,9 +21,11 @@ class UserCommandImpl implements UserCommand {
     private final UsernameProvider usernameProvider;
     private final PasswordEncoder passwordEncoder;
 
-    private UserCommandImpl(UserRepository userRepository,
-                            UsernameProvider usernameProvider,
-                            PasswordEncoder passwordEncoder) {
+    private UserCommandImpl(
+        UserRepository userRepository,
+        UsernameProvider usernameProvider,
+        PasswordEncoder passwordEncoder
+    ) {
 
         this.userRepository = userRepository;
         this.usernameProvider = usernameProvider;
@@ -55,15 +57,19 @@ class UserCommandImpl implements UserCommand {
 
         String username = usernameProvider.getUsername().getValue();
 
-        Currency currency = Currency.of(majorCurrencyAttributes.getMajorCurrencyId());
+        Currency currency = Currency.of(majorCurrencyAttributes.getCurrency());
 
         userRepository.findByUsernameAsString(username)
-            .map(user -> {
-                user.setMajorCurrency(currency);
-                return user;
-            })
+            .map(user -> assignMajorCurrency(user, currency))
             .map(userRepository::save)
             .orElseThrow(() -> new NotFoundException("User"));
+    }
+
+    private User assignMajorCurrency(User user, Currency majorCurrency) {
+
+        user.setMajorCurrency(majorCurrency);
+
+        return user;
     }
 
 }

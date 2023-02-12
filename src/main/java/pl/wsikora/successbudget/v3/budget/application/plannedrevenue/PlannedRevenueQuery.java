@@ -12,4 +12,6 @@ public interface PlannedRevenueQuery {
 
     Page<PlannedRevenueDto> findAll(Pageable pageable, Long budgetId);
 
+    boolean hasAssignedCategory(Long budgetId, Long categoryId);
+
 }

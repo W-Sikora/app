@@ -13,8 +13,8 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
 import static pl.wsikora.successbudget.v3.user.ui.registration.UsernameValidator.E_USERNAME_MUST_BE_UNIQUE;
 import static pl.wsikora.successbudget.v3.user.ui.registration.UsernameValidator.F_USER_NAME;
 

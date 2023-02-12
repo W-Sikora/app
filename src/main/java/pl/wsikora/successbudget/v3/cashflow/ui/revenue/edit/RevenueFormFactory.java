@@ -1,8 +1,8 @@
 package pl.wsikora.successbudget.v3.cashflow.ui.revenue.edit;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.cashflow.application.RevenueDto;
-import pl.wsikora.successbudget.v3.cashflow.application.RevenueQuery;
+import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueDto;
+import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueQuery;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
@@ -34,9 +34,8 @@ class RevenueFormFactory {
             .revenueId(revenueDto.getRevenueId())
             .cashFlowId(revenueDto.getCashFlowId())
             .title(revenueDto.getTitle())
-            .description(revenueDto.getDescription())
             .categoryId(revenueDto.getCategoryDto().getCategoryId())
-            .currencyId(money.getCurrency().ordinal())
+            .currency(money.getCurrency().ordinal())
             .value(money.getValue())
             .payer(revenueDto.getPayer())
             .date(revenueDto.getDate())

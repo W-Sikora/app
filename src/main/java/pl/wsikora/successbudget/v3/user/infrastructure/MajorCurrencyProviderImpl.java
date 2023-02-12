@@ -17,8 +17,10 @@ class MajorCurrencyProviderImpl implements MajorCurrencyProvider {
     private final UserRepository userRepository;
     private final UsernameProvider usernameProvider;
 
-    private MajorCurrencyProviderImpl(UserRepository userRepository,
-                                      UsernameProvider usernameProvider) {
+    private MajorCurrencyProviderImpl(
+        UserRepository userRepository,
+        UsernameProvider usernameProvider
+    ) {
 
         this.userRepository = userRepository;
         this.usernameProvider = usernameProvider;

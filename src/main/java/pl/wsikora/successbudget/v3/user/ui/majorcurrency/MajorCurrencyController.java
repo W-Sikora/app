@@ -21,9 +21,10 @@ class MajorCurrencyController {
     private final MajorCurrencyFormValidator registrationFormValidator;
     private final MajorCurrencyControllerDataProvider registrationControllerDataProvider;
 
-    private MajorCurrencyController(UserCommand userCommand,
-                                    MajorCurrencyFormValidator registrationFormValidator,
-                                    MajorCurrencyControllerDataProvider registrationControllerDataProvider) {
+    private MajorCurrencyController(
+        UserCommand userCommand,
+        MajorCurrencyFormValidator registrationFormValidator,
+        MajorCurrencyControllerDataProvider registrationControllerDataProvider) {
 
         this.userCommand = userCommand;
         this.registrationFormValidator = registrationFormValidator;
@@ -37,7 +38,8 @@ class MajorCurrencyController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute MajorCurrencyForm majorCurrencyForm, BindingResult bindingResult) {
+    private String save(@Valid @ModelAttribute MajorCurrencyForm majorCurrencyForm,
+                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 

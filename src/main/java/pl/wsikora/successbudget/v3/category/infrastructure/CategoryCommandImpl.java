@@ -13,14 +13,16 @@ import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 @Service
 class CategoryCommandImpl implements CategoryCommand {
 
-    private final CategoryRepository categoryRepository;
     private final UsernameProvider usernameProvider;
+    private final CategoryRepository categoryRepository;
 
-    private CategoryCommandImpl(CategoryRepository categoryCrudRepository,
-                                UsernameProvider usernameProvider) {
+    private CategoryCommandImpl(
+        UsernameProvider usernameProvider,
+        CategoryRepository categoryCrudRepository
+    ) {
 
-        this.categoryRepository = categoryCrudRepository;
         this.usernameProvider = usernameProvider;
+        this.categoryRepository = categoryCrudRepository;
     }
 
     @Override
@@ -31,8 +33,11 @@ class CategoryCommandImpl implements CategoryCommand {
         Category category = new Category();
 
         category.setCategoryId(categoryAttributes.getCategoryId());
+
         category.setTitle(new Title(categoryAttributes.getTitle()));
+
         category.setOwner(usernameProvider.getUsername());
+
         category.setTransactionType(TransactionType.of(categoryAttributes.getTransactionType()));
 
         categoryRepository.save(category);

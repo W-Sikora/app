@@ -20,7 +20,8 @@
 
     <c:otherwise>
 
-        <table class="table is-fullwidth">
+        <div class="table-container">
+            <table class="table is-fullwidth">
             <thead>
             <tr>
                 <th></th>
@@ -56,13 +57,14 @@
             </c:forEach>
             </tbody>
         </table>
+        </div>
 
         <c:set var="_currentPage" value="${currentPage}"/>
         <c:set var="_lastPage" value="${categories.totalPages}"/>
+        <c:set var="_parameterName" value="page"/>
         <%@ include file="../common/pagination.jsp" %>
-
-        <%@ include file="../common/modal.jsp" %>
 
     </c:otherwise>
 </c:choose>
 
+<%@ include file="../common/modal.jsp" %>

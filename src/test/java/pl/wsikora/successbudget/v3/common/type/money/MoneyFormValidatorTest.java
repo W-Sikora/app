@@ -12,8 +12,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator.F_VALUE;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_VALUE_MUST_BE_WITHIN_ALLOWED_RANGE;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_VALUE_MUST_BE_WITHIN_ALLOWED_RANGE;
 
 
 class MoneyFormValidatorTest {

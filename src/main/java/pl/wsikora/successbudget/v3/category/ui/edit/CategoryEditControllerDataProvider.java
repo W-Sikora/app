@@ -3,28 +3,29 @@ package pl.wsikora.successbudget.v3.category.ui.edit;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
-import java.util.List;
-
-import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
 @Service
-class CategoryEditControllerDataProvider {
+class CategoryEditControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
+    private final TitleProvider titleProvider;
     private final CategoryFormFactory categoryFormFactory;
 
-    private CategoryEditControllerDataProvider(MessageProvider messageProvider,
-                                               CategoryFormFactory categoryFormFactory) {
+    private CategoryEditControllerDataProvider(
+        MessageProvider messageProvider,
+        CategoryFormFactory categoryFormFactory
+    ) {
 
         this.messageProvider = messageProvider;
+        this.titleProvider = new TitleProvider(messageProvider);
         this.categoryFormFactory = categoryFormFactory;
     }
 
@@ -32,31 +33,28 @@ class CategoryEditControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+        addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName(CATEGORY));
+        addAttributePagePathFromForm(modelMap, CATEGORY);
 
-        modelMap.addAttribute(FORM_ACTION, CATEGORY_EDIT_PATH);
+        addAttributeFormAction(modelMap, CATEGORY_ADD_PATH);
 
         CategoryForm categoryForm = categoryFormFactory.getCategoryForm(categoryId);
 
         modelMap.addAttribute("categoryForm", categoryForm);
 
-        String title = isNull(categoryForm.getCategoryId())
-            ? messageProvider.getMessage(CATEGORY_ADD_TITLE)
-            : messageProvider.getMessage(CATEGORY_EDIT_TITLE);
+        String title = titleProvider.provideTitle(categoryForm.getCategoryId(),
+            CATEGORY_ADD_TITLE, CATEGORY_EDIT_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
-            .add(messageProvider.getMessage(CATEGORY_LIST_TITLE), CATEGORY_PATH)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
+            .addDashboard()
+            .add(CATEGORY_LIST_TITLE, CATEGORY_PATH)
             .add(title)
-            .build();
-
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
+            .build());
 
         modelMap.addAttribute("transactionTypes", TransactionType.getOrdinals());
 

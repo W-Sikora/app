@@ -13,16 +13,18 @@ import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 
 @Controller
-@RequestMapping(PLANNED_REVENUE_EDIT_PATH)
+@RequestMapping(PLANNED_REVENUE_ADD_PATH)
 class PlannedRevenueEditController {
 
     private final PlannedRevenueCommand plannedRevenueCommand;
     private final PlannedRevenueFormValidator plannedRevenueFormValidator;
     private final PlannedRevenueEditControllerDataProvider plannedExpenditureEditControllerDataProvider;
 
-    private PlannedRevenueEditController(PlannedRevenueCommand plannedRevenueCommand,
-                                         PlannedRevenueFormValidator plannedRevenueFormValidator,
-                                         PlannedRevenueEditControllerDataProvider plannedExpenditureEditControllerDataProvider) {
+    private PlannedRevenueEditController(
+        PlannedRevenueCommand plannedRevenueCommand,
+        PlannedRevenueFormValidator plannedRevenueFormValidator,
+        PlannedRevenueEditControllerDataProvider plannedExpenditureEditControllerDataProvider
+    ) {
 
         this.plannedRevenueCommand = plannedRevenueCommand;
         this.plannedRevenueFormValidator = plannedRevenueFormValidator;
@@ -57,11 +59,9 @@ class PlannedRevenueEditController {
     }
 
     @ModelAttribute
-    private void data(@PathVariable Long budgetId,
-                      @RequestParam(required = false) Long id,
-                      Model model) {
+    private void data(PlannedRevenueEditCommand editCommand, Model model) {
 
-        model.addAllAttributes(plannedExpenditureEditControllerDataProvider.provideData(budgetId, id));
+        model.addAllAttributes(plannedExpenditureEditControllerDataProvider.provideData(editCommand));
     }
 
 }

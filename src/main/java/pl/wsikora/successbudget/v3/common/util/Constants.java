@@ -42,36 +42,51 @@ public class Constants {
 
 
     // Pagination
-    public static final String DEFAULT_PAGINATION_PAGE = "0";
-    public static final String DEFAULT_PAGINATION_SIZE = "15";
+    public static final int DEFAULT_PAGINATION_PAGE = 0;
+    public static final int DEFAULT_PAGINATION_SIZE = 15;
     public static final String CURRENT_PAGE = "currentPage";
 
     // Sizes
-    public static final String FORM_PAGE_SIZE = "is-5";
+    public static final int FORM_PAGE_SIZE = 5;
 
     // Paths
     public static final String LANDING_PAGE_PATH = "/";
     public static final String I18N_PATH = "/locale";
     public static final String REGISTRATION_PATH = "/registration";
     public static final String LOGIN_PATH = "/login";
+    public static final String MAJOR_CURRENCY = "major-currency";
     public static final String MAJOR_CURRENCY_EDIT_PATH = "/major-currency/edit";
     public static final String DASHBOARD_PATH = "/dashboards/";
     public static final String OBJECTIVE_PATH = "/objectives";
+    public static final String OBJECTIVE_ADD_PATH = "/objectives/edit";
+    public static final String OBJECTIVE_EDIT_PATH = "/objectives/edit?objectiveId={objectiveId}";
     public static final String CATEGORY_PATH = "/categories";
-    public static final String CATEGORY_EDIT_PATH = "/categories/edit";
-    public static final String CATEGORY_DELETE_PATH = "/categories/delete/{id}";
-    public static final String BUDGET_PATH = "/budgets/{id}";
-    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/budgets/{budgetId}/planned-expenditures/edit";
-    public static final String PLANNED_EXPENDITURE_DELETE_PATH = "/budgets/{budgetId}/planned-expenditures/delete/{id}";
-    public static final String PLANNED_REVENUE_EDIT_PATH = "/budgets/{budgetId}/planned-revenues/edit";
-    public static final String PLANNED_REVENUE_DELETE_PATH = "/budgets/{budgetId}/planned-revenues/delete/{id}";
-    public static final String CASH_FLOW_PATH = "/cash-flows/{id}";
+    public static final String CATEGORY_ADD_PATH = "/categories/edit";
+    public static final String CATEGORY_EDIT_PATH = "/categories/edit?categoryId={categoryId}";
+    public static final String CATEGORY_DELETE_PATH = "/categories/delete/{categoryId}";
+    public static final String BUDGET_PATH = "/budgets/{budgetId}";
+    public static final String PLANNED_EXPENDITURE_ADD_PATH = "/budgets/{budgetId}/planned-expenditures/edit";
+    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/budgets/{budgetId}/planned-expenditures/edit?plannedExpenditureId={plannedExpenditureId}";
+    public static final String PLANNED_EXPENDITURE_DELETE_PATH = "/budgets/{budgetId}/planned-expenditures/delete/{plannedExpenditureId}";
+    public static final String PLANNED_REVENUE_ADD_PATH = "/budgets/{budgetId}/planned-revenues/edit";
+    public static final String PLANNED_REVENUE_EDIT_PATH = "/budgets/{budgetId}/planned-revenues/edit?plannedRevenueId={plannedRevenueId}";
+    public static final String PLANNED_REVENUE_DELETE_PATH = "/budgets/{budgetId}/planned-revenues/delete/{plannedRevenueId}";
+    public static final String CASH_FLOW_PATH = "/cash-flows/{cashFlowId}";
     public static final String EXPENDITURE_PATH = "/cash-flows/{cashFlowId}/expenditures/";
-    public static final String EXPENDITURE_EDIT_PATH = "/cash-flows/{cashFlowId}/expenditures/edit";
-    public static final String EXPENDITURE_DELETE_PATH = "/cash-flows/{cashFlowId}/expenditures/delete/";
-    public static final String REVENUE_EDIT_PATH = "/cash-flows/{cashFlowId}/revenues/edit";
-    public static final String REVENUE_DELETE_PATH = "/cash-flows/{cashFlowId}/revenues/delete/";
-    
+    public static final String EXPENDITURE_ADD_PATH = "/cash-flows/{cashFlowId}/expenditures/edit";
+    public static final String EXPENDITURE_EDIT_PATH = "/cash-flows/{cashFlowId}/expenditures/edit?expenditureId={expenditureId}";
+    public static final String EXPENDITURE_DELETE_PATH = "/cash-flows/{cashFlowId}/expenditures/delete/{expenditureId}";
+    public static final String REVENUE_ADD_PATH = "/cash-flows/{cashFlowId}/revenues/edit";
+    public static final String REVENUE_EDIT_PATH = "/cash-flows/{cashFlowId}/revenues/edit?revenueId={revenueId}";
+    public static final String REVENUE_DELETE_PATH = "/cash-flows/{cashFlowId}/revenues/delete/{revenueId}";
+    public static final String NO_RESOURCE_PATH = "no-resource";
+
+
+    // error
+    public static final String ERROR = "error";
+
+    // no resource
+    public static final String NO_RESOURCE = "no-resource";
 
     public static final String LANDING_PAGE_TITLE = "landing.page.title";
 
@@ -91,7 +106,6 @@ public class Constants {
 
     // Objective
     public static final String OBJECTIVE = "objective";
-    public static final String OBJECTIVE_EDIT_PATH = OBJECTIVE_PATH + EDIT_PATH;
     public static final String OBJECTIVE_COMPLETED_PATH = OBJECTIVE_PATH + COMPLETED_PATH;
     public static final String OBJECTIVE_LIST_TITLE = "objective.list.page.title";
     public static final String OBJECTIVE_ADD_TITLE = "objective.add.page.title";

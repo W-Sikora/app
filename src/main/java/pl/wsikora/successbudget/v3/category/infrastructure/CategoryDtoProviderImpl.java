@@ -18,8 +18,10 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
     private final CategoryRepository categoryRepository;
     private final MessageProvider messageProvider;
 
-    private CategoryDtoProviderImpl(CategoryRepository categoryRepository,
-                                    MessageProvider messageProvider) {
+    private CategoryDtoProviderImpl(
+        CategoryRepository categoryRepository,
+        MessageProvider messageProvider
+    ) {
 
         this.categoryRepository = categoryRepository;
         this.messageProvider = messageProvider;
@@ -65,8 +67,6 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
     }
 
     private CategoryDto toDto(CategoryId categoryId) {
-
-
 
         String message = messageProvider.getMessage("category.was.deleted");
 

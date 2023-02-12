@@ -1,36 +1,33 @@
-//package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.delete;
+package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.delete;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureCommand;
+
+import static pl.wsikora.successbudget.v3.common.util.Constants.BUDGET_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.EXPENDITURE_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
+
+
+@Controller
+@RequestMapping(EXPENDITURE_DELETE_PATH)
+class ExpenditureDeleteController {
+
+//    private final PlannedExpenditureCommand expenditureCommand;
 //
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import pl.wsikora.successbudget.v3.cashflow.infrastructure.ExpenditureRepository;
+//    private ExpenditureDeleteController(PlannedExpenditureCommand expenditureCommand) {
 //
-//import java.security.Principal;
-//
-//import static pl.wsikora.successbudget.v3.common.util.Constants.ID_PATH_VARIABLE;
-//import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
-//
-//
-//@Controller
-//@RequestMapping(EXPENDITURE_DELETE_PATH)
-//class ExpenditureDeleteController {
-//
-//    private final ExpenditureRepository expenditureRepository;
-//
-//    private ExpenditureDeleteController(ExpenditureRepository expenditureRepository) {
-//
-//        this.expenditureRepository = expenditureRepository;
+//        this.expenditureCommand = expenditureCommand;
 //    }
 //
-//    @PostMapping(ID_PATH_VARIABLE)
-//    private String delete(@PathVariable Long id, Principal principal) {
+//    @PostMapping
+//    private String delete(@PathVariable Long cashFlowId, @PathVariable Long id) {
 //
-//        if (expenditureRepository.existsByExpenditureIdAndUsername(id, principal.getName())) {
+//        expenditureCommand.delete(cashFlowId, id);
 //
-//            expenditureRepository.deleteById(id);
-//        }
-//
-//        return redirect(EXPENDITURE_PATH);
+//        return redirect(BUDGET_PATH, cashFlowId);
 //    }
-//}
+
+}

@@ -3,63 +3,66 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureCommand;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
+
 
 @Controller
 @RequestMapping(EXPENDITURE_EDIT_PATH)
-public class ExpenditureEditController {
+class ExpenditureEditController {
 
-    private final CategoryQuery categoryQuery;
+    private final ExpenditureCommand expenditureCommand;
+    private final ExpenditureFormValidator expenditureFormValidator;
+    private final ExpenditureEditControllerDataProvider expenditureEditControllerDataProvider;
 
-    public ExpenditureEditController(CategoryQuery categoryQuery) {
+    private ExpenditureEditController(ExpenditureCommand expenditureCommand,
+                                      ExpenditureFormValidator expenditureFormValidator,
+                                      ExpenditureEditControllerDataProvider expenditureEditControllerDataProvider) {
 
-        this.categoryQuery = categoryQuery;
+        this.expenditureCommand = expenditureCommand;
+        this.expenditureFormValidator = expenditureFormValidator;
+        this.expenditureEditControllerDataProvider = expenditureEditControllerDataProvider;
     }
 
     @GetMapping
-    private String goToView(@RequestParam(required = false) Long id, Principal principal, Model model) {
+    private String view() {
 
         return VIEW;
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute ExpenditureForm expenditureForm, BindingResult bindingResult, Principal principal) {
+    private String save(@Valid @ModelAttribute ExpenditureForm expenditureForm,
+                        BindingResult bindingResult,
+                        @PathVariable Long cashFlowId) {
 
         if (bindingResult.hasErrors()) {
 
             return VIEW;
         }
 
-        Username username = new Username(principal.getName());
+        expenditureCommand.save(expenditureForm);
 
-        return redirect(CATEGORY_PATH);
+        return redirect(CASH_FLOW_PATH, cashFlowId);
     }
 
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
 
-    @ModelAttribute(FORM_PAGE)
-    private String formPage() {
-
-        return getEditFormName("expenditure");
+        binder.setValidator(expenditureFormValidator);
     }
 
-    @ModelAttribute("expenditureForm")
-    private ExpenditureForm form() {
+    @ModelAttribute
+    private void data(@PathVariable Long cashFlowId,
+                      @RequestParam(required = false) Long id,
+                      Model model) {
 
-        return new ExpenditureForm();
+        model.addAllAttributes(expenditureEditControllerDataProvider.provideData(cashFlowId, id));
     }
 
-    @ModelAttribute(FORM_ACTION)
-    private String formAction() {
-
-        return "aa";
-    }
 }

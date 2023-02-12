@@ -13,8 +13,8 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.type.description.Description.MAXIMUM_LENGTH;
 import static pl.wsikora.successbudget.v3.common.type.description.Description.MINIMUM_LENGTH;
 import static pl.wsikora.successbudget.v3.common.type.description.DescriptionValidator.F_DESCRIPTION;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
-import static pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
+import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
 
 
 class DescriptionValidatorTest {

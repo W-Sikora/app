@@ -1,36 +1,33 @@
-//package pl.wsikora.successbudget.v3.cashflow.ui.revenue.delete;
+package pl.wsikora.successbudget.v3.cashflow.ui.revenue.delete;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
+
+import static pl.wsikora.successbudget.v3.common.util.Constants.BUDGET_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.REVENUE_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
+
+
+@Controller
+@RequestMapping(REVENUE_DELETE_PATH)
+class RevenueDeleteController {
+
+//    private final PlannedRevenueCommand revenueCommand;
 //
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import pl.wsikora.successbudget.v3.cashflow.infrastructure.RevenueRepository;
+//    private RevenueDeleteController(PlannedRevenueCommand revenueCommand) {
 //
-//import java.security.Principal;
-//
-//import static pl.wsikora.successbudget.v3.common.util.Constants.ID_PATH_VARIABLE;
-//import static pl.wsikora.successbudget.v3.common.util.Redirector.redirect;
-//
-//
-//@Controller
-//@RequestMapping(REVENUE_DELETE_PATH)
-//class RevenueDeleteController {
-//
-//    private final RevenueRepository revenueRepository;
-//
-//    private RevenueDeleteController(RevenueRepository revenueRepository) {
-//
-//        this.revenueRepository = revenueRepository;
+//        this.revenueCommand = revenueCommand;
 //    }
 //
-//    @PostMapping(ID_PATH_VARIABLE)
-//    private String delete(@PathVariable Long id, Principal principal) {
+//    @PostMapping
+//    private String delete(@PathVariable Long cashFlowId, @PathVariable Long id) {
 //
-//        if (revenueRepository.existsByRevenueIdAndUsername(id, principal.getName())) {
+//        revenueCommand.delete(cashFlowId, id);
 //
-//            revenueRepository.deleteById(id);
-//        }
-//
-//        return redirect(REVENUE_PATH);
+//        return redirect(BUDGET_PATH, cashFlowId);
 //    }
-//}
+
+}

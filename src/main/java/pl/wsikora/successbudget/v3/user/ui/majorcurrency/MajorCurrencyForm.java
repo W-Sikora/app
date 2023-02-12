@@ -13,6 +13,6 @@ import pl.wsikora.successbudget.v3.user.application.MajorCurrencyAttributes;
 @NoArgsConstructor
 class MajorCurrencyForm implements MajorCurrencyAttributes {
 
-    private Integer majorCurrencyId;
+    private Integer currency;
 
 }

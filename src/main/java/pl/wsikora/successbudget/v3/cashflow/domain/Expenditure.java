@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
-import pl.wsikora.successbudget.v3.common.type.description.Description;
 import pl.wsikora.successbudget.v3.common.type.payee.Payee;
 import pl.wsikora.successbudget.v3.common.type.priority.Priority;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
@@ -37,20 +36,19 @@ public class Expenditure {
     private Title title;
 
     @Embedded
-    private Description description;
-
-    @Embedded
     private CategoryId categoryId;
-
-    @Embedded
-    private Money money;
 
     @Enumerated(EnumType.ORDINAL)
     private Priority priority;
 
+    private LocalDate date;
+
+    @Embedded
+    private Money money;
+
     @Embedded
     private Payee payee;
 
-    private LocalDate date;
+    private boolean repeatInNextPeriod;
 
 }

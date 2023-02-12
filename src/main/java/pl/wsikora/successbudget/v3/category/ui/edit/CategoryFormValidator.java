@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.type.title.TitleValidator;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionTypeValidator;
-import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
 
 
 @Service

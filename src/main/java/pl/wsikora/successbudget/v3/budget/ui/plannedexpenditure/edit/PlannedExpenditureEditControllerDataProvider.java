@@ -1,76 +1,85 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
+import pl.wsikora.successbudget.v3.budget.application.budget.BudgetChecker;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.priority.Priority;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
-import java.util.List;
-
-import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 @Service
-class PlannedExpenditureEditControllerDataProvider {
+class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
+    private final BudgetChecker budgetChecker;
     private final PlannedExpenditureFormFactory plannedExpenditureFormFactory;
+    private final TitleProvider titleProvider;
     private final CategoryDtoProvider categoryDtoProvider;
 
-    private PlannedExpenditureEditControllerDataProvider(MessageProvider messageProvider,
-                                                         PlannedExpenditureFormFactory plannedExpenditureFormFactory,
-                                                         CategoryDtoProvider categoryDtoProvider) {
+
+    private PlannedExpenditureEditControllerDataProvider(
+        MessageProvider messageProvider,
+        BudgetChecker budgetChecker,
+        PlannedExpenditureFormFactory plannedExpenditureFormFactory,
+        CategoryDtoProvider categoryDtoProvider
+    ) {
 
         this.messageProvider = messageProvider;
+        this.budgetChecker = budgetChecker;
         this.plannedExpenditureFormFactory = plannedExpenditureFormFactory;
+        this.titleProvider = new TitleProvider(messageProvider);
         this.categoryDtoProvider = categoryDtoProvider;
     }
 
-    ModelMap provideData(Long budgetId, @Nullable Long plannedExpenditureId) {
+    ModelMap provideData(PlannedExpenditureEditCommand editCommand) {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(editCommand, "editCommand must not be null");
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        modelMap.addAttribute(COLUMN_SIZE, FORM_PAGE_SIZE);
+        addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName(PLANNED_EXPENDITURE));
+        if (budgetChecker.hasNoBudget(editCommand.budgetId())) {
 
-        modelMap.addAttribute(FORM_ACTION, fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
+            addAttributePagePathNoResource(modelMap);
 
-        PlannedExpenditureForm plannedExpenditureForm = plannedExpenditureFormFactory.getPlannedExpenditureForm(
-            budgetId, plannedExpenditureId);
+            return modelMap;
+        }
 
-        modelMap.addAttribute("plannedExpenditureForm", plannedExpenditureForm);
+        addAttributePagePathFromForm(modelMap, PLANNED_EXPENDITURE);
 
-        String title = isNull(plannedExpenditureForm.getCategoryId())
-            ? messageProvider.getMessage(PLANNED_EXPENDITURE_ADD_TITLE)
-            : messageProvider.getMessage(PLANNED_EXPENDITURE_EDIT_TITLE);
+        addAttributeFormAction(modelMap, PLANNED_EXPENDITURE_ADD_PATH, BUDGET_ID_PATH_VARIABLE,
+            editCommand.budgetId());
+
+        modelMap.addAttribute("plannedExpenditureForm", plannedExpenditureFormFactory
+            .createPlannedExpenditureForm(editCommand));
+
+        String title = titleProvider.provideTitle(editCommand.plannedExpenditureId(),
+            PLANNED_EXPENDITURE_ADD_TITLE, PLANNED_EXPENDITURE_EDIT_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
-            .add(messageProvider.getMessage(BUDGET), fillPath(BUDGET_PATH, ID_PATH_VARIABLE, budgetId))
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
+            .addDashboard()
+            .add(BUDGET, fillPath(BUDGET_PATH, ID_PATH_VARIABLE, editCommand.budgetId()))
             .add(title)
-            .build();
+            .build()
+        );
 
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
-
-        modelMap.addAttribute("categories", categoryDtoProvider.provideAllByAssignedTransactionType(
-            TransactionType.EXPENDITURE));
+        modelMap.addAttribute("categories", categoryDtoProvider
+            .provideAllByAssignedTransactionType(TransactionType.EXPENDITURE));
 
         modelMap.addAttribute("priorities", Priority.getOrdinals());
 

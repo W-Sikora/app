@@ -14,19 +14,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const paginators = document.querySelectorAll('.js-pagination-form');
+    const paginators = document.querySelectorAll('.js-pagination');
 
     if (paginators) {
 
+        paginators.forEach(paginator => {
 
-        document.querySelectorAll('.js-previous-page-button').forEach(previousPageButton => {
+            const currentPage = paginator.dataset.currentPage;
+            const lastPage = paginator.dataset.lastPage - 1;
+            const previousPageButton = paginator.querySelector('.js-previous-page-button');
+            const nextPageButton = paginator.querySelector('.js-next-page-button');
+            const form = paginator.querySelector('.js-pagination-form');
+            const input = form.querySelector('input.js-parameter-name');
 
+            previousPageButton.addEventListener('click', () => {
 
-        })
+                if (currentPage > 0) {
 
+                    input.value = +currentPage - 1;
+                    form.submit();
+                }
+            });
 
+            nextPageButton.addEventListener('click', () => {
 
-        const nextPageButtons = document.querySelectorAll('.js-next-page-button');
+                if (currentPage < lastPage) {
+
+                    input.value = +currentPage + 1;
+                    form.submit();
+                }
+            });
+        });
     }
 
     const logoutButton = document.getElementById('logoutButton');

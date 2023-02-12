@@ -13,16 +13,18 @@ import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 
 @Controller
-@RequestMapping(CATEGORY_EDIT_PATH)
+@RequestMapping(CATEGORY_ADD_PATH)
 class CategoryEditController {
 
     private final CategoryCommand categoryCommand;
     private final CategoryFormValidator categoryFormValidator;
     private final CategoryEditControllerDataProvider categoryEditControllerDataProvider;
 
-    private CategoryEditController(CategoryCommand categoryCommand,
-                                   CategoryFormValidator categoryFormValidator,
-                                   CategoryEditControllerDataProvider categoryEditControllerDataProvider) {
+    private CategoryEditController(
+        CategoryCommand categoryCommand,
+        CategoryFormValidator categoryFormValidator,
+        CategoryEditControllerDataProvider categoryEditControllerDataProvider
+    ) {
 
         this.categoryCommand = categoryCommand;
         this.categoryFormValidator = categoryFormValidator;
@@ -36,7 +38,8 @@ class CategoryEditController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute CategoryForm categoryForm, BindingResult bindingResult) {
+    private String save(@Valid @ModelAttribute CategoryForm categoryForm,
+                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
@@ -55,9 +58,9 @@ class CategoryEditController {
     }
 
     @ModelAttribute
-    private void data(@RequestParam(required = false) Long id, Model model) {
+    private void data(@RequestParam(required = false) Long categoryId, Model model) {
 
-        model.addAllAttributes(categoryEditControllerDataProvider.provideData(id));
+        model.addAllAttributes(categoryEditControllerDataProvider.provideData(categoryId));
     }
 
 }

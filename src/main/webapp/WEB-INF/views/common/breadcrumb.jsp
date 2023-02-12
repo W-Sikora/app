@@ -7,7 +7,7 @@
                 <c:choose>
                     <c:when test="${status.isLast()}">
                         <li class="is-active">
-                            <a href="#" aria-current="page">
+                            <a href="${breadcrumbElement.url}" aria-current="page">
                                 ${breadcrumbElement.label}
                             </a>
                         </li>

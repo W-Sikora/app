@@ -10,21 +10,25 @@ public class BreadcrumbElement {
     private final String label;
     private final String url;
 
-    public BreadcrumbElement(String label, String url) {
-
-        Assert.hasText(label, "label must not be empty");
-        Assert.hasText(url, "url must not be empty");
+    private BreadcrumbElement(String label, String url) {
 
         this.label = label;
         this.url = url;
     }
 
-    public BreadcrumbElement(String label) {
+    public static BreadcrumbElement of(String label, String url) {
+
+        Assert.hasText(label, "label must not be empty");
+        Assert.hasText(url, "url must not be empty");
+
+        return new BreadcrumbElement(label, url);
+    }
+
+    public static BreadcrumbElement of(String label) {
 
         Assert.hasText(label, "label must not be empty");
 
-        this.label = label;
-        this.url = null;
+        return new BreadcrumbElement(label, "#");
     }
 
 }

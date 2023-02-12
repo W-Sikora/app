@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
-import pl.wsikora.successbudget.v3.common.type.description.Description;
 import pl.wsikora.successbudget.v3.common.type.payer.Payer;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
@@ -36,10 +35,9 @@ public class Revenue {
     private Title title;
 
     @Embedded
-    private Description description;
-
-    @Embedded
     private CategoryId categoryId;
+
+    private LocalDate date;
 
     @Embedded
     private Money money;
@@ -47,6 +45,6 @@ public class Revenue {
     @Embedded
     private Payer payer;
 
-    private LocalDate date;
+    private boolean repeatInNextPeriod;
 
 }

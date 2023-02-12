@@ -2,7 +2,7 @@ package pl.wsikora.successbudget.v3.common.type.transactiontype;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import pl.wsikora.successbudget.v3.common.util.validation.AbstractFormValidator;
+import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
 
 import static java.util.Objects.isNull;
 

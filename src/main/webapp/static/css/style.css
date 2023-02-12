@@ -71,6 +71,17 @@ nav.navbar {
     margin-bottom: 0.5rem;
 }
 
+::-webkit-scrollbar{
+    height: 8px;
+    background: hsl(0, 0%, 86%);
+    border-radius: 23px;
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+    background: hsl(0, 0%, 71%);
+    border-radius: 23px;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -81,7 +92,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-/* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }

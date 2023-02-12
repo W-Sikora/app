@@ -2,18 +2,15 @@ package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
-
-import java.util.List;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormName;
 
 
 @Service
-class RegistrationControllerDataProvider {
+class RegistrationControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
 
@@ -26,13 +23,13 @@ class RegistrationControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, LANDING_PAGE_PATH);
+        addAttributeLogoAppUrlLandingPagePath(modelMap);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormName(REGISTRATION));
+        addAttributePagePathFromForm(modelMap, REGISTRATION);
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-5");
+        addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(FORM_ACTION, REGISTRATION_PATH);
+        addAttributeFormAction(modelMap, REGISTRATION_PATH);
 
         modelMap.addAttribute("registrationForm", new RegistrationForm());
 
@@ -40,12 +37,10 @@ class RegistrationControllerDataProvider {
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(LANDING_PAGE_TITLE), LANDING_PAGE_PATH)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
+            .addLandingPage()
             .add(title)
-            .build();
-
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
+            .build());
 
         return modelMap;
     }

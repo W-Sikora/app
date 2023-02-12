@@ -1,7 +1,7 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<div class="columns">
-    <div class="column">
+<div class="columns is-desktop">
+    <div class="column table-container">
 
         <c:set var="_subtitle" value="planned.expenditures"/>
         <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
@@ -10,8 +10,6 @@
         <hr class="is-invisible">
 
         <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
-        <c:set var="_editUrl" value="${plannedExpenditureEditUrl}"/>
-        <c:set var="_deleteUrl" value="${plannedExpenditureDeleteUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -72,17 +70,16 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${currentPage}"/>
+                <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
                 <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
+                <c:set var="_parameterName" value="plannedExpenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
-
-                <%@ include file="../common/modal.jsp" %>
 
             </c:otherwise>
         </c:choose>
     </div>
 
-    <div class="column">
+    <div class="column table-container">
 
         <c:set var="_subtitle" value="planned.revenues"/>
         <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
@@ -145,13 +142,15 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${currentPage}"/>
+                <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
                 <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
+                <c:set var="_parameterName" value="plannedExpenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
-
-                <%@ include file="../common/modal.jsp" %>
 
             </c:otherwise>
         </c:choose>
     </div>
+
+    <%@ include file="../common/modal.jsp" %>
+
 </div>

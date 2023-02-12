@@ -9,7 +9,7 @@ import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import java.util.List;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
+import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListViewName;
 
 
 @Service
@@ -28,14 +28,14 @@ class CashFlowControllerDataProvider {
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
 
-        modelMap.addAttribute(PAGE_PATH, getListName(CASH_FLOW));
+        modelMap.addAttribute(PAGE_PATH, getListViewName(CASH_FLOW));
 
         String title = messageProvider.getMessage(CASH_FLOW_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
+        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder(messageProvider)
+            .addDashboard()
             .add(title)
             .build();
 

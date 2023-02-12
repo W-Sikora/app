@@ -52,6 +52,15 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
             .map(this::toDto);
     }
 
+    @Override
+    public boolean hasAssignedCategory(Long budgetId, Long categoryId) {
+
+        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(categoryId, "categoryId must not be null");
+
+        return plannedExpenditureRepository.hasAssignedCategory(budgetId, categoryId);
+    }
+
     private PlannedExpenditureDto toDto(PlannedExpenditure plannedExpenditure) {
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedExpenditure.getCategoryId());

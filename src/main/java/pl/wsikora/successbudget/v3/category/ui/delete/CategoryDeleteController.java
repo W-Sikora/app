@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.wsikora.successbudget.v3.category.application.CategoryCommand;
 
-import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_DELETE_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_PATH;
 import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 
 
@@ -22,9 +23,9 @@ class CategoryDeleteController {
     }
 
     @PostMapping
-    private String delete(@PathVariable Long id) {
+    private String delete(@PathVariable Long categoryId) {
 
-        categoryCommand.delete(id);
+        categoryCommand.delete(categoryId);
 
         return redirect(CATEGORY_PATH);
     }

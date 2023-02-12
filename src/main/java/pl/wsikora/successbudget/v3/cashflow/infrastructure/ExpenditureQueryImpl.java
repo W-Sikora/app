@@ -1,8 +1,8 @@
 package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
-import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureDto;
-import pl.wsikora.successbudget.v3.cashflow.application.ExpenditureQuery;
+import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureDto;
+import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureQuery;
 
 import java.util.Optional;
 

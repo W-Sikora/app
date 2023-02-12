@@ -4,63 +4,65 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
-import pl.wsikora.successbudget.v3.common.util.validation.PaginationValidator;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
+import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 
-import java.util.List;
-
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListName;
+import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListViewName;
 
 
 @Service
-class ObjectiveViewControllerDataProvider {
+class ObjectiveViewControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final ObjectiveQuery objectiveQuery;
 
-    private ObjectiveViewControllerDataProvider(MessageProvider messageProvider,
-                                                ObjectiveQuery objectiveQuery) {
+    private ObjectiveViewControllerDataProvider(
+        MessageProvider messageProvider,
+        ObjectiveQuery objectiveQuery
+    ) {
 
         this.messageProvider = messageProvider;
         this.objectiveQuery = objectiveQuery;
     }
 
-    ModelMap provideData(int page, int size, String keyword) {
+    ModelMap provideData(ObjectiveViewParameters parameters) {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        modelMap.addAttribute(PAGE_PATH, getListName(CATEGORY));
+        addAttributePagePathFromListView(modelMap, getListViewName(CATEGORY));
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-10");
+        addAttributeColumnSize(modelMap, 10);
 
         String title = messageProvider.getMessage(OBJECTIVE_LIST_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder()
-            .add(messageProvider.getMessage(DASHBOARD_TITLE), DASHBOARD_PATH)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
+            .addDashboard()
             .add(title)
-            .build();
+            .build());
 
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
+        modelMap.addAttribute(ADD_URL, OBJECTIVE_ADD_PATH);
 
-        modelMap.addAttribute(ADD_URL, OBJECTIVE_EDIT_PATH);
-
-        modelMap.addAttribute(EDIT_URL, OBJECTIVE_EDIT_PATH + ID_PATH_QUERY);
+        String keyword = parameters.keyword();
 
         modelMap.addAttribute(KEYWORD, keyword);
+
+        Integer page = parameters.page();
+
+        Integer size = parameters.size();
 
         if (PaginationValidator.isValid(page, size)) {
 
             Pageable pageable = PageRequest.of(page, size);
 
-            modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber() + 1);
+            modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber());
 
             modelMap.addAttribute("objectives", objectiveQuery.findAll(pageable, keyword));
         }

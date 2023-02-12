@@ -51,7 +51,7 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
         countQuery = """
             select count(c)
             from Category c
-            where c.title.value like %?1%
+            where lower(c.title.value) like %?1%
             and c.owner.value = ?#{principal.username}
         """
     )

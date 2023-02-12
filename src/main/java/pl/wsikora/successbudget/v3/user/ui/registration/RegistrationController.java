@@ -21,9 +21,11 @@ class RegistrationController {
     private final RegistrationFormValidator registrationFormValidator;
     private final RegistrationControllerDataProvider registrationControllerDataProvider;
 
-    private RegistrationController(UserCommand userCommand,
-                                   RegistrationFormValidator registrationFormValidator,
-                                   RegistrationControllerDataProvider registrationControllerDataProvider) {
+    private RegistrationController(
+        UserCommand userCommand,
+        RegistrationFormValidator registrationFormValidator,
+        RegistrationControllerDataProvider registrationControllerDataProvider
+    ) {
 
         this.userCommand = userCommand;
         this.registrationFormValidator = registrationFormValidator;
@@ -37,7 +39,8 @@ class RegistrationController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute RegistrationForm registrationForm, BindingResult bindingResult) {
+    private String save(@Valid @ModelAttribute RegistrationForm registrationForm,
+                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 

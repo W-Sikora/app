@@ -1,17 +1,15 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<c:set var="_addUrl" value="${addUrl}"/>
-<c:set var="_editUrl" value="${editUrl}"/>
-<c:set var="_deleteUrl" value="${deleteUrl}"/>
+<div class="columns is-desktop">
+    <div class="column table-container">
 
-<div class="columns">
-    <div class="column">
-
-        <h2 class="is-size-4 has-text-centered">
-           <fmt:message key="expenditures"/>
-        </h2>
+        <c:set var="_subtitle" value="planned.expenditures"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
+        <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
+
+        <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -19,11 +17,8 @@
 
         </c:if>
 
-        <c:set var="_keyword" value="${keyword}"/>
-        <%@ include file="../common/keyword-filter.jsp" %>
-
         <c:choose>
-            <c:when test="${empty categories}">
+            <c:when test="${empty plannedExpenditures}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -36,30 +31,37 @@
                     <tr>
                         <th></th>
                         <th>
-                            <fmt:message key="title"/>
+                            <fmt:message key="category"/>
                         </th>
                         <th>
-                            <fmt:message key="transaction.type"/>
+                            <fmt:message key="priority"/>
+                        </th>
+                        <th>
+                            <fmt:message key="money"/>
                         </th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
+                    <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
                         <tr>
                             <th>
                                     ${loop.index + 1}
                             </th>
                             <td>
-                                    ${objective.title}
+                                    ${plannedExpenditure.categoryDto.title}
                             </td>
                             <td>
-                                <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
+                                <fmt:message key="priority.${plannedExpenditure.priority}"/>
+                            </td>
+                            <td class="has-text-right">
+                                    ${plannedExpenditure.moneyDto.formattedValue}
+                                    ${plannedExpenditure.moneyDto.money.currency.sign}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
+                                <c:set var="_fullEditUrl" value="${plannedExpenditure.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${plannedExpenditure.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -68,23 +70,24 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${currentPage}"/>
-                <c:set var="_lastPage" value="${categories.totalPages}"/>
+                <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
+                <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
+                <c:set var="_parameterName" value="plannedExpenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
-
-                <%@ include file="../common/modal.jsp" %>
 
             </c:otherwise>
         </c:choose>
     </div>
 
-    <div class="column">
+    <div class="column table-container">
 
-        <h2 class="is-size-4 has-text-centered">
-            <fmt:message key="revenues"/>
-        </h2>
+        <c:set var="_subtitle" value="planned.revenues"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
+        <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
+
+        <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -92,11 +95,8 @@
 
         </c:if>
 
-        <c:set var="_keyword" value="${keyword}"/>
-        <%@ include file="../common/keyword-filter.jsp" %>
-
         <c:choose>
-            <c:when test="${empty categories}">
+            <c:when test="${empty plannedRevenues}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -109,30 +109,31 @@
                     <tr>
                         <th></th>
                         <th>
-                            <fmt:message key="title"/>
+                            <fmt:message key="category"/>
                         </th>
                         <th>
-                            <fmt:message key="transaction.type"/>
+                            <fmt:message key="money"/>
                         </th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${categories.toList()}" var="objective" varStatus="loop">
+                    <c:forEach items="${plannedRevenues.toList()}" var="plannedRevenue" varStatus="loop">
                         <tr>
                             <th>
                                     ${loop.index + 1}
                             </th>
                             <td>
-                                    ${objective.title}
+                                    ${plannedRevenue.categoryDto.title}
                             </td>
                             <td>
-                                <fmt:message key="assigned.transaction.type.${objective.assignedTransactionType}"/>
+                                    ${plannedRevenue.moneyDto.formattedValue}
+                                    ${plannedRevenue.moneyDto.money.currency.sign}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${_editUrl}${objective.categoryId}"/>
-                                <c:set var="_fullDeleteUrl" value="${_deleteUrl}${objective.categoryId}"/>
+                                <c:set var="_fullEditUrl" value="${plannedRevenue.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${plannedRevenue.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -141,13 +142,15 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${currentPage}"/>
-                <c:set var="_lastPage" value="${categories.totalPages}"/>
+                <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
+                <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
+                <c:set var="_parameterName" value="plannedExpenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
-
-                <%@ include file="../common/modal.jsp" %>
 
             </c:otherwise>
         </c:choose>
     </div>
+
+    <%@ include file="../common/modal.jsp" %>
+
 </div>

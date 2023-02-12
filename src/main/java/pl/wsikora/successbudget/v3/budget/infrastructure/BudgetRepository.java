@@ -25,9 +25,10 @@ interface BudgetRepository extends JpaRepository<Budget, Long> {
         """
             select count(b) = 1
             from Budget b
-            where b.owner.value = ?#{principal.username}
+            where b.budgetId = ?1
+            and b.owner.value = ?#{principal.username}
         """
     )
-    boolean isFirst();
+    boolean hasBudget(Long budgetId);
 
 }

@@ -5,9 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.VIEW;
 
 
 @Controller
@@ -28,12 +28,9 @@ class CategoryViewController {
     }
 
     @ModelAttribute
-    private void data(@RequestParam(defaultValue = DEFAULT_PAGINATION_PAGE) int page,
-                      @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE) int size,
-                      @RequestParam(required = false) String keyword,
-                      Model model) {
+    private void data(CategoryViewParameters parameters, Model model) {
 
-        model.addAllAttributes(categoryViewControllerDataProvider.provideData(page, size, keyword));
+        model.addAllAttributes(categoryViewControllerDataProvider.provideData(parameters));
     }
 
 }

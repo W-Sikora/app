@@ -33,7 +33,7 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
             from PlannedRevenue r
             where r.budget.budgetId = ?1
             and r.owner.value = ?#{principal.username}
-            order by r.money.value
+            order by r.money.value desc
         """,
         countQuery = """
             select count(r)
@@ -66,6 +66,17 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
     )
     boolean hasRepeatableByBudgetId(Long budgetId);
 
+    @Query(
+        """
+            select count(r) > 0
+            from PlannedRevenue r
+            where r.budget.budgetId = ?1
+            and r.categoryId.value = ?2
+            and r.owner.value = ?#{principal.username}
+        """
+    )
+    boolean hasAssignedCategory(Long budgetId, Long categoryId);
+
     @Query("""
         select new pl.wsikora.successbudget.v3.common.type.money.Money(
             r.money.currency,
@@ -83,9 +94,10 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
     @Query("""
         delete
         from PlannedRevenue r
-        where r.plannedRevenueId = ?1
+        where r.budget.budgetId = ?1
+        and r.plannedRevenueId = ?2
         and r.owner.value = ?#{principal.username}
     """)
-    void delete(Long plannedRevenueId);
+    void delete(Long budgetId, Long plannedRevenueId);
 
 }
