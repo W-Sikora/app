@@ -17,6 +17,8 @@
 
         </c:if>
 
+        <%@ include file="../common/category-filter.jsp" %>
+
         <c:choose>
             <c:when test="${empty plannedExpenditures}">
 
@@ -95,6 +97,8 @@
 
         </c:if>
 
+        <%@ include file="../common/category-filter.jsp" %>
+
         <c:choose>
             <c:when test="${empty plannedRevenues}">
 
@@ -144,7 +148,7 @@
 
                 <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
                 <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
-                <c:set var="_parameterName" value="plannedExpenditurePage"/>
+                <c:set var="_parameterName" value="plannedRevenuePage"/>
                 <%@ include file="../common/pagination.jsp" %>
 
             </c:otherwise>

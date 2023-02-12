@@ -1,7 +1,7 @@
 package pl.wsikora.successbudget.v3.cashflow.application.expenditure;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.category.application.CategoryDto;
+import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 
@@ -13,10 +13,10 @@ public class ExpenditureDto {
     Long cashFlowId;
     String title;
     CategoryDto categoryDto;
-    MoneyDto moneyDto;
     Integer priority;
-    String payee;
     String date;
+    MoneyDto moneyDto;
+    String payee;
     boolean repeatInNextPeriod;
     UrlDto urlDto;
 

@@ -1,11 +1,14 @@
 package pl.wsikora.successbudget.v3.cashflow.application.revenue;
 
+import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
+
+
 public interface RevenueCommand {
 
     void save(RevenueAttributes revenueAttributes);
 
-    void delete(Long cashFlowId, Long revenueId);
+    void delete(RevenueDeleteCommand revenueDeleteCommand);
 
-    void repeat(Long fromCashFlowId, Long toCashFlowId);
+    void repeat(CashFlowRepeatCommand cashFlowRepeatCommand);
 
 }

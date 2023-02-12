@@ -66,7 +66,7 @@ public class Constants {
     public static final String CATEGORY_DELETE_PATH = "/categories/delete/{categoryId}";
     public static final String BUDGET_PATH = "/budgets/{budgetId}";
     public static final String PLANNED_EXPENDITURE_ADD_PATH = "/budgets/{budgetId}/planned-expenditures/edit";
-    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/budgets/{budgetId}/planned-expenditures/edit?plannedExpenditureId={plannedExpenditureId}";
+    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/budgets/{budgetId}/planned-expenditures/edit?revenueId={revenueId}";
     public static final String PLANNED_EXPENDITURE_DELETE_PATH = "/budgets/{budgetId}/planned-expenditures/delete/{plannedExpenditureId}";
     public static final String PLANNED_REVENUE_ADD_PATH = "/budgets/{budgetId}/planned-revenues/edit";
     public static final String PLANNED_REVENUE_EDIT_PATH = "/budgets/{budgetId}/planned-revenues/edit?plannedRevenueId={plannedRevenueId}";
@@ -127,7 +127,7 @@ public class Constants {
     public static final String BUDGET_ID_PATH_VARIABLE = LEFT_CURLY_BRACKETS + BUDGET_ID + RIGHT_CURLY_BRACKETS;
 
     public static final String CASH_FLOW_ID = "cashFlowId";
-    public static final String CASH_FLOW_ID_PATH_VARIABLE = "/{cashFlowId}";
+    public static final String CASH_FLOW_ID_PATH_VARIABLE = LEFT_CURLY_BRACKETS + CASH_FLOW_ID + RIGHT_CURLY_BRACKETS;
 
     // PlannedExpenditure
     public static final String PLANNED_EXPENDITURE = "planned-expenditure";

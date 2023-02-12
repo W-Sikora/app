@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.springframework.util.StringUtils.hasText;
 import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_EDIT_PATH;
+import static pl.wsikora.successbudget.v3.common.util.StringUtils.convertToLowerCase;
 
 
 @Service
@@ -43,13 +44,7 @@ class CategoryQueryImpl implements CategoryQuery {
 
         Assert.notNull(pageable, "pageable must not be null");
 
-        if (hasText(keyword)) {
-
-            return categoryRepository.findAllByKeyword(pageable, keyword.toLowerCase(Locale.ROOT))
-                .map(this::toDto);
-        }
-
-        return categoryRepository.findAll(pageable)
+        return categoryRepository.findAll(pageable, convertToLowerCase(keyword))
             .map(this::toDto);
     }
 

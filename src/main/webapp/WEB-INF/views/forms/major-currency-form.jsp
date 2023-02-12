@@ -4,13 +4,13 @@
 
 <form:form modelAttribute="majorCurrencyForm" action="${formAction}" method="post">
     <div class="field">
-        <form:label path="majorCurrencyId" cssClass="label">
+        <form:label path="currency" cssClass="label">
             <fmt:message key="major.currency"/>
             <fmt:message key="required.field.sign"/>
         </form:label>
 
         <div class="select is-fullwidth">
-            <form:select path="majorCurrencyId" cssClass="select" cssErrorClass="select is-danger">
+            <form:select path="currency" cssClass="select" cssErrorClass="select is-danger">
                 <c:forEach items="${currencies}" var="currencyId">
                     <form:option value="${currencyId}">
                         <fmt:message key="currency.${currencyId}"/>
@@ -20,7 +20,7 @@
         </div>
 
         <p class="validation-message">
-            <form:errors path="majorCurrencyId" cssClass="has-text-danger"/>
+            <form:errors path="currency" cssClass="has-text-danger"/>
         </p>
     </div>
 

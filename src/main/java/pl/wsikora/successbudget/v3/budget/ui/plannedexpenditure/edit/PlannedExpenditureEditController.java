@@ -53,7 +53,7 @@ class PlannedExpenditureEditController {
         return redirect(BUDGET_PATH, budgetId);
     }
 
-    @InitBinder
+    @InitBinder("plannedExpenditureFormValidator")
     private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(plannedExpenditureFormValidator);

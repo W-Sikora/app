@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
@@ -31,18 +33,22 @@ interface PlannedRevenueRepository extends JpaRepository<PlannedRevenue, Long> {
         value = """
             select r
             from PlannedRevenue r
-            where r.budget.budgetId = ?1
+            where r.budget.budgetId = :budgetId
+            and (:categoryId is null or r.categoryId.value = :categoryId)
             and r.owner.value = ?#{principal.username}
             order by r.money.value desc
         """,
         countQuery = """
             select count(r)
             from PlannedRevenue r
-            where r.budget.budgetId = ?1
+            where r.budget.budgetId = :budgetId
+            and (:categoryId is null or r.categoryId.value = :categoryId)
             and r.owner.value = ?#{principal.username}
         """
     )
-    Page<PlannedRevenue> findAll(Pageable pageable, Long budgetId);
+    Page<PlannedRevenue> findAll(Pageable pageable,
+                                 @Param("budgetId") Long budgetId,
+                                 @Nullable @Param("categoryId") Long categoryId);
 
     @Query(
         """

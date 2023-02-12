@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import static java.util.Objects.isNull;
@@ -8,16 +9,20 @@ import static pl.wsikora.successbudget.v3.common.util.Constants.DEFAULT_PAGINATI
 
 
 record BudgetViewParameters(Long budgetId,
-                            Integer plannedExpenditurePage,
-                            Integer plannedExpenditureSize,
-                            Integer plannedRevenuePage,
-                            Integer plannedRevenueSize) {
+                            @Nullable Integer plannedExpenditurePage,
+                            @Nullable Integer plannedExpenditureSize,
+                            @Nullable Integer plannedRevenuePage,
+                            @Nullable Integer plannedRevenueSize,
+                            @Nullable Long plannedExpenditureCategoryId,
+                            @Nullable Long plannedRevenueCategoryId) {
 
     BudgetViewParameters(Long budgetId,
-                         Integer plannedExpenditurePage,
-                         Integer plannedExpenditureSize,
-                         Integer plannedRevenuePage,
-                         Integer plannedRevenueSize) {
+                         @Nullable Integer plannedExpenditurePage,
+                         @Nullable Integer plannedExpenditureSize,
+                         @Nullable Integer plannedRevenuePage,
+                         @Nullable Integer plannedRevenueSize,
+                         @Nullable Long plannedExpenditureCategoryId,
+                         @Nullable Long plannedRevenueCategoryId) {
 
         Assert.notNull(budgetId, "budgetId must not be null");
 
@@ -34,6 +39,10 @@ record BudgetViewParameters(Long budgetId,
 
         this.plannedRevenueSize = isNull(plannedRevenueSize) ?
             DEFAULT_PAGINATION_SIZE : plannedRevenueSize;
+
+        this.plannedExpenditureCategoryId = plannedExpenditureCategoryId;
+
+        this.plannedRevenueCategoryId = plannedRevenueCategoryId;
     }
 
 }

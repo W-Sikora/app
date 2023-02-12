@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedExpenditure;
@@ -16,6 +17,7 @@ import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
 import java.util.Optional;
 
+import static java.util.Objects.nonNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_EDIT_PATH;
 
@@ -36,26 +38,29 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
     @Override
     public Optional<PlannedExpenditureDto> findByPlannedExpenditureId(Long plannedExpenditureId) {
 
-        Assert.notNull(plannedExpenditureId, "plannedExpenditureId must not be null");
+        Assert.notNull(plannedExpenditureId, "revenueId must not be null");
 
         return plannedExpenditureRepository.findByPlannedExpenditureId(plannedExpenditureId)
             .map(this::toDto);
     }
 
     @Override
-    public Page<PlannedExpenditureDto> findAll(Pageable pageable, Long budgetId) {
+    public Page<PlannedExpenditureDto> findAll(BudgetFilter budgetFilter) {
 
-        Assert.notNull(pageable, "pageable must not be null");
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(budgetFilter, "budgetFilter must not be null");
 
-        return plannedExpenditureRepository.findAll(pageable, budgetId)
+        return plannedExpenditureRepository.findAll(
+                budgetFilter.pageable(),
+                budgetFilter.budgetId(),
+                budgetFilter.categoryId()
+            )
             .map(this::toDto);
     }
 
     @Override
     public boolean hasAssignedCategory(Long budgetId, Long categoryId) {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(budgetId, "cashFlowId must not be null");
         Assert.notNull(categoryId, "categoryId must not be null");
 
         return plannedExpenditureRepository.hasAssignedCategory(budgetId, categoryId);

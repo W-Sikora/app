@@ -13,9 +13,9 @@ public class RevenueDto {
     Long cashFlowId;
     String title;
     CategoryDto categoryDto;
+    String date;
     MoneyDto moneyDto;
     String payer;
-    String date;
     boolean repeatInNextPeriod;
     UrlDto urlDto;
 

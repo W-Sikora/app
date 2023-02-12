@@ -7,9 +7,8 @@ public record PlannedExpenditureDeleteCommand(Long budgetId, Long plannedExpendi
 
     public PlannedExpenditureDeleteCommand {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
-        Assert.notNull(plannedExpenditureId, "plannedExpenditureId must not be null");
-
+        Assert.notNull(budgetId, "cashFlowId must not be null");
+        Assert.notNull(plannedExpenditureId, "revenueId must not be null");
     }
 
 }

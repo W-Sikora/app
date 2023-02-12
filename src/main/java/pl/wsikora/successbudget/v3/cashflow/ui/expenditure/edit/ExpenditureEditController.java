@@ -51,7 +51,7 @@ class ExpenditureEditController {
         return redirect(CASH_FLOW_PATH, cashFlowId);
     }
 
-    @InitBinder
+    @InitBinder("expenditureFormValidator")
     private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(expenditureFormValidator);

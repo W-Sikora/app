@@ -52,7 +52,7 @@ class RegistrationController {
         return redirect(LOGIN_PATH);
     }
 
-    @InitBinder
+    @InitBinder("registrationFormValidator")
     private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(registrationFormValidator);

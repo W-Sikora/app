@@ -2,8 +2,6 @@ package pl.wsikora.successbudget.v3.common.type.url;
 
 import org.springframework.util.Assert;
 
-import static pl.wsikora.successbudget.v3.common.util.Constants.ID_PATH_QUERY;
-
 
 public class UrlDtoFactory {
 
@@ -18,25 +16,12 @@ public class UrlDtoFactory {
         Assert.notEmpty(identifiers, "identifiers must not be empty");
 
         return new UrlDto(
-            createEditPath(editPath, identifiers),
-            createDeletePath(deletePath, identifiers)
+            createPath(editPath, identifiers),
+            createPath(deletePath, identifiers)
         );
     }
 
-    private static String createEditPath(String editPath, Long... identifiers) {
-
-        int length = identifiers.length;
-
-        Assert.isTrue(hasValidLength(length), "number of identifiers must be between 1 and 2");
-
-        String replacedPath = createReplacedPath(editPath);
-
-        return String.format(replacedPath, (Object[]) identifiers)
-            .concat(ID_PATH_QUERY)
-            .concat(identifiers[length -1].toString());
-    }
-
-    private static String createDeletePath(String editPath, Long... identifiers) {
+    private static String createPath(String editPath, Long... identifiers) {
 
         int length = identifiers.length;
 

@@ -2,8 +2,10 @@ package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureCommand;
+import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureDeleteCommand;
 import pl.wsikora.successbudget.v3.cashflow.domain.CashFlow;
 import pl.wsikora.successbudget.v3.cashflow.domain.Expenditure;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
@@ -79,28 +81,24 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
     }
 
     @Override
-    public void delete(Long cashFlowId, Long expenditureId) {
+    public void delete(ExpenditureDeleteCommand expenditureDeleteCommand) {
 
-        Assert.notNull(cashFlowId, "cashFlowId must not be null");
-        Assert.notNull(expenditureId, "expenditureId must not be null");
+        Assert.notNull(expenditureDeleteCommand, "expenditureDeleteCommand must not be null");
 
-        if (!cashFlowRepository.hasCashFlow(cashFlowId)) {
-
-            return;
-        }
-
-        expenditureRepository.delete(expenditureId);
+        expenditureRepository.delete(
+            expenditureDeleteCommand.cashFlowId(),
+            expenditureDeleteCommand.expenditureId()
+        );
     }
 
     @Override
-    public void repeat(Long fromCashFlowId, Long toCashFlowId) {
+    public void repeat(CashFlowRepeatCommand cashFlowRepeatCommand) {
 
-        Assert.notNull(fromCashFlowId, "fromCashFlowId must not be null");
-        Assert.notNull(toCashFlowId, "toCashFlowId must not be null");
+        Assert.notNull(cashFlowRepeatCommand, "cashFlowRepeatCommand must not be null");
 
-        expenditureRepository.findAllRepeated(fromCashFlowId)
+        expenditureRepository.findAllRepeated(cashFlowRepeatCommand.fromCashFlowId())
             .stream()
-            .map(this::assignCashFlow)
+            .map(expenditure -> assignCashFlow(expenditure, cashFlowRepeatCommand.toCashFlowId()))
             .forEach(expenditureRepository::save);
     }
 
@@ -110,9 +108,9 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
             .orElseThrow(() -> new NotFoundException("CashFlow", cashFlowId));
     }
 
-    private Expenditure assignCashFlow(Expenditure expenditure) {
+    private Expenditure assignCashFlow(Expenditure expenditure, Long cashFlowId) {
 
-        CashFlow cashFlow = getCashFlowByCashFlowId(expenditure.getCashFlow().getCashFlowId());
+        CashFlow cashFlow = getCashFlowByCashFlowId(cashFlowId);
 
         expenditure.setCashFlow(cashFlow);
 

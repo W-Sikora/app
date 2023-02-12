@@ -73,7 +73,7 @@ class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvide
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
             .addDashboard()
-            .add(BUDGET, fillPath(BUDGET_PATH, ID_PATH_VARIABLE, editCommand.budgetId()))
+            .add(BUDGET, fillPath(BUDGET_PATH, BUDGET_ID_PATH_VARIABLE, editCommand.budgetId()))
             .add(title)
             .build()
         );

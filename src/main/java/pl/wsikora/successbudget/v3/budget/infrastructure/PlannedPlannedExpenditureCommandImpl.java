@@ -72,7 +72,7 @@ class PlannedPlannedExpenditureCommandImpl implements PlannedExpenditureCommand 
     @Override
     public void delete(PlannedExpenditureDeleteCommand plannedExpenditureDeleteCommand) {
 
-        Assert.notNull(plannedExpenditureDeleteCommand, "deleteCommand must not be null");
+        Assert.notNull(plannedExpenditureDeleteCommand, "plannedExpenditureDeleteCommand must not be null");
 
         plannedExpenditureRepository.delete(
             plannedExpenditureDeleteCommand.budgetId(),

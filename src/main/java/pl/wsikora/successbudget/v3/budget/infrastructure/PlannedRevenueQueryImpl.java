@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
@@ -16,6 +17,7 @@ import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
 import java.util.Optional;
 
+import static java.util.Objects.nonNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_REVENUE_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_REVENUE_EDIT_PATH;
 
@@ -43,19 +45,22 @@ class PlannedRevenueQueryImpl implements PlannedRevenueQuery {
     }
 
     @Override
-    public Page<PlannedRevenueDto> findAll(Pageable pageable, Long budgetId) {
+    public Page<PlannedRevenueDto> findAll(BudgetFilter budgetFilter) {
 
-        Assert.notNull(pageable, "pageable must not be null");
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(budgetFilter, "budgetFilter must not be null");
 
-        return plannedRevenueRepository.findAll(pageable, budgetId)
+        return plannedRevenueRepository.findAll(
+                budgetFilter.pageable(),
+                budgetFilter.budgetId(),
+                budgetFilter.categoryId()
+            )
             .map(this::toDto);
     }
 
     @Override
     public boolean hasAssignedCategory(Long budgetId, Long categoryId) {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(budgetId, "cashFlowId must not be null");
         Assert.notNull(categoryId, "categoryId must not be null");
 
         return plannedRevenueRepository.hasAssignedCategory(budgetId, categoryId);

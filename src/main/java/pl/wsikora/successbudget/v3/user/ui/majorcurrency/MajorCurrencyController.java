@@ -18,16 +18,16 @@ import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 class MajorCurrencyController {
 
     private final UserCommand userCommand;
-    private final MajorCurrencyFormValidator registrationFormValidator;
+    private final MajorCurrencyFormValidator majorCurrencyFormValidator;
     private final MajorCurrencyControllerDataProvider registrationControllerDataProvider;
 
     private MajorCurrencyController(
         UserCommand userCommand,
-        MajorCurrencyFormValidator registrationFormValidator,
+        MajorCurrencyFormValidator majorCurrencyFormValidator,
         MajorCurrencyControllerDataProvider registrationControllerDataProvider) {
 
         this.userCommand = userCommand;
-        this.registrationFormValidator = registrationFormValidator;
+        this.majorCurrencyFormValidator = majorCurrencyFormValidator;
         this.registrationControllerDataProvider = registrationControllerDataProvider;
     }
 
@@ -51,10 +51,10 @@ class MajorCurrencyController {
         return redirect(DASHBOARD_PATH);
     }
 
-    @InitBinder
+    @InitBinder("majorCurrencyFormValidator")
     private void initBinder(WebDataBinder binder) {
 
-        binder.setValidator(registrationFormValidator);
+        binder.setValidator(majorCurrencyFormValidator);
     }
 
     @ModelAttribute

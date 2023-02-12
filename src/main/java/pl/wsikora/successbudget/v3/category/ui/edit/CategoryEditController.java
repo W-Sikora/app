@@ -51,7 +51,7 @@ class CategoryEditController {
         return redirect(CATEGORY_PATH);
     }
 
-    @InitBinder
+    @InitBinder("categoryFormValidator")
     private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(categoryFormValidator);

@@ -11,7 +11,6 @@ import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListViewName;
 
 
 @Service
@@ -35,7 +34,7 @@ class ObjectiveViewControllerDataProvider extends ControllerDataProvider {
 
         addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        addAttributePagePathFromListView(modelMap, getListViewName(CATEGORY));
+        addAttributePagePathFromListView(modelMap, OBJECTIVE);
 
         addAttributeColumnSize(modelMap, 10);
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.budget.BudgetChecker;
+import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
@@ -75,7 +76,7 @@ class BudgetViewControllerDataProvider extends ControllerDataProvider {
         modelMap.addAttribute("dto", budgetDtoProvider.provideBudgetDto(BudgetId.of(budgetId)));
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_EXPENDITURE, ADD_URL),
-            fillPath(PLANNED_EXPENDITURE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
+            fillPath(PLANNED_EXPENDITURE_ADD_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         Integer plannedExpenditurePage = parameters.plannedExpenditurePage();
 
@@ -87,12 +88,15 @@ class BudgetViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute("plannedExpendituresCurrentPage", pageable.getPageNumber());
 
+            BudgetFilter budgetFilter = new BudgetFilter(pageable, budgetId,
+                parameters.plannedExpenditureCategoryId());
+
             modelMap.addAttribute("plannedExpenditures", plannedExpenditureQuery
-                .findAll(pageable, budgetId));
+                .findAll(budgetFilter));
         }
 
         modelMap.addAttribute(formAttributeNameCamelCase(PLANNED_REVENUE, ADD_URL),
-            fillPath(PLANNED_REVENUE_EDIT_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
+            fillPath(PLANNED_REVENUE_ADD_PATH, BUDGET_ID_PATH_VARIABLE, budgetId));
 
         Integer plannedRevenuePage = parameters.plannedRevenuePage();
 
@@ -104,8 +108,11 @@ class BudgetViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute("plannedRevenuesCurrentPage", pageable.getPageNumber());
 
+            BudgetFilter budgetFilter = new BudgetFilter(pageable, budgetId,
+                parameters.plannedRevenueCategoryId());
+
             modelMap.addAttribute("plannedRevenues", plannedRevenueQuery
-                .findAll(pageable, budgetId));
+                .findAll(budgetFilter));
         }
 
         return modelMap;

@@ -52,7 +52,7 @@ class PlannedRevenueEditController {
         return redirect(BUDGET_PATH, budgetId);
     }
 
-    @InitBinder
+    @InitBinder("plannedRevenueFormValidator")
     private void initBinder(WebDataBinder binder) {
 
         binder.setValidator(plannedRevenueFormValidator);

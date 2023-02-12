@@ -6,19 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.application.CategoryQuery;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator;
 
-import java.util.List;
-
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getListViewName;
 
 
 @Service
-class CategoryViewControllerDataProvider {
+class CategoryViewControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final CategoryQuery categoryQuery;
@@ -38,24 +35,22 @@ class CategoryViewControllerDataProvider {
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        modelMap.addAttribute(PAGE_PATH, getListViewName(CATEGORY));
+        addAttributePagePathFromListView(modelMap, CATEGORY);
 
-        modelMap.addAttribute(COLUMN_SIZE, "is-7");
+        addAttributeColumnSize(modelMap, 7);
 
         String title = messageProvider.getMessage(CATEGORY_LIST_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder(messageProvider)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
             .addDashboard()
             .add(title)
-            .build();
+            .build());
 
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
-
-        modelMap.addAttribute(ADD_URL, CATEGORY_EDIT_PATH);
+        modelMap.addAttribute(ADD_URL, CATEGORY_ADD_PATH);
 
         String keyword = parameters.keyword();
 

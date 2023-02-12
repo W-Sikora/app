@@ -7,7 +7,7 @@ record PlannedRevenueEditCommand(Long budgetId, Long plannedRevenueId) {
 
     PlannedRevenueEditCommand {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+        Assert.notNull(budgetId, "cashFlowId must not be null");
     }
 
 }

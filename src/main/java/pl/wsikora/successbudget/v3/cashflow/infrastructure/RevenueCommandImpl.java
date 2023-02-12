@@ -2,8 +2,10 @@ package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueCommand;
+import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueDeleteCommand;
 import pl.wsikora.successbudget.v3.cashflow.domain.CashFlow;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
@@ -74,28 +76,24 @@ class RevenueCommandImpl implements RevenueCommand {
     }
 
     @Override
-    public void delete(Long cashFlowId, Long revenueId) {
+    public void delete(RevenueDeleteCommand revenueDeleteCommand) {
 
-        Assert.notNull(cashFlowId, "cashFlowId must not be null");
-        Assert.notNull(revenueId, "revenueId must not be null");
+        Assert.notNull(revenueDeleteCommand, "revenueDeleteCommand must not be null");
 
-        if (!cashFlowRepository.hasCashFlow(cashFlowId)) {
-
-            return;
-        }
-
-        revenueRepository.delete(revenueId);
+        revenueRepository.delete(
+            revenueDeleteCommand.cashFlowId(),
+            revenueDeleteCommand.revenueId()
+        );
     }
 
     @Override
-    public void repeat(Long fromCashFlowId, Long toCashFlowId) {
+    public void repeat(CashFlowRepeatCommand cashFlowRepeatCommand) {
 
-        Assert.notNull(fromCashFlowId, "fromCashFlowId must not be null");
-        Assert.notNull(toCashFlowId, "toCashFlowId must not be null");
+        Assert.notNull(cashFlowRepeatCommand, "cashFlowRepeatCommand must not be null");
 
-        revenueRepository.findAllRepeated(fromCashFlowId)
+        revenueRepository.findAllRepeated(cashFlowRepeatCommand.fromCashFlowId())
             .stream()
-            .map(this::assignCashFlow)
+            .map(revenue -> assignCashFlow(revenue, cashFlowRepeatCommand.toCashFlowId()))
             .forEach(revenueRepository::save);
     }
 
@@ -105,9 +103,9 @@ class RevenueCommandImpl implements RevenueCommand {
             .orElseThrow(() -> new NotFoundException("CashFlow", cashFlowId));
     }
 
-    private Revenue assignCashFlow(Revenue revenue) {
+    private Revenue assignCashFlow(Revenue revenue, Long cashFlowId) {
 
-        CashFlow cashFlow = getCashFlowByCashFlowId(revenue.getCashFlow().getCashFlowId());
+        CashFlow cashFlow = getCashFlowByCashFlowId(cashFlowId);
 
         revenue.setCashFlow(cashFlow);
 

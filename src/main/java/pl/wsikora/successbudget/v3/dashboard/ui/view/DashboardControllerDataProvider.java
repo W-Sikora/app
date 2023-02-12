@@ -43,10 +43,10 @@ class DashboardControllerDataProvider {
         modelMap.addAttribute("categoryUrl", CATEGORY_PATH);
 
         modelMap.addAttribute("budgetUrl",
-            fillPath(BUDGET_PATH, ID_PATH_VARIABLE, 1));
+            fillPath(BUDGET_PATH, BUDGET_ID_PATH_VARIABLE, 1));
 
         modelMap.addAttribute("cashFlowUrl",
-            fillPath(CASH_FLOW_PATH, ID_PATH_VARIABLE, 1));
+            fillPath(CASH_FLOW_PATH, CASH_FLOW_ID_PATH_VARIABLE, 1));
 
         return modelMap;
     }

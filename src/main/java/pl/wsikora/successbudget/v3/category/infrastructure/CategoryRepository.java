@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.category.domain.Category;
@@ -29,33 +31,19 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
         value = """
             select c
             from Category c
-            where c.owner.value = ?#{principal.username}
-            order by c.title.value
-        """,
-        countQuery = """
-            select count(c)
-            from Category c
-            where c.owner.value = ?#{principal.username}
-        """
-    )
-    Page<Category> findAll(Pageable pageable);
-
-    @Query(
-        value = """
-            select c
-            from Category c
-            where lower(c.title.value) like %?1%
+            where (:keyword is null or lower(c.title.value) like %:keyword%)
             and c.owner.value = ?#{principal.username}
             order by c.title.value
         """,
         countQuery = """
             select count(c)
             from Category c
-            where lower(c.title.value) like %?1%
+            where (:keyword is null or lower(c.title.value) like %:keyword%)
             and c.owner.value = ?#{principal.username}
         """
     )
-    Page<Category> findAllByKeyword(Pageable pageable, String keyword);
+    Page<Category> findAll(Pageable pageable,
+                           @Nullable @Param("keyword") String keyword);
 
     @Query("""
         select c
