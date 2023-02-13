@@ -4,7 +4,7 @@
 
     <div class="column">
 
-        <%@ include file="../common/category-filter.jsp" %>
+        <%@ include file="../common/budget-list-filter.jsp" %>
 
         <div class="columns is-desktop">
             <div class="column table-container">
@@ -24,7 +24,7 @@
                 </c:if>
 
                 <c:choose>
-                    <c:when test="${empty plannedExpenditures}">
+                    <c:when test="${empty plannedExpenditures || plannedExpenditures.isEmpty()}">
 
                         <%@include file="../common/no-elements.jsp" %>
 
@@ -50,7 +50,8 @@
                             </thead>
 
                             <tbody>
-                            <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
+                            <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure"
+                                       varStatus="loop">
                                 <tr>
                                     <th>
                                             ${loop.index + 1}
@@ -102,7 +103,7 @@
                 </c:if>
 
                 <c:choose>
-                    <c:when test="${empty plannedRevenues}">
+                    <c:when test="${empty plannedRevenues || plannedRevenues.isEmpty()}">
 
                         <%@include file="../common/no-elements.jsp" %>
 

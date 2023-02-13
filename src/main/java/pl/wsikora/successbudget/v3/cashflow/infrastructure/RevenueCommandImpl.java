@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueCommand;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
-import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
@@ -14,7 +14,6 @@ import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 import static org.springframework.util.StringUtils.hasText;

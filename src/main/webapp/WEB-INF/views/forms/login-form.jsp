@@ -12,7 +12,7 @@
             <fmt:message key="required.field.sign"/>
         </label>
         <div class="control">
-            <input name="username" id="username" type="text" class="input <c:if test="${invalid}">is-danger</c:if>"/>
+            <input name="username" id="username" type="text" class="input"/>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
             <fmt:message key="required.field.sign"/>
         </label>
         <div class="control">
-            <input name="password" id="password" type="password" class="input <c:if test="${invalid}">is-danger</c:if>"/>
+            <input name="password" id="password" type="password" class="input"/>
         </div>
         <c:if test="${invalid}">
             <p class="validation-message has-text-danger">

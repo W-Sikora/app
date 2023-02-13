@@ -11,6 +11,7 @@ import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
+import pl.wsikora.successbudget.v3.common.type.payee.Payee;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
@@ -74,6 +75,10 @@ class ExpenditureQueryImpl implements ExpenditureQuery {
         UrlDto urlDto = UrlDtoFactory.create(EXPENDITURE_EDIT_PATH,
             EXPENDITURE_DELETE_PATH, expenditureId);
 
+        String payee = Optional.ofNullable(expenditure.getPayee())
+            .map(Payee::getValue)
+            .orElse(null);
+
         return new ExpenditureDto(
             expenditureId,
             expenditure.getPeriod().format(PERIOD_FORMATTER),
@@ -82,7 +87,7 @@ class ExpenditureQueryImpl implements ExpenditureQuery {
             expenditure.getPriority().ordinal(),
             expenditure.getDate().asString(),
             moneyDto,
-            expenditure.getPayee().getValue(),
+            payee,
             expenditure.isRepeatInNextPeriod(),
             urlDto
         );

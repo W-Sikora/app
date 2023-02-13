@@ -78,7 +78,7 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
             group by e.money.currency
         """
     )
-    List<Money> findAllMoney(Long cashFlowId);
+    List<Money> findAllMoney(YearMonth period);
 
     @Transactional
     @Modifying

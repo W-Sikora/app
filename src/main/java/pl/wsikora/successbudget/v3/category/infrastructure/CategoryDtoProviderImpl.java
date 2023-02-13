@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
-import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 

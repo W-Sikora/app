@@ -51,7 +51,6 @@ public class Constants {
 
     // Paths
     public static final String LANDING_PAGE_PATH = "/";
-    public static final String I18N_PATH = "/locale";
     public static final String REGISTRATION_PATH = "/registration";
     public static final String LOGIN_PATH = "/login";
     public static final String MAJOR_CURRENCY_EDIT_PATH = "/major-currency/edit";

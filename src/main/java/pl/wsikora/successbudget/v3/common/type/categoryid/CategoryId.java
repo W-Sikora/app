@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.common.category;
+package pl.wsikora.successbudget.v3.common.type.categoryid;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

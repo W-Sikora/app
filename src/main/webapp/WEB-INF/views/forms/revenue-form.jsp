@@ -15,7 +15,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="title" type="text" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="title" type="text" cssClass="input"/>
         </div>
 
         <p class="validation-message">
@@ -31,7 +31,7 @@
 
         <div class="control">
             <div class="select is-fullwidth">
-                <form:select path="categoryId" cssErrorClass="is-danger">
+                <form:select path="categoryId">
                     <c:forEach items="${categories}" var="category">
                         <form:option value="${category.categoryId}" label="${category.title}"/>
                     </c:forEach>
@@ -51,8 +51,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="date" type="date" cssClass="input" min="${minDate}" max="${maxDate}"
-                        pattern="dd.MM.yyyy" cssErrorClass="input is-danger"/>
+            <form:input path="date" type="date" cssClass="input" min="${minDate}" max="${maxDate}"/>
         </div>
 
         <p class="validation-message">
@@ -66,14 +65,14 @@
             <fmt:message key="required.field.sign"/>
         </form:label>
 
-        <div class="field has-addons form-has-addons">
+        <div class="field has-addons has-mb-10">
             <p class="control is-expanded">
-                <form:input path="value" type="number" cssClass="input" cssErrorClass="input is-danger"/>
+                <form:input path="value" type="number" cssClass="input"/>
             </p>
 
             <p class="control">
                 <span class="select">
-                    <form:select path="currency" cssClass="select" cssErrorClass="select is-danger">
+                    <form:select path="currency" cssClass="select">
                         <c:forEach items="${currencies}" var="currency">
                             <form:option value="${currency.ordinal()}" label="${currency.sign}"/>
                         </c:forEach>
@@ -94,7 +93,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="payer" type="text" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="payer" type="text" cssClass="input"/>
         </div>
 
         <p class="validation-message">

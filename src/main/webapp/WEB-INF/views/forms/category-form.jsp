@@ -13,7 +13,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="title" type="text" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="title" type="text" cssClass="input"/>
         </div>
 
         <p class="validation-message">
@@ -29,7 +29,7 @@
 
         <div class="control">
             <div class="select is-fullwidth">
-                <form:select path="transactionType" required="required" cssErrorClass="is-danger">
+                <form:select path="transactionType">
                     <c:forEach items="${transactionTypes}" var="type">
                         <form:option value="${type}">
                             <fmt:message key="transaction.type.${type}"/>
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <p class="help">
+        <p class="validation-message">
             <form:errors path="transactionType" cssClass="has-text-danger"/>
         </p>
     </div>

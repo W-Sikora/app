@@ -6,7 +6,7 @@ import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueAttributes;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
-import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;

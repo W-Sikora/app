@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.common.budget;
+package pl.wsikora.successbudget.v3.budget.application.budget;
 
 import lombok.Value;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;

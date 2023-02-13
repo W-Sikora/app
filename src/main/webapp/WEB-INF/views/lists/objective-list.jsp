@@ -14,7 +14,7 @@
 <%@ include file="../common/keyword-filter.jsp" %>
 
 <c:choose>
-    <c:when test="${empty objectives.toList()}">
+    <c:when test="${empty objectives || objectives.isEmpty()}">
 
         <%@include file="../common/no-elements.jsp" %>
 
@@ -49,20 +49,20 @@
             <c:forEach items="${objectives.toList()}" var="objective" varStatus="loop">
                 <tr>
                     <th>
-                        ${loop.index + 1}
+                            ${loop.index + 1}
                     </th>
                     <td>
-                        ${objective.title}
+                            ${objective.title}
                     </td>
                     <td>
-                        ${objective.description}
+                            ${objective.description}
                     </td>
                     <td>
-                        ${objective.necessaryMoneyDto.formattedValue}
+                            ${objective.necessaryMoneyDto.formattedValue}
                         <fmt:message key="currency.${objective.necessaryMoneyDto.currencyId}"/>
                     </td>
                     <td>
-                        ${objective.raisedMoneyDto.formattedValue}
+                            ${objective.raisedMoneyDto.formattedValue}
                         <fmt:message key="currency.${objective.raisedMoneyDto.currencyId}"/>
                     </td>
                     <td>

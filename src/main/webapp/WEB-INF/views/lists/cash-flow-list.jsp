@@ -1,10 +1,10 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<div class="columns is-desktop">
-    <div class="column table-container">
+<div class="columns is-multiline is-desktop is-centered">
+    <div class="column is-12 table-container">
 
         <c:set var="_subtitle" value="expenditures"/>
-        <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalExpenditures}"/>
         <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
@@ -18,7 +18,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${not empty expenditures}">
+            <c:when test="${empty expenditures || expenditures.isEmpty()}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -97,10 +97,10 @@
         </c:choose>
     </div>
 
-    <div class="column table-container">
+    <div class="column is-12 table-container">
 
         <c:set var="_subtitle" value="revenues"/>
-        <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
+        <c:set var="_totalMoneyDto" value="${dto.totalRevenues}"/>
         <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
@@ -114,7 +114,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${not empty revenues}">
+            <c:when test="${empty revenues || revenues.isEmpty()}">
 
                 <%@include file="../common/no-elements.jsp" %>
 

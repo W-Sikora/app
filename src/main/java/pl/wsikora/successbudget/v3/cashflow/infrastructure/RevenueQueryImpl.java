@@ -11,6 +11,7 @@ import pl.wsikora.successbudget.v3.common.category.CategoryDto;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
+import pl.wsikora.successbudget.v3.common.type.payer.Payer;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
@@ -18,7 +19,6 @@ import java.util.Optional;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.REVENUE_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.REVENUE_EDIT_PATH;
-import static pl.wsikora.successbudget.v3.common.util.DateFormatter.DATE_FORMATTER;
 import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.convertToLowerCase;
 
@@ -74,6 +74,10 @@ class RevenueQueryImpl implements RevenueQuery {
         UrlDto urlDto = UrlDtoFactory.create(REVENUE_EDIT_PATH,
             REVENUE_DELETE_PATH, revenueId);
 
+        String payer = Optional.ofNullable(revenue.getPayer())
+            .map(Payer::getValue)
+            .orElse(null);
+
         return new RevenueDto(
             revenueId,
             revenue.getPeriod().format(PERIOD_FORMATTER),
@@ -81,7 +85,7 @@ class RevenueQueryImpl implements RevenueQuery {
             categoryDto,
             revenue.getDate().asString(),
             moneyDto,
-            revenue.getPayer().getValue(),
+            payer,
             revenue.isRepeatInNextPeriod(),
             urlDto
         );

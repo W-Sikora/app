@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payee.Payee;

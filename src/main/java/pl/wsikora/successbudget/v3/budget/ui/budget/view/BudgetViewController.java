@@ -1,6 +1,5 @@
 package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

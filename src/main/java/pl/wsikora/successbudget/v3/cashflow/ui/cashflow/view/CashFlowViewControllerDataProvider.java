@@ -5,6 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowDtoProvider;
+import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowFilter;
+import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureQuery;
+import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueQuery;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
@@ -15,6 +19,7 @@ import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator
 import java.time.YearMonth;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.formAttributeNameCamelCase;
 
 
@@ -22,14 +27,23 @@ import static pl.wsikora.successbudget.v3.common.util.StringUtils.formAttributeN
 class CashFlowViewControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
+    private final CashFlowDtoProvider cashFlowDtoProvider;
+    private final ExpenditureQuery expenditureQuery;
+    private final RevenueQuery revenueQuery;
     private final CategoryDtoProvider categoryDtoProvider;
 
     private CashFlowViewControllerDataProvider(
         MessageProvider messageProvider,
+        CashFlowDtoProvider cashFlowDtoProvider,
+        ExpenditureQuery expenditureQuery,
+        RevenueQuery revenueQuery,
         CategoryDtoProvider categoryDtoProvider
     ) {
 
         this.messageProvider = messageProvider;
+        this.cashFlowDtoProvider = cashFlowDtoProvider;
+        this.expenditureQuery = expenditureQuery;
+        this.revenueQuery = revenueQuery;
         this.categoryDtoProvider = categoryDtoProvider;
     }
 
@@ -54,7 +68,9 @@ class CashFlowViewControllerDataProvider extends ControllerDataProvider {
             .add(title)
             .build());
 
-//        modelMap.addAttribute("dto", budgetDtoProvider.provideBudgetDto(period));
+        modelMap.addAttribute("dto", cashFlowDtoProvider.provideCashFlowDto(period));
+
+        modelMap.addAttribute("additionalTitle", period.format(PERIOD_FORMATTER));
 
         modelMap.addAttribute("expenditureCategories", categoryDtoProvider
             .provideAllByAssignedTransactionType(TransactionType.EXPENDITURE));
@@ -72,12 +88,10 @@ class CashFlowViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute("expendituresCurrentPage", pageable.getPageNumber());
 
-//            CashFlowFilter cashFlowFilter = new CashFlowFilter()
-//            BudgetFilter budgetFilter = new BudgetFilter(pageable, period,
-//                parameters.expenditureCategoryId());
-//
-//            modelMap.addAttribute("plannedExpenditures", plannedExpenditureQuery
-//                .findAll(budgetFilter));
+            CashFlowFilter cashFlowFilter = new CashFlowFilter(pageable, period,
+                null, null, null, null, null);
+
+            modelMap.addAttribute("expenditures", expenditureQuery.findAll(cashFlowFilter));
         }
 
         modelMap.addAttribute("plannedRevenueCategories", categoryDtoProvider
@@ -96,11 +110,10 @@ class CashFlowViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute("revenuesCurrentPage", pageable.getPageNumber());
 
-//            BudgetFilter budgetFilter = new BudgetFilter(pageable, period,
-//                parameters.revenueCategoryId());
-//
-//            modelMap.addAttribute("plannedRevenues", plannedRevenueQuery
-//                .findAll(budgetFilter));
+            CashFlowFilter cashFlowFilter = new CashFlowFilter(pageable, period,
+                null, null, null, null, null);
+
+            modelMap.addAttribute("revenues", revenueQuery.findAll(cashFlowFilter));
         }
 
         return modelMap;

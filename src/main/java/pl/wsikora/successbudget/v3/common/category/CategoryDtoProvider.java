@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.common.category;
 
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 
 import java.util.List;

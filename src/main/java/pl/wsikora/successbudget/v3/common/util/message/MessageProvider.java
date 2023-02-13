@@ -30,4 +30,5 @@ public class MessageProvider {
 
         return messageSource.getMessage(code, attributes, LocaleContextHolder.getLocale());
     }
+
 }

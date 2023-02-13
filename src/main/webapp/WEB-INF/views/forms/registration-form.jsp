@@ -10,7 +10,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="username" type="text" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="username" type="text" cssClass="input"/>
         </div>
 
         <p class="validation-message">
@@ -25,7 +25,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="password" type="password" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="password" type="password" cssClass="input"/>
         </div>
 
         <p class="validation-message">
@@ -40,7 +40,7 @@
         </form:label>
 
         <div class="control">
-            <form:input path="repeatedPassword" type="password" cssClass="input" cssErrorClass="input is-danger"/>
+            <form:input path="repeatedPassword" type="password" cssClass="input"/>
         </div>
 
         <p class="validation-message">

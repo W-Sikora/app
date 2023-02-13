@@ -10,7 +10,7 @@
         </form:label>
 
         <div class="select is-fullwidth">
-            <form:select path="currency" cssClass="select" cssErrorClass="select is-danger">
+            <form:select path="currency" cssClass="select">
                 <c:forEach items="${currencies}" var="currencyId">
                     <form:option value="${currencyId}">
                         <fmt:message key="currency.${currencyId}"/>

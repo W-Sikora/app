@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    const categoryFilter = document.querySelector('.js-category-filter');
+    const categoryFilter = document.querySelector('.js-budget-list-filter');
 
     if (categoryFilter) {
 
@@ -87,7 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (param) {
 
-                categoryFilter.querySelector('select[name=' + param + ']').value = params.get(param);
+                const select = categoryFilter.querySelector('select[name=' + param + ']');
+
+                if (select) {
+
+                    select.value = params.get(param);
+                }
             }
         }
 
@@ -181,20 +186,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (changeLocaleElements) {
 
-        function changeLocale(code) {
+        function setCookie(value) {
 
-            const locale = document.getElementById('locale');
+            if (value) {
 
-            locale.querySelector('input[name=code]').value = code;
+                const date = new Date();
 
-            locale.submit();
+                date.setTime(date.getTime() + 1209600);
 
-            location.reload();
+                document.cookie = 'language=' + value + '; expires=' + date.toUTCString() + '; path=/';
+                document.cookie = 'locale=' + value + '; expires=' + date.toUTCString() + '; path=/';
+
+                location.reload();
+            }
         }
 
         changeLocaleElements.forEach(el =>
 
-            el.addEventListener('click', () => changeLocale(el.dataset.code))
+            el.addEventListener('click', () => setCookie(el.dataset.code))
         );
     }
 

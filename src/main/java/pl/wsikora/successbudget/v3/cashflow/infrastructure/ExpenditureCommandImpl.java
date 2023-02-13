@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureCommand;
 import pl.wsikora.successbudget.v3.cashflow.domain.Expenditure;
-import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.categoryid.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;

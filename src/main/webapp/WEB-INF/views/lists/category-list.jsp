@@ -12,7 +12,7 @@
 <%@ include file="../common/keyword-filter.jsp" %>
 
 <c:choose>
-    <c:when test="${empty categories.toList()}">
+    <c:when test="${empty categories || categories.isEmpty()}">
 
         <%@include file="../common/no-elements.jsp" %>
 
@@ -22,41 +22,41 @@
 
         <div class="table-container">
             <table class="table is-fullwidth">
-            <thead>
-            <tr>
-                <th></th>
-                <th>
-                    <fmt:message key="title"/>
-                </th>
-                <th>
-                    <fmt:message key="transaction.type"/>
-                </th>
-                <th></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:forEach items="${categories.toList()}" var="category" varStatus="loop">
+                <thead>
                 <tr>
+                    <th></th>
                     <th>
-                        ${loop.index + 1}
+                        <fmt:message key="title"/>
                     </th>
-                    <td>
-                        ${category.title}
-                    </td>
-                    <td>
-                        <fmt:message key="transaction.type.${category.transactionType}"/>
-                    </td>
-                    <td>
-                        <c:set var="_fullEditUrl" value="${category.urlDto.editUrl}"/>
-                        <c:set var="_fullDeleteUrl" value="${category.urlDto.deleteUrl}"/>
-
-                        <%@include file="../common/options.jsp" %>
-                    </td>
+                    <th>
+                        <fmt:message key="transaction.type"/>
+                    </th>
+                    <th></th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${categories.toList()}" var="category" varStatus="loop">
+                    <tr>
+                        <th>
+                                ${loop.index + 1}
+                        </th>
+                        <td>
+                                ${category.title}
+                        </td>
+                        <td>
+                            <fmt:message key="transaction.type.${category.transactionType}"/>
+                        </td>
+                        <td>
+                            <c:set var="_fullEditUrl" value="${category.urlDto.editUrl}"/>
+                            <c:set var="_fullDeleteUrl" value="${category.urlDto.deleteUrl}"/>
+
+                            <%@include file="../common/options.jsp" %>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
 
         <c:set var="_currentPage" value="${currentPage}"/>
