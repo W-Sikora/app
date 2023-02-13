@@ -2,19 +2,19 @@
 
 <div class="tabs is-centered is-medium">
     <ul>
-        <li class="mr-4">
-            <a href="${objectiveUrl}">
-                <fmt:message key="objectives"/>
-            </a>
-        </li>
+<%--        <li class="mr-4">--%>
+<%--            <a href="${objectiveUrl}">--%>
+<%--                <fmt:message key="objectives"/>--%>
+<%--            </a>--%>
+<%--        </li>--%>
 
-        <li class="mr-4">
+        <li class="mr-6">
             <a href="${categoryUrl}">
                 <fmt:message key="categories"/>
             </a>
         </li>
 
-        <li class="mr-4">
+        <li class="mr-6">
             <a href="${budgetUrl}">
                 <fmt:message key="budget"/>
             </a>

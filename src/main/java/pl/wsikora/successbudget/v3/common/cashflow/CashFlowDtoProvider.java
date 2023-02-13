@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.cashflow.application.cashflow;
+package pl.wsikora.successbudget.v3.common.cashflow;
 
 import java.time.YearMonth;
 
@@ -6,5 +6,7 @@ import java.time.YearMonth;
 public interface CashFlowDtoProvider {
 
     CashFlowDto provideCashFlowDto(YearMonth period);
+
+
 
 }

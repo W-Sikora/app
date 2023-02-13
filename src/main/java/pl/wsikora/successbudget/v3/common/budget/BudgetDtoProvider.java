@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.budget.application.budget;
+package pl.wsikora.successbudget.v3.common.budget;
 
 import java.time.YearMonth;
 

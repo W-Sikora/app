@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowDtoProvider;
+import pl.wsikora.successbudget.v3.common.cashflow.CashFlowDtoProvider;
 import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowFilter;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureQuery;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueQuery;

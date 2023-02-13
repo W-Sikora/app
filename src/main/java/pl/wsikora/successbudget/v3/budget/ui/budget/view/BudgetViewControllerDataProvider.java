@@ -9,7 +9,7 @@ import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueQuery;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetDtoProvider;
+import pl.wsikora.successbudget.v3.common.budget.BudgetDtoProvider;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;

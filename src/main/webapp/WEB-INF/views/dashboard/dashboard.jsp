@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="${cookie['language'].value}">
 
 <%@ include file="../imports/head-imports.jsp" %>
 
@@ -38,9 +38,11 @@
 
                             <%@include file="summary.jsp" %>
 
-                            <%@include file="middle.jsp"%>
+                            <%@include file="unnecessary-expenditures.jsp" %>
 
-                            <%@ include file="level.jsp"%>
+<%--                            <%@include file="middle.jsp" %>--%>
+
+<%--                            <%@ include file="level.jsp" %>--%>
 
                         </div>
                     </div>

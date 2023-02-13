@@ -3,84 +3,26 @@
 <div class="columns is-vcentered has-text-centered">
 
     <div class="column mr-6">
-        <div class="box">
-            <p class="title is-4">
-                <fmt:message key="revenues"/>
-            </p>
-
-            <div class="columns">
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="planned"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="current"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-            </div>
-        </div>
+        <c:set var="_title" value="expenditures"/>
+        <c:set var="_colored" value="${false}"/>
+        <c:set var="_planned" value="${totalDto.totalPlannedExpenditure}"/>
+        <c:set var="_current" value="${totalDto.totalCurrentExpenditure}"/>
+        <%@include file="summary-box.jsp" %>
     </div>
 
     <div class="column mr-6">
-        <div class="box">
-            <p class="title is-4">
-                <fmt:message key="balance"/>
-            </p>
-
-            <div class="columns">
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="planned"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="current"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-            </div>
-        </div>
+        <c:set var="_title" value="balance"/>
+        <c:set var="_colored" value="${true}"/>
+        <c:set var="_planned" value="${totalDto.plannedBalance}"/>
+        <c:set var="_current" value="${totalDto.currentBalance}"/>
+        <%@include file="summary-box.jsp" %>
     </div>
 
     <div class="column">
-        <div class="box">
-            <p class="title is-4">
-                <fmt:message key="expenditures"/>
-            </p>
-
-            <div class="columns">
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="planned"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-                <div class="column">
-                    <p class="subtitle is-6">
-                        <fmt:message key="current"/>
-                    </p>
-                    <p class="subtitle is-4">
-                        XXXX
-                    </p>
-                </div>
-            </div>
-        </div>
+        <c:set var="_title" value="revenues"/>
+        <c:set var="_colored" value="${false}"/>
+        <c:set var="_planned" value="${totalDto.totalPlannedRevenue}"/>
+        <c:set var="_current" value="${totalDto.totalCurrentRevenue}"/>
+        <%@include file="summary-box.jsp" %>
     </div>
-
 </div>

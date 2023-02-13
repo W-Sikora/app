@@ -2,8 +2,8 @@ package pl.wsikora.successbudget.v3.budget.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetDto;
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetDtoProvider;
+import pl.wsikora.successbudget.v3.common.budget.BudgetDto;
+import pl.wsikora.successbudget.v3.common.budget.BudgetDtoProvider;
 import pl.wsikora.successbudget.v3.common.currencyrate.CurrencyRateConverter;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.currency.MajorCurrencyProvider;

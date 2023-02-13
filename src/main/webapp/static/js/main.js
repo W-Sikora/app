@@ -207,119 +207,164 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    const period = document.querySelector('#period');
 
-    const colorsArray = [
-        'rgba(0, 135, 108, 0.5)',
-        'rgba(239, 86, 117, 0.5)',
-        'rgba(153, 177, 142, 0.5)',
-        'rgba(229, 115, 115, 0.5)',
-        'rgba(179, 157, 219, 0.5)',
-        'rgba(250, 202, 40, 0.5)',
-        'rgba(144, 202, 249, 0.5)',
-        'rgba(55, 76, 128, 0.5)',
-        'rgba(38, 166, 154, 0.5)',
-        'rgba(120, 144, 156, 0.5)',
-        'rgba(174, 213, 129, 0.5)',
-        'rgba(255, 138, 101, 0.5)',
-        'rgba(121, 85, 72, 0.5)',
-        'rgba(102, 187, 106, 0.5)',
-        'rgba(212, 61, 81, 0.5)',
-        'rgba(255, 118, 74, 0.5)',
-        'rgba(122, 81, 149, 0.5)',
-        'rgba(255, 166, 0, 0.5)',
-        'rgba(119, 163, 125, 0.5)',
-        'rgba(216, 181, 145, 0.5)',
-        'rgba(216, 129, 96, 0.5)',
-        'rgba(211, 47, 47, 0.5)',
-        'rgba(182, 191, 163, 0.5)',
-        'rgba(216, 156, 117, 0.5)',
-        'rgba(215, 98, 84, 0.5)',
-        'rgba(0, 63, 92, 0.5)',
-        'rgba(220, 231, 117, 0.5)',
-        'rgba(244, 67, 54, 0.5)',
-        'rgba(79, 149, 114, 0.5)',
-        'rgba(188, 80, 144, 0.5)',
-        'rgba(0, 137, 123, 0.5)'
-    ];
+    if (period) {
 
-    const doughnutChartId = document.getElementById('doughnutChart');
+        function addMonths(date, months) {
 
-    if (doughnutChartId) {
+            date.setMonth(date.getMonth() + months);
 
-        const labels = ['OKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WARNING', 'CRITICAL', 'UNKNOWN', 'OK1', 'WARNING1', 'CRITICAL1', 'UNKNOWN1'];
-        const data = [12, 19, 3, 5, 12, 19, 3, 5];
+            const year = date.toLocaleString("default", { year: "numeric" });
 
-        new Chart(doughnutChartId, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: data,
-                    backgroundColor: colorsArray
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    position: 'bottom',
-                    align: 'start',
-                    labels: {
-                        padding: 15
-                    }
-                }
-            }
+            const month = date.toLocaleString("default", { month: "2-digit" });
+
+            return year + "-" + month;
+        }
+
+        function delayAndDo(time) {
+
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
+
+        function sendPeriod() {
+
+            const periodForm = document.getElementById('periodForm');
+
+            periodForm.querySelector('input[name=period]').value = period.value;
+
+            delayAndDo(100).then(() => periodForm.submit());
+        }
+
+        const periodDate = new Date(period.value);
+
+        period.addEventListener('input', () => sendPeriod());
+
+        document.querySelector('#periodLeft').addEventListener('click', () => {
+
+            period.value = addMonths(periodDate, -1);
+            sendPeriod();
+        });
+
+        document.querySelector('#periodRight').addEventListener('click', () => {
+
+            period.value = addMonths(periodDate, 1);
+            sendPeriod();
         });
     }
 
-    const horizontalBarChartId = document.getElementById('horizontalBarChart');
-
-    if (horizontalBarChartId) {
-
-        const horizontalBarChartData = {
-            labels: [
-                "ME",
-                "SE",
-                "a",
-                "b",
-                "ME",
-                "SE",
-                "a",
-                "b"
-            ],
-            datasets: [{
-                label: "Test",
-                data: [109, 75, 2, 34, 109, 75, 2, 34],
-                backgroundColor: colorsArray,
-                maxBarThickness: 35
-            }]
-        };
-
-        new Chart(horizontalBarChartId, {
-            type: 'horizontalBar',
-            data: horizontalBarChartData,
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            min: 0,
-                            max: 100
-                        }
-                    }]
-                },
-
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            console.log(tooltipItem)
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                }
-            }
-
-        });
-    }
+    // const colorsArray = [
+    //     'rgba(0, 135, 108, 0.5)',
+    //     'rgba(239, 86, 117, 0.5)',
+    //     'rgba(153, 177, 142, 0.5)',
+    //     'rgba(229, 115, 115, 0.5)',
+    //     'rgba(179, 157, 219, 0.5)',
+    //     'rgba(250, 202, 40, 0.5)',
+    //     'rgba(144, 202, 249, 0.5)',
+    //     'rgba(55, 76, 128, 0.5)',
+    //     'rgba(38, 166, 154, 0.5)',
+    //     'rgba(120, 144, 156, 0.5)',
+    //     'rgba(174, 213, 129, 0.5)',
+    //     'rgba(255, 138, 101, 0.5)',
+    //     'rgba(121, 85, 72, 0.5)',
+    //     'rgba(102, 187, 106, 0.5)',
+    //     'rgba(212, 61, 81, 0.5)',
+    //     'rgba(255, 118, 74, 0.5)',
+    //     'rgba(122, 81, 149, 0.5)',
+    //     'rgba(255, 166, 0, 0.5)',
+    //     'rgba(119, 163, 125, 0.5)',
+    //     'rgba(216, 181, 145, 0.5)',
+    //     'rgba(216, 129, 96, 0.5)',
+    //     'rgba(211, 47, 47, 0.5)',
+    //     'rgba(182, 191, 163, 0.5)',
+    //     'rgba(216, 156, 117, 0.5)',
+    //     'rgba(215, 98, 84, 0.5)',
+    //     'rgba(0, 63, 92, 0.5)',
+    //     'rgba(220, 231, 117, 0.5)',
+    //     'rgba(244, 67, 54, 0.5)',
+    //     'rgba(79, 149, 114, 0.5)',
+    //     'rgba(188, 80, 144, 0.5)',
+    //     'rgba(0, 137, 123, 0.5)'
+    // ];
+    //
+    // const doughnutChartId = document.getElementById('doughnutChart');
+    //
+    // if (doughnutChartId) {
+    //
+    //     const labels = ['OKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WARNING', 'CRITICAL', 'UNKNOWN', 'OK1', 'WARNING1', 'CRITICAL1', 'UNKNOWN1'];
+    //     const data = [12, 19, 3, 5, 12, 19, 3, 5];
+    //
+    //     new Chart(doughnutChartId, {
+    //         type: 'doughnut',
+    //         data: {
+    //             labels: labels,
+    //             datasets: [{
+    //                 data: data,
+    //                 backgroundColor: colorsArray
+    //             }]
+    //         },
+    //         options: {
+    //             legend: {
+    //                 display: true,
+    //                 position: 'bottom',
+    //                 align: 'start',
+    //                 labels: {
+    //                     padding: 15
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+    //
+    // const horizontalBarChartId = document.getElementById('horizontalBarChart');
+    //
+    // if (horizontalBarChartId) {
+    //
+    //     const horizontalBarChartData = {
+    //         labels: [
+    //             "ME",
+    //             "SE",
+    //             "a",
+    //             "b",
+    //             "ME",
+    //             "SE",
+    //             "a",
+    //             "b"
+    //         ],
+    //         datasets: [{
+    //             label: "Test",
+    //             data: [109, 75, 2, 34, 109, 75, 2, 34],
+    //             backgroundColor: colorsArray,
+    //             maxBarThickness: 35
+    //         }]
+    //     };
+    //
+    //     new Chart(horizontalBarChartId, {
+    //         type: 'horizontalBar',
+    //         data: horizontalBarChartData,
+    //         options: {
+    //             scales: {
+    //                 xAxes: [{
+    //                     ticks: {
+    //                         min: 0,
+    //                         max: 100
+    //                     }
+    //                 }]
+    //             },
+    //
+    //             legend: {
+    //                 display: false
+    //             },
+    //             tooltips: {
+    //                 callbacks: {
+    //                     label: function (tooltipItem) {
+    //                         console.log(tooltipItem)
+    //                         return tooltipItem.yLabel;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //
+    //     });
+    // }
 });

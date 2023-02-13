@@ -2,6 +2,7 @@ package pl.wsikora.successbudget.v3.cashflow.application.expenditure;
 
 import org.springframework.data.domain.Page;
 import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowFilter;
+import pl.wsikora.successbudget.v3.common.cashflow.ExpenditureDto;
 
 import java.util.Optional;
 

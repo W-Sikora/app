@@ -56,6 +56,27 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
                               @Nullable @Param("toDate") LocalDate toDate);
 
     @Query(
+        value = """
+            select e
+            from Expenditure e
+            where e.period = ?1
+            and (e.priority = pl.wsikora.successbudget.v3.common.type.priority.Priority.UNNECESSARY
+            or e.priority = pl.wsikora.successbudget.v3.common.type.priority.Priority.LOW)
+            and e.owner.value = ?#{principal.username}
+            order by e.date desc, e.money.value desc, e.priority desc
+        """,
+        countQuery = """
+            select count(e)
+            from Expenditure e
+            where e.period = ?1
+            and (e.priority = pl.wsikora.successbudget.v3.common.type.priority.Priority.UNNECESSARY
+            or e.priority = pl.wsikora.successbudget.v3.common.type.priority.Priority.LOW)
+            and e.owner.value = ?#{principal.username}
+        """
+    )
+    Page<Expenditure> findAllUnnecessary(Pageable pageable, YearMonth period);
+
+    @Query(
         """
             select e
             from Expenditure e

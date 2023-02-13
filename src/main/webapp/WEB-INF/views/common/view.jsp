@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="${cookie['language'].value}">
 
 <%@ include file="../imports/head-imports.jsp" %>
 

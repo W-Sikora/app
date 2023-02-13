@@ -1,4 +1,4 @@
-package pl.wsikora.successbudget.v3.cashflow.application.expenditure;
+package pl.wsikora.successbudget.v3.common.cashflow;
 
 import lombok.Value;
 import pl.wsikora.successbudget.v3.common.category.CategoryDto;

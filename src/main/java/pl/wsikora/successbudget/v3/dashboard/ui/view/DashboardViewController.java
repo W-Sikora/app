@@ -19,11 +19,11 @@ public class DashboardViewController {
 
     private static final String DASHBOARD_VIEW = "dashboard/dashboard";
 
-    private final DashboardControllerDataProvider dashboardControllerDataProvider;
+    private final DashboardViewControllerDataProvider dataProvider;
 
-    private DashboardViewController(DashboardControllerDataProvider dashboardControllerDataProvider) {
+    private DashboardViewController(DashboardViewControllerDataProvider dataProvider) {
 
-        this.dashboardControllerDataProvider = dashboardControllerDataProvider;
+        this.dataProvider = dataProvider;
     }
 
     @GetMapping
@@ -33,9 +33,9 @@ public class DashboardViewController {
     }
 
     @ModelAttribute
-    private void data(@RequestParam(required = false) YearMonth period, HttpSession session, Model model) {
+    private void data(DashboardViewParameters parameters, HttpSession session, Model model) {
 
-        model.addAllAttributes(dashboardControllerDataProvider.provideData(period, session));
+        model.addAllAttributes(dataProvider.provideData(parameters, session));
     }
 
 }
