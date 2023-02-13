@@ -1,42 +1,53 @@
 package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 
+import io.micrometer.common.lang.Nullable;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
+import java.time.YearMonth;
 import java.util.List;
 
 import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.ControllerUtils.getEditFormViewName;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
-class ExpenditureEditControllerDataProvider {
+class ExpenditureEditControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final ExpenditureFormFactory expenditureFormFactory;
 
-    private ExpenditureEditControllerDataProvider(MessageProvider messageProvider,
-                                                  ExpenditureFormFactory expenditureFormFactory) {
+    private ExpenditureEditControllerDataProvider(
+        MessageProvider messageProvider,
+        ExpenditureFormFactory expenditureFormFactory
+    ) {
 
         this.messageProvider = messageProvider;
         this.expenditureFormFactory = expenditureFormFactory;
     }
 
-    ModelMap provideData(Long cashFlowId, Long expenditureId) {
+    ModelMap provideData(@Nullable Long expenditureId, HttpSession session) {
+
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
-        modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
+        addAttributeLogoAppUrlDashboardPath(modelMap);
 
-        modelMap.addAttribute(PAGE_PATH, getEditFormViewName(EXPENDITURE));
+        addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
         modelMap.addAttribute(FORM_ACTION, EXPENDITURE_EDIT_PATH);
 
-        ExpenditureForm expenditureForm = expenditureFormFactory.getExpenditureForm(cashFlowId, expenditureId);
+        ExpenditureForm expenditureForm = expenditureFormFactory.getExpenditureForm(expenditureId, period);
 
         modelMap.addAttribute(FORM, expenditureForm);
 
@@ -47,8 +58,8 @@ class ExpenditureEditControllerDataProvider {
         modelMap.addAttribute(PAGE_TITLE, title);
 
         List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
-            .add(messageProvider.getMessage(EXPENDITURE_LIST_TITLE), EXPENDITURE_PATH)
+            .addDashboard(period)
+            .addWithPeriod(CASH_FLOW_TITLE, CASH_FLOW_PATH, period)
             .add(title)
             .build();
 

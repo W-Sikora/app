@@ -12,6 +12,7 @@ import pl.wsikora.successbudget.v3.cashflow.domain.Expenditure;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
         value = """
             select e
             from Expenditure e
-            where e.cashFlow.cashFlowId = :cashFlowId
+            where e.period = :period
             and (:keyword is null or lower(e.title.value) like %:keyword%)
             and (:categoryId is null or e.categoryId.value = :categoryId)
             and (:fromDate is null or :toDate is null or (e.date >= :fromDate and e.date <= :toDate))
@@ -40,7 +41,7 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
         countQuery = """
             select count(e)
             from Expenditure e
-            where e.cashFlow.cashFlowId = :cashFlowId
+            where e.period = :period
             and (:keyword is null or lower(e.title.value) like %:keyword%)
             and (:categoryId is null or e.categoryId.value = :categoryId)
             and (:fromDate is null or :toDate is null or (e.date >= :fromDate and e.date <= :toDate))
@@ -48,7 +49,7 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
         """
     )
     Page<Expenditure> findAll(Pageable pageable,
-                              @Param("cashFlowId") Long cashFlowId,
+                              @Param("period") YearMonth period,
                               @Nullable @Param("keyword") String keyword,
                               @Nullable @Param("categoryId") Long categoryId,
                               @Nullable @Param("fromDate") LocalDate fromDate,
@@ -58,23 +59,12 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
         """
             select e
             from Expenditure e
-            where e.cashFlow.cashFlowId = ?1
+            where e.period = ?1
             and e.repeatInNextPeriod
             and e.owner.value = ?#{principal.username}
         """
     )
-    List<Expenditure> findAllRepeated(Long cashFlowId);
-
-    @Query(
-        """
-            select count(e) > 0
-            from Expenditure e
-            where e.cashFlow.cashFlowId = ?1
-            and e.repeatInNextPeriod
-            and e.owner.value = ?#{principal.username}
-        """
-    )
-    boolean hasRepeatableByCashFlowId(Long cashFlowId);
+    List<Expenditure> findRepeatable(YearMonth period);
 
     @Query(
         """
@@ -83,7 +73,7 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
                 sum(e.money.value)
             )
             from Expenditure e
-            where e.cashFlow.cashFlowId = ?1
+            where e.period = ?1
             and e.owner.value = ?#{principal.username}
             group by e.money.currency
         """
@@ -96,11 +86,10 @@ interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
         """
             delete
             from Expenditure e
-            where e.cashFlow.cashFlowId = ?1
-            and e.expenditureId = ?2
+            where e.expenditureId = ?1
             and e.owner.value = ?#{principal.username}
         """
     )
-    void delete(Long cashFlowId, Long expenditureId);
+    void delete(Long expenditureId);
 
 }

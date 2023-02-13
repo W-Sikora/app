@@ -6,22 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
-import java.io.Serializable;
-
 
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class DashboardId implements Serializable {
+public class DashboardId {
 
-    @Column(name = "dashboard_id")
+    @Column(name = "dashboard_Id")
     private Long value;
 
-    public DashboardId(Long value) {
+    private DashboardId(Long value) {
+
+        this.value = value;
+    }
+
+    public static DashboardId of(Long value) {
 
         Assert.notNull(value, "DashboardId value must not be null");
 
-        this.value = value;
+        return new DashboardId(value);
     }
 
 }

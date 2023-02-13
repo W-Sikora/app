@@ -12,6 +12,11 @@ public class PriorityValidator extends AbstractFormValidator<Integer> {
 
     static final String F_PRIORITY = "priority";
 
+    protected PriorityValidator() {
+
+        super(Integer.class);
+    }
+
     @Override
     public void validateForm(Integer priority, Errors errors) {
 
@@ -23,12 +28,6 @@ public class PriorityValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_PRIORITY, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(Integer.class);
     }
 
 }

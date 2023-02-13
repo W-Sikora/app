@@ -11,11 +11,17 @@ import java.util.Objects;
 class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> {
 
     static final String F_REPEATED_PASSWORD = "repeatedPassword";
+    static final String E_REPEATED_PASSWORD_IS_DIFFERENT = "repeated.password.is.different";
 
     private final UsernameValidator usernameValidator;
     private final PasswordValidator passwordValidator;
 
-    RegistrationFormValidator(UsernameValidator usernameValidator, PasswordValidator passwordValidator) {
+    RegistrationFormValidator(
+        UsernameValidator usernameValidator,
+        PasswordValidator passwordValidator
+    ) {
+
+        super(RegistrationForm.class);
 
         this.usernameValidator = usernameValidator;
         this.passwordValidator = passwordValidator;
@@ -34,12 +40,6 @@ class RegistrationFormValidator extends AbstractFormValidator<RegistrationForm> 
 
             errors.rejectValue(F_REPEATED_PASSWORD, E_REPEATED_PASSWORD_IS_DIFFERENT);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(RegistrationForm.class);
     }
 
 }

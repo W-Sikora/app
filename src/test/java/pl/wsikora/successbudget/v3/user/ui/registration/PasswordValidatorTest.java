@@ -13,6 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS;
 import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_FIELD_MUST_NOT_BE_EMPTY;
+import static pl.wsikora.successbudget.v3.user.domain.Password.MAXIMUM_LENGTH;
 import static pl.wsikora.successbudget.v3.user.domain.Password.MINIMUM_LENGTH;
 import static pl.wsikora.successbudget.v3.user.ui.registration.PasswordValidator.F_PASSWORD;
 
@@ -76,6 +77,20 @@ class PasswordValidatorTest {
 
         // given
         password = randomAlphabetic(MINIMUM_LENGTH - 1);
+
+        // when
+        validator.validateForm(password, errors);
+
+        // then
+        verify(errors).rejectValue(F_PASSWORD, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
+            Password.getLengthRange(), EMPTY);
+    }
+
+    @Test
+    void shouldDetectTooLongPassword() {
+
+        // given
+        password = randomAlphabetic(MAXIMUM_LENGTH + 1);
 
         // when
         validator.validateForm(password, errors);

@@ -2,17 +2,16 @@ package pl.wsikora.successbudget.v3.budget.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetRepeatCommand;
+import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueAttributes;
 import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueCommand;
-import pl.wsikora.successbudget.v3.budget.application.plannedrevenue.PlannedRevenueDeleteCommand;
-import pl.wsikora.successbudget.v3.budget.domain.Budget;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedRevenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
+
+import java.time.YearMonth;
 
 
 @Service
@@ -20,15 +19,14 @@ class PlannedPlannedRevenueCommandImpl implements PlannedRevenueCommand {
 
     private final UsernameProvider usernameProvider;
     private final PlannedRevenueRepository plannedRevenueRepository;
-    private final BudgetRepository budgetRepository;
 
-    private PlannedPlannedRevenueCommandImpl(UsernameProvider usernameProvider,
-                                             PlannedRevenueRepository plannedRevenueRepository,
-                                             BudgetRepository budgetRepository) {
+    private PlannedPlannedRevenueCommandImpl(
+        UsernameProvider usernameProvider,
+        PlannedRevenueRepository plannedRevenueRepository
+    ) {
 
         this.usernameProvider = usernameProvider;
         this.plannedRevenueRepository = plannedRevenueRepository;
-        this.budgetRepository = budgetRepository;
     }
 
     @Override
@@ -40,22 +38,17 @@ class PlannedPlannedRevenueCommandImpl implements PlannedRevenueCommand {
 
         plannedRevenue.setPlannedRevenueId(plannedRevenueAttributes.getPlannedRevenueId());
 
-        Budget budget = getBudgetByBudgetId(plannedRevenueAttributes.getBudgetId());
-
-        plannedRevenue.setBudget(budget);
+        plannedRevenue.setPeriod(plannedRevenueAttributes.getPeriod());
 
         plannedRevenue.setOwner(usernameProvider.getUsername());
 
-        CategoryId categoryId = new CategoryId(plannedRevenueAttributes.getCategoryId());
+        CategoryId categoryId = CategoryId.of(plannedRevenueAttributes.getCategoryId());
 
         plannedRevenue.setCategoryId(categoryId);
 
         Currency currency = Currency.of(plannedRevenueAttributes.getCurrency());
 
-        Money money = Money.of(
-            currency,
-            plannedRevenueAttributes.getValue()
-        );
+        Money money = Money.of(currency, plannedRevenueAttributes.getValue());
 
         plannedRevenue.setMoney(money);
 
@@ -65,40 +58,31 @@ class PlannedPlannedRevenueCommandImpl implements PlannedRevenueCommand {
     }
 
     @Override
-    public void delete(PlannedRevenueDeleteCommand plannedRevenueDeleteCommand) {
+    public void delete(Long plannedRevenueId) {
 
-        Assert.notNull(plannedRevenueDeleteCommand, "plannedRevenueDeleteCommand must not be null");
+        Assert.notNull(plannedRevenueId, "plannedRevenueId must not be null");
 
-        plannedRevenueRepository.delete(
-            plannedRevenueDeleteCommand.budgetId(),
-            plannedRevenueDeleteCommand.plannedRevenueId()
-        );
+        plannedRevenueRepository.delete(plannedRevenueId);
     }
 
     @Override
-    public void repeat(BudgetRepeatCommand budgetRepeatCommand) {
+    public void repeat(RepeatCommand repeatCommand) {
 
-        Assert.notNull(budgetRepeatCommand, "budgetRepeatCommand must not be null");
+        Assert.notNull(repeatCommand, "budgetRepeatCommand must not be null");
 
-        plannedRevenueRepository.findAllRepeated(budgetRepeatCommand.fromBudgetId())
+        plannedRevenueRepository.findRepeatable(repeatCommand.fromPeriod())
             .stream()
-            .map(plannedRevenue -> assignBudget(plannedRevenue, budgetRepeatCommand.toBudgetId()))
+            .map(plannedRevenue -> assignBudget(plannedRevenue, repeatCommand.toPeriod()))
             .forEach(plannedRevenueRepository::save);
     }
 
-    private PlannedRevenue assignBudget(PlannedRevenue plannedRevenue, Long toBudgetId) {
+    private PlannedRevenue assignBudget(PlannedRevenue plannedRevenue, YearMonth toperiod) {
 
-        Budget budget = getBudgetByBudgetId(toBudgetId);
+        plannedRevenue.setPlannedRevenueId(null);
 
-        plannedRevenue.setBudget(budget);
+        plannedRevenue.setPeriod(toperiod);
 
         return plannedRevenue;
-    }
-
-    private Budget getBudgetByBudgetId(Long budgetId) {
-
-        return budgetRepository.findByBudgetId(budgetId)
-            .orElseThrow(() -> new NotFoundException("Budget", budgetId));
     }
 
 }

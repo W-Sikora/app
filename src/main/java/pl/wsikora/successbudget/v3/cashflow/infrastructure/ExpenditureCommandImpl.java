@@ -2,21 +2,20 @@ package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureCommand;
-import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureDeleteCommand;
-import pl.wsikora.successbudget.v3.cashflow.domain.CashFlow;
 import pl.wsikora.successbudget.v3.cashflow.domain.Expenditure;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payee.Payee;
 import pl.wsikora.successbudget.v3.common.type.priority.Priority;
+import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
+import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 
 @Service
@@ -24,15 +23,14 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
 
     private final UsernameProvider usernameProvider;
     private final ExpenditureRepository expenditureRepository;
-    private final CashFlowRepository cashFlowRepository;
 
-    private ExpenditureCommandImpl(UsernameProvider usernameProvider,
-                                   ExpenditureRepository expenditureRepository,
-                                   CashFlowRepository cashFlowRepository) {
+    private ExpenditureCommandImpl(
+        UsernameProvider usernameProvider,
+        ExpenditureRepository expenditureRepository
+    ) {
 
         this.usernameProvider = usernameProvider;
         this.expenditureRepository = expenditureRepository;
-        this.cashFlowRepository = cashFlowRepository;
     }
 
     @Override
@@ -44,13 +42,13 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
 
         expenditure.setExpenditureId(expenditureAttributes.getExpenditureId());
 
-        CashFlow cashFlow = getCashFlowByCashFlowId(expenditureAttributes.getCashFlowId());
-
-        expenditure.setCashFlow(cashFlow);
+        expenditure.setPeriod(expenditureAttributes.getPeriod());
 
         expenditure.setOwner(usernameProvider.getUsername());
 
-        CategoryId categoryId = new CategoryId(expenditureAttributes.getCategoryId());
+        expenditure.setTitle(Title.of(expenditureAttributes.getTitle()));
+
+        CategoryId categoryId = CategoryId.of(expenditureAttributes.getCategoryId());
 
         expenditure.setCategoryId(categoryId);
 
@@ -64,14 +62,11 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
 
         Currency currency = Currency.of(expenditureAttributes.getCurrency());
 
-        Money money = Money.of(
-            currency,
-            expenditureAttributes.getValue()
-        );
+        Money money = Money.of(currency, expenditureAttributes.getValue());
 
         expenditure.setMoney(money);
 
-        Payee payee = new Payee(expenditureAttributes.getPayee());
+        Payee payee = Payee.of(expenditureAttributes.getPayee());
 
         expenditure.setPayee(payee);
 
@@ -81,38 +76,29 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
     }
 
     @Override
-    public void delete(ExpenditureDeleteCommand expenditureDeleteCommand) {
+    public void delete(Long expenditureId) {
 
-        Assert.notNull(expenditureDeleteCommand, "expenditureDeleteCommand must not be null");
+        Assert.notNull(expenditureId, "expenditureId must not be null");
 
-        expenditureRepository.delete(
-            expenditureDeleteCommand.cashFlowId(),
-            expenditureDeleteCommand.expenditureId()
-        );
+        expenditureRepository.delete(expenditureId);
     }
 
     @Override
-    public void repeat(CashFlowRepeatCommand cashFlowRepeatCommand) {
+    public void repeat(RepeatCommand repeatCommand) {
 
-        Assert.notNull(cashFlowRepeatCommand, "cashFlowRepeatCommand must not be null");
+        Assert.notNull(repeatCommand, "repeatCommand must not be null");
 
-        expenditureRepository.findAllRepeated(cashFlowRepeatCommand.fromCashFlowId())
+        expenditureRepository.findRepeatable(repeatCommand.fromPeriod())
             .stream()
-            .map(expenditure -> assignCashFlow(expenditure, cashFlowRepeatCommand.toCashFlowId()))
+            .map(expenditure -> assignCashFlow(expenditure, repeatCommand.toPeriod()))
             .forEach(expenditureRepository::save);
     }
 
-    private CashFlow getCashFlowByCashFlowId(Long cashFlowId) {
+    private Expenditure assignCashFlow(Expenditure expenditure, YearMonth toPeriod) {
 
-        return cashFlowRepository.findByCashFlowId(cashFlowId)
-            .orElseThrow(() -> new NotFoundException("CashFlow", cashFlowId));
-    }
+        expenditure.setExpenditureId(null);
 
-    private Expenditure assignCashFlow(Expenditure expenditure, Long cashFlowId) {
-
-        CashFlow cashFlow = getCashFlowByCashFlowId(cashFlowId);
-
-        expenditure.setCashFlow(cashFlow);
+        expenditure.setPeriod(toPeriod);
 
         return expenditure;
     }

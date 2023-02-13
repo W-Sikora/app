@@ -1,15 +1,20 @@
 package pl.wsikora.successbudget.v3.category.ui.edit;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
+import java.time.YearMonth;
+
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
@@ -29,7 +34,11 @@ class CategoryEditControllerDataProvider extends ControllerDataProvider {
         this.categoryFormFactory = categoryFormFactory;
     }
 
-    ModelMap provideData(@Nullable Long categoryId) {
+    ModelMap provideData(@Nullable Long categoryId, HttpSession session) {
+
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
@@ -51,7 +60,7 @@ class CategoryEditControllerDataProvider extends ControllerDataProvider {
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
+            .addDashboard(period)
             .add(CATEGORY_LIST_TITLE, CATEGORY_PATH)
             .add(title)
             .build());

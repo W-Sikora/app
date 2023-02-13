@@ -3,8 +3,8 @@ package pl.wsikora.successbudget.v3.common.util;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
-import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.springframework.util.StringUtils.hasText;
 
 
 public class StringUtils {
@@ -16,7 +16,7 @@ public class StringUtils {
 
     public static String convertToLowerCase(@Nullable String string) {
 
-        return nonNull(string) ? string.toLowerCase() : null;
+        return hasText(string) ? string.toLowerCase() : null;
     }
 
     public static String formAttributeNameCamelCase(String... parts) {

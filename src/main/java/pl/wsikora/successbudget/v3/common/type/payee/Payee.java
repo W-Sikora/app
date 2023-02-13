@@ -22,12 +22,17 @@ public class Payee {
     @Column(name = "payee", length = MAXIMUM_LENGTH)
     private String value;
 
-    public Payee(String value) {
+    private Payee(String value) {
+
+        this.value = value;
+    }
+
+    public static Payee of(String value) {
 
         Assert.isTrue(hasText(value), "payee value must not be empty");
         Assert.isTrue(hasValidLength(value), "payee value must be of valid length");
 
-        this.value = value;
+        return new Payee(value);
     }
 
     public static boolean hasValidLength(String value) {

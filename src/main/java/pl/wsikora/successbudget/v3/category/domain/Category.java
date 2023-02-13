@@ -8,6 +8,8 @@ import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
 
+import static pl.wsikora.successbudget.v3.category.domain.ColorGenerator.MAXIMUM_LENGTH;
+
 
 @Entity
 @Table(name = "categories")
@@ -28,5 +30,14 @@ public class Category {
 
     @Enumerated(EnumType.ORDINAL)
     private TransactionType transactionType;
+
+    @Column(length = MAXIMUM_LENGTH)
+    private String color;
+
+    @PostPersist
+    private void assignColor() {
+
+        this.color = ColorGenerator.newColor();
+    }
 
 }

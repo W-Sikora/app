@@ -4,6 +4,7 @@ import lombok.*;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureAttributes;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 
 @Getter
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 class PlannedExpenditureForm implements PlannedExpenditureAttributes {
 
     private Long plannedExpenditureId;
-    private Long budgetId;
+    private YearMonth period;
     private Long categoryId;
     private Integer priority;
     private Integer currency;

@@ -8,6 +8,9 @@ import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.priority.Priority;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.util.databaseconverter.YearMonthDatabaseConverter;
+
+import java.time.YearMonth;
 
 
 @Getter
@@ -21,9 +24,8 @@ public class PlannedExpenditure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long plannedExpenditureId;
 
-    @ManyToOne
-    @JoinColumn(name = "budget_id")
-    private Budget budget;
+    @Convert(converter = YearMonthDatabaseConverter.class)
+    private YearMonth period;
 
     @Embedded
     private Username owner;

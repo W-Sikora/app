@@ -34,7 +34,7 @@ class CategoryCommandImpl implements CategoryCommand {
 
         category.setCategoryId(categoryAttributes.getCategoryId());
 
-        category.setTitle(new Title(categoryAttributes.getTitle()));
+        category.setTitle(Title.of(categoryAttributes.getTitle()));
 
         category.setOwner(usernameProvider.getUsername());
 

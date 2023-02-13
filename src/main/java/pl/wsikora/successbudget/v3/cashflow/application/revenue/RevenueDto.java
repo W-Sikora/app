@@ -10,7 +10,7 @@ import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 public class RevenueDto {
 
     Long revenueId;
-    Long cashFlowId;
+    String period;
     String title;
     CategoryDto categoryDto;
     String date;

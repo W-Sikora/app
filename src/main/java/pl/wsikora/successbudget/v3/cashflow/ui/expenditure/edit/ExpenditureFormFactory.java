@@ -6,9 +6,13 @@ import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureDto;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureQuery;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyConverter;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 
+import java.time.YearMonth;
 import java.util.Optional;
+
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 
 
 @Service
@@ -21,40 +25,40 @@ class ExpenditureFormFactory {
         this.expenditureQuery = expenditureQuery;
     }
 
-    ExpenditureForm getExpenditureForm(Long cashFlowId, @Nullable Long expenditureId) {
+    ExpenditureForm getExpenditureForm(@Nullable Long expenditureId, YearMonth period) {
 
-        Assert.notNull(cashFlowId, "cashFlowId must not be null");
+        Assert.notNull(period, "period must not be null");
 
         return Optional.ofNullable(expenditureId)
             .flatMap(expenditureQuery::findByExpenditureId)
             .map(this::toForm)
-            .orElseGet(() -> newForm(cashFlowId));
+            .orElseGet(() -> newForm(period));
     }
 
     private ExpenditureForm toForm(ExpenditureDto expenditureDto) {
 
         MoneyDto moneyDto = expenditureDto.getMoneyDto();
 
-        Money money = moneyDto.getMoney();
+        Money money = MoneyConverter.convert(moneyDto);
 
         return ExpenditureForm.builder()
             .expenditureId(expenditureDto.getExpenditureId())
-            .cashFlowId(expenditureDto.getCashFlowId())
+            .period(YearMonth.parse(expenditureDto.getPeriod(), PERIOD_FORMATTER))
             .title(expenditureDto.getTitle())
             .categoryId(expenditureDto.getCategoryDto().getCategoryId())
+            .priority(expenditureDto.getPriority())
+            .date(expenditureDto.getDate())
             .currency(money.getCurrency().ordinal())
             .value(money.getValue())
-            .priority(expenditureDto.getPriority())
             .payee(expenditureDto.getPayee())
-            .date(expenditureDto.getDate())
             .repeatInNextPeriod(expenditureDto.isRepeatInNextPeriod())
             .build();
     }
 
-    private ExpenditureForm newForm(Long cashFlowId) {
+    private ExpenditureForm newForm(YearMonth period) {
 
         return ExpenditureForm.builder()
-            .cashFlowId(cashFlowId)
+            .period(period)
             .build();
     }
 

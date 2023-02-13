@@ -1,13 +1,17 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDto;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureQuery;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
-import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyConverter;
 
+import java.time.YearMonth;
 import java.util.Optional;
+
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 
 
 @Service
@@ -20,25 +24,23 @@ class PlannedExpenditureFormFactory {
         this.plannedExpenditureQuery = plannedExpenditureQuery;
     }
 
-    PlannedExpenditureForm createPlannedExpenditureForm(PlannedExpenditureEditCommand editCommand) {
+    PlannedExpenditureForm createPlannedExpenditureForm(@Nullable Long plannedExpenditureId, YearMonth period) {
 
-        Assert.notNull(editCommand, "editCommand must not be null");
+        Assert.notNull(period, "period must not be null");
 
-        return Optional.ofNullable(editCommand.plannedExpenditureId())
+        return Optional.ofNullable(plannedExpenditureId)
             .flatMap(plannedExpenditureQuery::findByPlannedExpenditureId)
             .map(this::toForm)
-            .orElseGet(() -> newForm(editCommand.budgetId()));
+            .orElseGet(() -> newForm(period));
     }
 
     private PlannedExpenditureForm toForm(PlannedExpenditureDto plannedExpenditureDto) {
 
-        MoneyDto moneyDto = plannedExpenditureDto.getMoneyDto();
-
-        Money money = moneyDto.getMoney();
+        Money money = MoneyConverter.convert(plannedExpenditureDto.getMoneyDto());
 
         return PlannedExpenditureForm.builder()
             .plannedExpenditureId(plannedExpenditureDto.getPlannedExpenditureId())
-            .budgetId(plannedExpenditureDto.getBudgetId())
+            .period(YearMonth.parse(plannedExpenditureDto.getPeriod(), PERIOD_FORMATTER))
             .categoryId(plannedExpenditureDto.getCategoryDto().getCategoryId())
             .priority(plannedExpenditureDto.getPriority())
             .currency(money.getCurrency().ordinal())
@@ -47,10 +49,10 @@ class PlannedExpenditureFormFactory {
             .build();
     }
 
-    private PlannedExpenditureForm newForm(Long budgetId) {
+    private PlannedExpenditureForm newForm(YearMonth period) {
 
         return PlannedExpenditureForm.builder()
-            .budgetId(budgetId)
+            .period(period)
             .build();
     }
 

@@ -54,20 +54,54 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener('click', () => document.getElementById('logout').submit())
     }
 
-    const keywordFilters = document.querySelectorAll('.js-keyword-filter');
+    const keywordFilter = document.querySelector('.js-keyword-filter');
 
-    if (keywordFilters) {
+    if (keywordFilter) {
 
-        keywordFilters.forEach(keywordFilter => {
+        const params = new URLSearchParams(window.location.search);
 
-            keywordFilter.querySelector('.js-clear')
-                .addEventListener('click', () => {
+        for (const param of params.keys()) {
 
-                    keywordFilter.getElementsByTagName('input').value = '';
+            if (param) {
 
-                    keywordFilter.submit()
+                keywordFilter.querySelector('input').value = params.get(param);
+            }
+        }
+
+        keywordFilter.querySelector('.js-clear')
+            .addEventListener('click', () => {
+
+                keywordFilter.querySelector('input').value = '';
+
+                keywordFilter.submit();
+            });
+    }
+
+    const categoryFilter = document.querySelector('.js-category-filter');
+
+    if (categoryFilter) {
+
+        const params = new URLSearchParams(window.location.search);
+
+        for (const param of params.keys()) {
+
+            if (param) {
+
+                categoryFilter.querySelector('select[name=' + param + ']').value = params.get(param);
+            }
+        }
+
+        categoryFilter.querySelector('.js-clear-category')
+            .addEventListener('click', () => {
+
+                [...categoryFilter.getElementsByTagName('select')].forEach(select => {
+
+                    select.value = '';
                 });
-        });
+
+                categoryFilter.submit();
+
+            });
     }
 
     const deleteButtons = document.querySelectorAll('.js-delete-button');

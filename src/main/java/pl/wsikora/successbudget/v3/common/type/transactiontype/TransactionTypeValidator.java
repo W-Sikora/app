@@ -12,6 +12,11 @@ public class TransactionTypeValidator extends AbstractFormValidator<Integer> {
 
     static final String F_TRANSACTION_TYPE = "transactionType";
 
+    protected TransactionTypeValidator() {
+
+        super(Integer.class);
+    }
+
     @Override
     public void validateForm(Integer transactionType, Errors errors) {
 
@@ -23,12 +28,6 @@ public class TransactionTypeValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_TRANSACTION_TYPE, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(Integer.class);
     }
 
 }

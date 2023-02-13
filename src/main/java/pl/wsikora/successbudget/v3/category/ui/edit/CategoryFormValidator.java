@@ -13,7 +13,12 @@ class CategoryFormValidator extends AbstractFormValidator<CategoryForm> {
     private final TitleValidator titleValidator;
     private final TransactionTypeValidator transactionTypeValidator;
 
-    CategoryFormValidator(TitleValidator titleValidator, TransactionTypeValidator transactionTypeValidator) {
+    CategoryFormValidator(
+        TitleValidator titleValidator,
+        TransactionTypeValidator transactionTypeValidator
+    ) {
+
+        super(CategoryForm.class);
 
         this.titleValidator = titleValidator;
         this.transactionTypeValidator = transactionTypeValidator;
@@ -25,12 +30,6 @@ class CategoryFormValidator extends AbstractFormValidator<CategoryForm> {
         titleValidator.validateForm(categoryForm.getTitle(), errors);
 
         transactionTypeValidator.validateForm(categoryForm.getTransactionType(), errors);
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(CategoryForm.class);
     }
 
 }

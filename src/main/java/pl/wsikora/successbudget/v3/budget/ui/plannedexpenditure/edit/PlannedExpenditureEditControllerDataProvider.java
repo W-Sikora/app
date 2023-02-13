@@ -1,9 +1,10 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetChecker;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
@@ -13,15 +14,16 @@ import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
+import java.time.YearMonth;
+
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
 class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
-    private final BudgetChecker budgetChecker;
     private final PlannedExpenditureFormFactory plannedExpenditureFormFactory;
     private final TitleProvider titleProvider;
     private final CategoryDtoProvider categoryDtoProvider;
@@ -29,21 +31,21 @@ class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvide
 
     private PlannedExpenditureEditControllerDataProvider(
         MessageProvider messageProvider,
-        BudgetChecker budgetChecker,
         PlannedExpenditureFormFactory plannedExpenditureFormFactory,
         CategoryDtoProvider categoryDtoProvider
     ) {
 
         this.messageProvider = messageProvider;
-        this.budgetChecker = budgetChecker;
         this.plannedExpenditureFormFactory = plannedExpenditureFormFactory;
         this.titleProvider = new TitleProvider(messageProvider);
         this.categoryDtoProvider = categoryDtoProvider;
     }
 
-    ModelMap provideData(PlannedExpenditureEditCommand editCommand) {
+    ModelMap provideData(@Nullable Long plannedExpenditureId, HttpSession session) {
 
-        Assert.notNull(editCommand, "editCommand must not be null");
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
@@ -51,29 +53,23 @@ class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvide
 
         addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        if (budgetChecker.hasNoBudget(editCommand.budgetId())) {
-
-            addAttributePagePathNoResource(modelMap);
-
-            return modelMap;
-        }
-
         addAttributePagePathFromForm(modelMap, PLANNED_EXPENDITURE);
 
-        addAttributeFormAction(modelMap, PLANNED_EXPENDITURE_ADD_PATH, BUDGET_ID_PATH_VARIABLE,
-            editCommand.budgetId());
+        addAttributeFormAction(modelMap, PLANNED_EXPENDITURE_ADD_PATH);
 
-        modelMap.addAttribute("plannedExpenditureForm", plannedExpenditureFormFactory
-            .createPlannedExpenditureForm(editCommand));
+        PlannedExpenditureForm plannedExpenditureForm = plannedExpenditureFormFactory
+            .createPlannedExpenditureForm(plannedExpenditureId, period);
 
-        String title = titleProvider.provideTitle(editCommand.plannedExpenditureId(),
+        modelMap.addAttribute("plannedExpenditureForm", plannedExpenditureForm);
+
+        String title = titleProvider.provideTitle(plannedExpenditureForm.getPlannedExpenditureId(),
             PLANNED_EXPENDITURE_ADD_TITLE, PLANNED_EXPENDITURE_EDIT_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
-            .add(BUDGET, fillPath(BUDGET_PATH, BUDGET_ID_PATH_VARIABLE, editCommand.budgetId()))
+            .addDashboard(period)
+            .addWithPeriod(BUDGET, BUDGET_PATH, period)
             .add(title)
             .build()
         );

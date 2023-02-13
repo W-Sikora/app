@@ -54,34 +54,43 @@ public class Constants {
     public static final String I18N_PATH = "/locale";
     public static final String REGISTRATION_PATH = "/registration";
     public static final String LOGIN_PATH = "/login";
-    public static final String MAJOR_CURRENCY = "major-currency";
     public static final String MAJOR_CURRENCY_EDIT_PATH = "/major-currency/edit";
     public static final String DASHBOARD_PATH = "/dashboards/";
+
     public static final String OBJECTIVE_PATH = "/objectives";
     public static final String OBJECTIVE_ADD_PATH = "/objectives/edit";
     public static final String OBJECTIVE_EDIT_PATH = "/objectives/edit?objectiveId={objectiveId}";
+
     public static final String CATEGORY_PATH = "/categories";
     public static final String CATEGORY_ADD_PATH = "/categories/edit";
     public static final String CATEGORY_EDIT_PATH = "/categories/edit?categoryId={categoryId}";
     public static final String CATEGORY_DELETE_PATH = "/categories/delete/{categoryId}";
-    public static final String BUDGET_PATH = "/budgets/{budgetId}";
-    public static final String PLANNED_EXPENDITURE_ADD_PATH = "/budgets/{budgetId}/planned-expenditures/edit";
-    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/budgets/{budgetId}/planned-expenditures/edit?revenueId={revenueId}";
-    public static final String PLANNED_EXPENDITURE_DELETE_PATH = "/budgets/{budgetId}/planned-expenditures/delete/{plannedExpenditureId}";
-    public static final String PLANNED_REVENUE_ADD_PATH = "/budgets/{budgetId}/planned-revenues/edit";
-    public static final String PLANNED_REVENUE_EDIT_PATH = "/budgets/{budgetId}/planned-revenues/edit?plannedRevenueId={plannedRevenueId}";
-    public static final String PLANNED_REVENUE_DELETE_PATH = "/budgets/{budgetId}/planned-revenues/delete/{plannedRevenueId}";
-    public static final String CASH_FLOW_PATH = "/cash-flows/{cashFlowId}";
-    public static final String EXPENDITURE_PATH = "/cash-flows/{cashFlowId}/expenditures/";
-    public static final String EXPENDITURE_ADD_PATH = "/cash-flows/{cashFlowId}/expenditures/edit";
-    public static final String EXPENDITURE_EDIT_PATH = "/cash-flows/{cashFlowId}/expenditures/edit?expenditureId={expenditureId}";
-    public static final String EXPENDITURE_DELETE_PATH = "/cash-flows/{cashFlowId}/expenditures/delete/{expenditureId}";
-    public static final String REVENUE_ADD_PATH = "/cash-flows/{cashFlowId}/revenues/edit";
-    public static final String REVENUE_EDIT_PATH = "/cash-flows/{cashFlowId}/revenues/edit?revenueId={revenueId}";
-    public static final String REVENUE_DELETE_PATH = "/cash-flows/{cashFlowId}/revenues/delete/{revenueId}";
+
+    public static final String BUDGET_PATH = "/budgets";
+
+    public static final String PLANNED_EXPENDITURE_ADD_PATH = "/planned-expenditures/edit";
+    public static final String PLANNED_EXPENDITURE_EDIT_PATH = "/planned-expenditures/edit?plannedExpenditureId={plannedExpenditureId}";
+    public static final String PLANNED_EXPENDITURE_DELETE_PATH = "/planned-expenditures/delete/{plannedExpenditureId}";
+
+    public static final String PLANNED_REVENUE_ADD_PATH = "/planned-revenues/edit";
+    public static final String PLANNED_REVENUE_EDIT_PATH = "/planned-revenues/edit?plannedRevenueId={plannedRevenueId}";
+    public static final String PLANNED_REVENUE_DELETE_PATH = "/planned-revenues/delete/{plannedRevenueId}";
+
+    public static final String CASH_FLOW_PATH = "/cash-flows";
+
+    public static final String EXPENDITURE_ADD_PATH = "/expenditures/edit";
+    public static final String EXPENDITURE_EDIT_PATH = "/expenditures/edit?expenditureId={expenditureId}";
+    public static final String EXPENDITURE_DELETE_PATH = "/expenditures/delete/{expenditureId}";
+
+    public static final String REVENUE_ADD_PATH = "/revenues/edit";
+    public static final String REVENUE_EDIT_PATH = "/revenues/edit?revenueId={revenueId}";
+    public static final String REVENUE_DELETE_PATH = "/revenues/delete/{revenueId}";
+
     public static final String NO_RESOURCE_PATH = "no-resource";
+    public static final String EXPENDITURE_PATH = "/expenditures";
 
 
+    public static final String MAJOR_CURRENCY = "major-currency";
     // error
     public static final String ERROR = "error";
 
@@ -123,10 +132,11 @@ public class Constants {
     public static final String BUDGET = "budget";
     public static final String BUDGET_PARTICULAR_PATH = BUDGET_PATH + ID_PATH_QUERY;
     public static final String BUDGET_TITLE = "budget";
-    public static final String BUDGET_ID = "budgetId";
-    public static final String BUDGET_ID_PATH_VARIABLE = LEFT_CURLY_BRACKETS + BUDGET_ID + RIGHT_CURLY_BRACKETS;
+    public static final String PERIOD = "period";
 
-    public static final String CASH_FLOW_ID = "cashFlowId";
+    public static final String BUDGET_ID_PATH_VARIABLE = LEFT_CURLY_BRACKETS + PERIOD + RIGHT_CURLY_BRACKETS;
+
+    public static final String CASH_FLOW_ID = "period";
     public static final String CASH_FLOW_ID_PATH_VARIABLE = LEFT_CURLY_BRACKETS + CASH_FLOW_ID + RIGHT_CURLY_BRACKETS;
 
     // PlannedExpenditure

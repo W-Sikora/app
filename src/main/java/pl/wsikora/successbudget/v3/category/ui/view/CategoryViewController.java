@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.category.ui.view;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,23 +15,23 @@ import static pl.wsikora.successbudget.v3.common.util.Constants.VIEW;
 @RequestMapping(CATEGORY_PATH)
 class CategoryViewController {
 
-    private final CategoryViewControllerDataProvider categoryViewControllerDataProvider;
+    private final CategoryViewControllerDataProvider dataProvider;
 
-    private CategoryViewController(CategoryViewControllerDataProvider categoryViewControllerDataProvider) {
+    private CategoryViewController(CategoryViewControllerDataProvider dataProvider) {
 
-        this.categoryViewControllerDataProvider = categoryViewControllerDataProvider;
+        this.dataProvider = dataProvider;
     }
 
     @GetMapping
-    private String goToView() {
+    private String view() {
 
         return VIEW;
     }
 
     @ModelAttribute
-    private void data(CategoryViewParameters parameters, Model model) {
+    private void data(CategoryViewParameters parameters, HttpSession session, Model model) {
 
-        model.addAllAttributes(categoryViewControllerDataProvider.provideData(parameters));
+        model.addAllAttributes(dataProvider.provideData(parameters, session));
     }
 
 }

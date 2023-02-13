@@ -50,6 +50,7 @@ interface CategoryRepository extends JpaRepository<Category, Long> {
         from Category c
         where c.transactionType = ?1
         and c.owner.value = ?#{principal.username}
+        order by c.title.value
     """)
     List<Category> findAllByTransactionType(TransactionType transactionType);
 

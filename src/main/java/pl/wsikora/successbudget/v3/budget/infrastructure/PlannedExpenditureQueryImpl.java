@@ -1,7 +1,6 @@
 package pl.wsikora.successbudget.v3.budget.infrastructure;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
@@ -15,11 +14,12 @@ import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
+import java.time.YearMonth;
 import java.util.Optional;
 
-import static java.util.Objects.nonNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_EDIT_PATH;
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 
 
 @Service
@@ -28,8 +28,10 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
     private final PlannedExpenditureRepository plannedExpenditureRepository;
     private final CategoryDtoProvider categoryDtoProvider;
 
-    private PlannedExpenditureQueryImpl(PlannedExpenditureRepository plannedExpenditureRepository,
-                                        CategoryDtoProvider categoryDtoProvider) {
+    private PlannedExpenditureQueryImpl(
+        PlannedExpenditureRepository plannedExpenditureRepository,
+        CategoryDtoProvider categoryDtoProvider
+    ) {
 
         this.plannedExpenditureRepository = plannedExpenditureRepository;
         this.categoryDtoProvider = categoryDtoProvider;
@@ -49,39 +51,34 @@ class PlannedExpenditureQueryImpl implements PlannedExpenditureQuery {
 
         Assert.notNull(budgetFilter, "budgetFilter must not be null");
 
-        return plannedExpenditureRepository.findAll(
-                budgetFilter.pageable(),
-                budgetFilter.budgetId(),
-                budgetFilter.categoryId()
-            )
+        return plannedExpenditureRepository.findAll(budgetFilter.pageable(),
+                budgetFilter.period(), budgetFilter.categoryId())
             .map(this::toDto);
     }
 
     @Override
-    public boolean hasAssignedCategory(Long budgetId, Long categoryId) {
+    public boolean hasAssignedCategory(YearMonth period, Long categoryId) {
 
-        Assert.notNull(budgetId, "cashFlowId must not be null");
+        Assert.notNull(period, "period must not be null");
         Assert.notNull(categoryId, "categoryId must not be null");
 
-        return plannedExpenditureRepository.hasAssignedCategory(budgetId, categoryId);
+        return plannedExpenditureRepository.hasAssignedCategory(period, categoryId);
     }
 
     private PlannedExpenditureDto toDto(PlannedExpenditure plannedExpenditure) {
+
+        Long plannedExpenditureId = plannedExpenditure.getPlannedExpenditureId();
 
         CategoryDto categoryDto = categoryDtoProvider.convert(plannedExpenditure.getCategoryId());
 
         MoneyDto moneyDto = MoneyDtoFactory.create(plannedExpenditure.getMoney());
 
-        Long plannedExpenditureId = plannedExpenditure.getPlannedExpenditureId();
-
-        Long budgetId = plannedExpenditure.getBudget().getBudgetId();
-
-        UrlDto urlDto = UrlDtoFactory.create(PLANNED_EXPENDITURE_EDIT_PATH, PLANNED_EXPENDITURE_DELETE_PATH,
-            budgetId, plannedExpenditureId);
+        UrlDto urlDto = UrlDtoFactory.create(PLANNED_EXPENDITURE_EDIT_PATH,
+            PLANNED_EXPENDITURE_DELETE_PATH, plannedExpenditureId);
 
         return new PlannedExpenditureDto(
             plannedExpenditureId,
-            budgetId,
+            plannedExpenditure.getPeriod().format(PERIOD_FORMATTER),
             categoryDto,
             plannedExpenditure.getPriority().ordinal(),
             moneyDto,

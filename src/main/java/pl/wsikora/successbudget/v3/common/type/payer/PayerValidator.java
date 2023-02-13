@@ -14,6 +14,11 @@ public class PayerValidator extends AbstractFormValidator<String> {
 
     static final String F_PAYER = "payer";
 
+    protected PayerValidator() {
+
+        super(String.class);
+    }
+
     @Override
     public void validateForm(String payer, Errors errors) {
 
@@ -26,12 +31,6 @@ public class PayerValidator extends AbstractFormValidator<String> {
             errors.rejectValue(F_PAYER, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Payee.getLengthRange(), EMPTY);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(String.class);
     }
 
 }

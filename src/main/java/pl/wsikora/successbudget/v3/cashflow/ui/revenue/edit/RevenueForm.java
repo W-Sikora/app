@@ -4,6 +4,8 @@ import lombok.*;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueAttributes;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 
 @Getter
@@ -14,10 +16,10 @@ import java.math.BigDecimal;
 class RevenueForm implements RevenueAttributes {
 
     private Long revenueId;
-    private Long cashFlowId;
+    private YearMonth period;
     private String title;
     private Long categoryId;
-    private String date;
+    private LocalDate date;
     private Integer currency;
     private BigDecimal value;
     private String payer;

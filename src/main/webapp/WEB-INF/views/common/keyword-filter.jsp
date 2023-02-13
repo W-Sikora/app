@@ -1,11 +1,11 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
 <div class="has-text-centered">
-    <form class="keyword-filter js-keyword-filter" method="get">
+    <form class="is-filter js-keyword-filter" method="get">
 
         <sec:csrfMetaTags/>
 
-        <label class="label" for="keyword">
+        <label class="label has-text-weight-normal" for="keyword">
             <fmt:message key="keyword"/>
         </label>
 

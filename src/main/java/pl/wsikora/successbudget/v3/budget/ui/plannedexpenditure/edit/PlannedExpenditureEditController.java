@@ -1,16 +1,15 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.edit;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureCommand;
 
-import javax.validation.Valid;
-
-import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
+import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_ADD_PATH;
+import static pl.wsikora.successbudget.v3.common.util.Constants.VIEW;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirectToBudgetPath;
 
 
 @Controller
@@ -19,17 +18,17 @@ class PlannedExpenditureEditController {
 
     private final PlannedExpenditureCommand plannedExpenditureCommand;
     private final PlannedExpenditureFormValidator plannedExpenditureFormValidator;
-    private final PlannedExpenditureEditControllerDataProvider plannedExpenditureEditControllerDataProvider;
+    private final PlannedExpenditureEditControllerDataProvider dataProvider;
 
     private PlannedExpenditureEditController(
         PlannedExpenditureCommand plannedExpenditureCommand,
         PlannedExpenditureFormValidator plannedExpenditureFormValidator,
-        PlannedExpenditureEditControllerDataProvider plannedExpenditureEditControllerDataProvider
+        PlannedExpenditureEditControllerDataProvider dataProvider
     ) {
 
         this.plannedExpenditureCommand = plannedExpenditureCommand;
         this.plannedExpenditureFormValidator = plannedExpenditureFormValidator;
-        this.plannedExpenditureEditControllerDataProvider = plannedExpenditureEditControllerDataProvider;
+        this.dataProvider = dataProvider;
     }
 
     @GetMapping
@@ -39,30 +38,25 @@ class PlannedExpenditureEditController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute PlannedExpenditureForm plannedExpenditureForm,
-                        BindingResult bindingResult,
-                        @PathVariable Long budgetId) {
+    private String save(@ModelAttribute PlannedExpenditureForm plannedExpenditureForm,
+                        Errors errors, HttpSession session) {
 
-        if (bindingResult.hasErrors()) {
+        plannedExpenditureFormValidator.validateForm(plannedExpenditureForm, errors);
+
+        if (errors.hasErrors()) {
 
             return VIEW;
         }
 
         plannedExpenditureCommand.save(plannedExpenditureForm);
 
-        return redirect(BUDGET_PATH, budgetId);
-    }
-
-    @InitBinder("plannedExpenditureFormValidator")
-    private void initBinder(WebDataBinder binder) {
-
-        binder.setValidator(plannedExpenditureFormValidator);
+        return redirectToBudgetPath(session);
     }
 
     @ModelAttribute
-    private void data(PlannedExpenditureEditCommand editCommand, Model model) {
+    private void data(@RequestParam(required = false) Long plannedExpenditureId, HttpSession session, Model model) {
 
-        model.addAllAttributes(plannedExpenditureEditControllerDataProvider.provideData(editCommand));
+        model.addAllAttributes(dataProvider.provideData(plannedExpenditureId, session));
     }
 
 }

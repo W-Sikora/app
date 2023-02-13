@@ -3,12 +3,14 @@ package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
+import java.time.YearMonth;
+
 import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.DEFAULT_PAGINATION_PAGE;
 import static pl.wsikora.successbudget.v3.common.util.Constants.DEFAULT_PAGINATION_SIZE;
 
 
-record BudgetViewParameters(Long budgetId,
+record BudgetViewParameters(YearMonth period,
                             @Nullable Integer plannedExpenditurePage,
                             @Nullable Integer plannedExpenditureSize,
                             @Nullable Integer plannedRevenuePage,
@@ -16,7 +18,7 @@ record BudgetViewParameters(Long budgetId,
                             @Nullable Long plannedExpenditureCategoryId,
                             @Nullable Long plannedRevenueCategoryId) {
 
-    BudgetViewParameters(Long budgetId,
+    BudgetViewParameters(YearMonth period,
                          @Nullable Integer plannedExpenditurePage,
                          @Nullable Integer plannedExpenditureSize,
                          @Nullable Integer plannedRevenuePage,
@@ -24,9 +26,9 @@ record BudgetViewParameters(Long budgetId,
                          @Nullable Long plannedExpenditureCategoryId,
                          @Nullable Long plannedRevenueCategoryId) {
 
-        Assert.notNull(budgetId, "budgetId must not be null");
+//        Assert.notNull(period, "period must not be null");
 
-        this.budgetId = budgetId;
+        this.period = period;
 
         this.plannedExpenditurePage = isNull(plannedExpenditurePage) ?
             DEFAULT_PAGINATION_PAGE : plannedExpenditurePage;

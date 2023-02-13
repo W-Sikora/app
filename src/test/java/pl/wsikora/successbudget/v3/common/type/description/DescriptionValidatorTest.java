@@ -22,6 +22,7 @@ class DescriptionValidatorTest {
     @Mock
     private Errors errors;
     private DescriptionValidator descriptionValidator;
+    private String description;
 
     @BeforeEach
     void setUp() {
@@ -35,7 +36,7 @@ class DescriptionValidatorTest {
     void shouldDetectBlankDescription() {
 
         // given
-        String description = SPACE;
+        description = SPACE;
 
         // when
         descriptionValidator.validateForm(description, errors);
@@ -48,7 +49,7 @@ class DescriptionValidatorTest {
     void shouldDetectTooShortDescription() {
 
         // given
-        String description = randomAlphabetic(MINIMUM_LENGTH - 1);
+        description = randomAlphabetic(MINIMUM_LENGTH - 1);
 
         // when
         descriptionValidator.validateForm(description, errors);
@@ -62,7 +63,7 @@ class DescriptionValidatorTest {
     void shouldDetectTooLongDescription() {
 
         // given
-        String description = randomAlphabetic(MAXIMUM_LENGTH + 1);
+        description = randomAlphabetic(MAXIMUM_LENGTH + 1);
 
         // when
         descriptionValidator.validateForm(description, errors);

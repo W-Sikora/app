@@ -1,13 +1,18 @@
 package pl.wsikora.successbudget.v3.user.ui.majorcurrency;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
+import java.time.YearMonth;
+
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
@@ -25,7 +30,11 @@ class MajorCurrencyControllerDataProvider extends ControllerDataProvider {
         this.majorCurrencyFormFactory = majorCurrencyFormFactory;
     }
 
-    ModelMap provideData() {
+    ModelMap provideData(HttpSession session) {
+
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
@@ -44,7 +53,7 @@ class MajorCurrencyControllerDataProvider extends ControllerDataProvider {
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
+            .addDashboard(period)
             .add(title)
             .build());
 

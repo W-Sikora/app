@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
-import pl.wsikora.successbudget.v3.user.application.UserQuery;
+import pl.wsikora.successbudget.v3.user.application.RegistrationQuery;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.StringUtils.hasText;
@@ -17,9 +17,11 @@ class UsernameValidator extends AbstractFormValidator<String> {
     static final String E_USERNAME_MUST_BE_UNIQUE = "username.must.be.unique";
     static final String F_USER_NAME = "username";
 
-    private final UserQuery userQuery;
+    private final RegistrationQuery userQuery;
 
-    UsernameValidator(UserQuery userQuery) {
+    UsernameValidator(RegistrationQuery userQuery) {
+
+        super(String.class);
 
         this.userQuery = userQuery;
     }
@@ -36,16 +38,10 @@ class UsernameValidator extends AbstractFormValidator<String> {
             errors.rejectValue(F_USER_NAME, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Username.getLengthRange(), EMPTY);
         }
-        else if (userQuery.existsByUsername(new Username(username))) {
+        else if (userQuery.existsByUsername(username)) {
 
             errors.rejectValue(F_USER_NAME, E_USERNAME_MUST_BE_UNIQUE);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(String.class);
     }
 
 }

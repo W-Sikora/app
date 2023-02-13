@@ -1,12 +1,15 @@
 package pl.wsikora.successbudget.v3.dashboard.ui.view;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
-import static java.util.Objects.nonNull;
+import java.time.YearMonth;
+
+import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
-import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 @Service
@@ -19,11 +22,15 @@ class DashboardControllerDataProvider {
         this.messageProvider = messageProvider;
     }
 
-    ModelMap provideData(String period) {
+    ModelMap provideData(YearMonth period, HttpSession session) {
 
-        if (nonNull(period)) {
+        Assert.notNull(session, "session must not be null");
 
-            return new ModelMap();
+        if (isNull(period)) {
+
+            period = YearMonth.now();
+
+            session.setAttribute(PERIOD, period);
         }
 
         System.out.println(period);
@@ -42,11 +49,9 @@ class DashboardControllerDataProvider {
 
         modelMap.addAttribute("categoryUrl", CATEGORY_PATH);
 
-        modelMap.addAttribute("budgetUrl",
-            fillPath(BUDGET_PATH, BUDGET_ID_PATH_VARIABLE, 1));
+        modelMap.addAttribute("budgetUrl", BUDGET_PATH);
 
-        modelMap.addAttribute("cashFlowUrl",
-            fillPath(CASH_FLOW_PATH, CASH_FLOW_ID_PATH_VARIABLE, 1));
+        modelMap.addAttribute("cashFlowUrl", CASH_FLOW_PATH);
 
         return modelMap;
     }

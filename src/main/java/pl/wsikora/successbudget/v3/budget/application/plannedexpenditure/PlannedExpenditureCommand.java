@@ -1,14 +1,14 @@
 package pl.wsikora.successbudget.v3.budget.application.plannedexpenditure;
 
-import pl.wsikora.successbudget.v3.budget.application.budget.BudgetRepeatCommand;
+import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 
 
 public interface PlannedExpenditureCommand {
 
     void save(PlannedExpenditureAttributes plannedExpenditureAttributes);
 
-    void delete(PlannedExpenditureDeleteCommand plannedExpenditureDeleteCommand);
+    void delete(Long plannedExpenditureId);
 
-    void repeat(BudgetRepeatCommand budgetRepeatCommand);
+    void repeat(RepeatCommand repeatCommand);
 
 }

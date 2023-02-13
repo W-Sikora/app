@@ -2,12 +2,12 @@ package pl.wsikora.successbudget.v3.user.ui.registration;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-import pl.wsikora.successbudget.v3.user.application.UserCommand;
-
-import javax.validation.Valid;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import pl.wsikora.successbudget.v3.user.application.RegistrationCommand;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
@@ -17,45 +17,40 @@ import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 @RequestMapping(REGISTRATION_PATH)
 class RegistrationController {
 
-    private final UserCommand userCommand;
+    private final RegistrationCommand registrationCommand;
     private final RegistrationFormValidator registrationFormValidator;
     private final RegistrationControllerDataProvider registrationControllerDataProvider;
 
     private RegistrationController(
-        UserCommand userCommand,
+        RegistrationCommand registrationCommand,
         RegistrationFormValidator registrationFormValidator,
         RegistrationControllerDataProvider registrationControllerDataProvider
     ) {
 
-        this.userCommand = userCommand;
+        this.registrationCommand = registrationCommand;
         this.registrationFormValidator = registrationFormValidator;
         this.registrationControllerDataProvider = registrationControllerDataProvider;
     }
 
     @GetMapping
-    private String goToView() {
+    private String view() {
 
         return VIEW;
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute RegistrationForm registrationForm,
-                        BindingResult bindingResult) {
+    private String save(@ModelAttribute RegistrationForm registrationForm, Errors errors) {
 
-        if (bindingResult.hasErrors()) {
+        registrationFormValidator.validateForm(registrationForm, errors);
+
+        if (errors.hasErrors()) {
 
             return VIEW;
         }
 
-        userCommand.save(registrationForm);
+        registrationCommand.save(registrationForm);
 
         return redirect(LOGIN_PATH);
-    }
-
-    @InitBinder("registrationFormValidator")
-    private void initBinder(WebDataBinder binder) {
-
-        binder.setValidator(registrationFormValidator);
     }
 
     @ModelAttribute

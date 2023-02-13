@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
-import java.io.Serializable;
-
 import static org.springframework.util.StringUtils.hasText;
 
 
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class Username implements Serializable {
+public class Username {
 
     public static final int MINIMUM_LENGTH = 3;
     public static final int MAXIMUM_LENGTH = 30;
@@ -22,12 +20,17 @@ public class Username implements Serializable {
     @Column(name = "username", length = MAXIMUM_LENGTH)
     private String value;
 
-    public Username(String value) {
+    private Username(String value) {
+
+        this.value = value;
+    }
+
+    public static Username of(String value) {
 
         Assert.isTrue(hasText(value), "username value must not be empty");
         Assert.isTrue(hasValidLength(value), "username value must be of valid length");
 
-        this.value = value;
+        return new Username(value);
     }
 
     public static boolean hasValidLength(String value) {

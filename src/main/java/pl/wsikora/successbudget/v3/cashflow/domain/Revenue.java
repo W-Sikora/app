@@ -9,8 +9,10 @@ import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payer.Payer;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
+import pl.wsikora.successbudget.v3.common.util.databaseconverter.YearMonthDatabaseConverter;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 
 @Entity
@@ -24,9 +26,8 @@ public class Revenue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revenueId;
 
-    @ManyToOne
-    @JoinColumn(name = "cash_flow_id")
-    private CashFlow cashFlow;
+    @Convert(converter = YearMonthDatabaseConverter.class)
+    private YearMonth period;
 
     @Embedded
     private Username owner;

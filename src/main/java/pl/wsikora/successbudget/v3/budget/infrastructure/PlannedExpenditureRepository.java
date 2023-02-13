@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.wsikora.successbudget.v3.budget.domain.PlannedExpenditure;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
         value = """
             select e
             from PlannedExpenditure e
-            where e.budget.budgetId = :budgetId
+            where e.period = :period
             and (:categoryId is null or e.categoryId.value = :categoryId)
             and e.owner.value = ?#{principal.username}
             order by e.money.value desc, e.priority desc
@@ -41,36 +42,25 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
         countQuery = """
             select count(e)
             from PlannedExpenditure e
-            where e.budget.budgetId = :budgetId
+            where e.period = :period
             and (:categoryId is null or e.categoryId.value = :categoryId)
             and e.owner.value = ?#{principal.username}
         """
     )
     Page<PlannedExpenditure> findAll(Pageable pageable,
-                                     @Param("budgetId") Long budgetId,
+                                     @Param("period") YearMonth period,
                                      @Nullable @Param("categoryId") Long categoryId);
 
     @Query(
         """
             select e
             from PlannedExpenditure e
-            where e.budget.budgetId = ?1
+            where e.period = ?1
             and e.repeatInNextPeriod
             and e.owner.value = ?#{principal.username}
         """
     )
-    List<PlannedExpenditure> findAllRepeated(Long budgetId);
-
-    @Query(
-        """
-            select count(e) > 0
-            from PlannedExpenditure e
-            where e.budget.budgetId = ?1
-            and e.repeatInNextPeriod
-            and e.owner.value = ?#{principal.username}
-        """
-    )
-    boolean hasRepeatableByBudgetId(Long budgetId);
+    List<PlannedExpenditure> findRepeatable(YearMonth period);
 
     @Query(
         """
@@ -79,23 +69,23 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
                 sum(e.money.value)
             )
             from PlannedExpenditure e
-            where e.budget.budgetId = ?1
+            where e.period = ?1
             and e.owner.value = ?#{principal.username}
             group by e.money.currency
         """
     )
-    List<Money> findAllMoney(Long budgetId);
+    List<Money> findAllMoney(YearMonth period);
 
     @Query(
         """
             select count(e) > 0
             from PlannedExpenditure e
-            where e.budget.budgetId = ?1
+            where e.period = ?1
             and e.categoryId.value = ?2
             and e.owner.value = ?#{principal.username}
         """
     )
-    boolean hasAssignedCategory(Long budgetId, Long categoryId);
+    boolean hasAssignedCategory(YearMonth period, Long categoryId);
 
     @Transactional
     @Modifying
@@ -103,11 +93,10 @@ interface PlannedExpenditureRepository extends JpaRepository<PlannedExpenditure,
         """
             delete
             from PlannedExpenditure e
-            where e.budget.budgetId = ?1
-            and e.plannedExpenditureId = ?2
+            where e.plannedExpenditureId = ?1
             and e.owner.value = ?#{principal.username}
         """
     )
-    void delete(Long budgetId, Long plannedExpenditureId);
+    void delete(Long plannedExpenditureId);
 
 }

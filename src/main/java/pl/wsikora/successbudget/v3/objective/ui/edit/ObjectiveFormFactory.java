@@ -2,6 +2,7 @@ package pl.wsikora.successbudget.v3.objective.ui.edit;
 
 import org.springframework.stereotype.Service;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
+import pl.wsikora.successbudget.v3.common.type.money.MoneyConverter;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveDto;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
@@ -17,7 +18,7 @@ class ObjectiveFormFactory {
         this.objectiveQuery = objectiveQuery;
     }
 
-    ObjectiveForm getObjectiveForm(Long objectiveId) {
+    ObjectiveForm createObjectiveForm(Long objectiveId) {
 
         return objectiveQuery.findByObjectiveId(objectiveId)
             .map(this::toForm)
@@ -28,7 +29,7 @@ class ObjectiveFormFactory {
 
         MoneyDto necessaryMoneyDto = objectiveDto.getNecessaryMoneyDto();
 
-        Money money = necessaryMoneyDto.getMoney();
+        Money money = MoneyConverter.convert(necessaryMoneyDto);
 
         return ObjectiveForm.builder()
             .objectiveId(objectiveDto.getObjectiveId())

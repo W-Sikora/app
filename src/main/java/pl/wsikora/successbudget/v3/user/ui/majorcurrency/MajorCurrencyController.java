@@ -1,13 +1,14 @@
 package pl.wsikora.successbudget.v3.user.ui.majorcurrency;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-import pl.wsikora.successbudget.v3.user.application.UserCommand;
-
-import javax.validation.Valid;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import pl.wsikora.successbudget.v3.user.application.MajorCurrencyCommand;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
@@ -17,50 +18,45 @@ import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
 @RequestMapping(MAJOR_CURRENCY_EDIT_PATH)
 class MajorCurrencyController {
 
-    private final UserCommand userCommand;
+    private final MajorCurrencyCommand majorCurrencyCommand;
     private final MajorCurrencyFormValidator majorCurrencyFormValidator;
     private final MajorCurrencyControllerDataProvider registrationControllerDataProvider;
 
     private MajorCurrencyController(
-        UserCommand userCommand,
+        MajorCurrencyCommand majorCurrencyCommand,
         MajorCurrencyFormValidator majorCurrencyFormValidator,
         MajorCurrencyControllerDataProvider registrationControllerDataProvider) {
 
-        this.userCommand = userCommand;
+        this.majorCurrencyCommand = majorCurrencyCommand;
         this.majorCurrencyFormValidator = majorCurrencyFormValidator;
         this.registrationControllerDataProvider = registrationControllerDataProvider;
     }
 
     @GetMapping
-    private String goToView() {
+    private String view() {
 
         return VIEW;
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute MajorCurrencyForm majorCurrencyForm,
-                        BindingResult bindingResult) {
+    private String save(@ModelAttribute MajorCurrencyForm majorCurrencyForm, Errors errors) {
 
-        if (bindingResult.hasErrors()) {
+        majorCurrencyFormValidator.validateForm(majorCurrencyForm, errors);
+
+        if (errors.hasErrors()) {
 
             return VIEW;
         }
 
-        userCommand.save(majorCurrencyForm);
+        majorCurrencyCommand.save(majorCurrencyForm);
 
         return redirect(DASHBOARD_PATH);
     }
 
-    @InitBinder("majorCurrencyFormValidator")
-    private void initBinder(WebDataBinder binder) {
-
-        binder.setValidator(majorCurrencyFormValidator);
-    }
-
     @ModelAttribute
-    private void data(Model model) {
+    private void data(Model model, HttpSession session) {
 
-        model.addAllAttributes(registrationControllerDataProvider.provideData());
+        model.addAllAttributes(registrationControllerDataProvider.provideData(session));
     }
 
 }

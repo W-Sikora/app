@@ -5,13 +5,14 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 
 public record CashFlowFilter(Pageable pageable,
-                             Long cashFlowId,
+                             YearMonth period,
                              @Nullable String keyword,
                              @Nullable Long categoryId,
                              @Nullable LocalDate fromDate,
@@ -20,7 +21,7 @@ public record CashFlowFilter(Pageable pageable,
     public CashFlowFilter {
 
         Assert.notNull(pageable, "pageable must not be null");
-        Assert.notNull(cashFlowId, "cashFlowId must not be null");
+        Assert.notNull(period, "period must not be null");
         Assert.isTrue(areDatesValid(fromDate, toDate), "dates must be valid");
 
     }

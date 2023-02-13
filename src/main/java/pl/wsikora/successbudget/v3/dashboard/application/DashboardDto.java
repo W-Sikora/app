@@ -1,23 +1,26 @@
 package pl.wsikora.successbudget.v3.dashboard.application;
 
 import lombok.Value;
-import pl.wsikora.successbudget.v3.common.category.CategoryDto;
-import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
-
-import java.util.Map;
+import pl.wsikora.successbudget.v3.common.dashboard.aggregateexpenditure.AggregateExpendituresDto;
+import pl.wsikora.successbudget.v3.common.dashboard.total.balance.TotalBalanceDto;
+import pl.wsikora.successbudget.v3.common.dashboard.total.expenditure.TotalExpenditureDto;
+import pl.wsikora.successbudget.v3.common.dashboard.total.objective.TotalObjectiveDto;
+import pl.wsikora.successbudget.v3.common.dashboard.total.revenue.TotalRevenueDto;
 
 
 @Value
 public class DashboardDto {
 
+    Long dashboardId;
     String period;
-    boolean previous;
-    AggregateRevenueDto aggregateRevenueDto;
-    AggregateBalanceDto aggregateBalanceDto;
-    AggregateExpenditureDto aggregateExpenditureDto;
-    Map<CategoryDto, MoneyDto> percentageOfExpenditureInCategoryDto;
-    Map<CategoryDto, ExpenditureSummaryDto> expenditureInCategoryDto;
-//    ExpenditureDto unnecessaryExpenditureDto;
-//    AdviceDto adviceDto;
+    Long previousDashboardId;
+    Long nextDashboardId;
+    Long budgetId;
+    Long cashFlowId;
+    TotalExpenditureDto totalExpenditureDto;
+    TotalRevenueDto totalRevenueDto;
+    TotalObjectiveDto totalObjectiveDto;
+    TotalBalanceDto totalBalanceDto;
+    AggregateExpendituresDto aggregateExpendituresDto;
 
 }

@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.category.ui.view;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,10 @@ import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator;
 
+import java.time.YearMonth;
+
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
@@ -29,9 +33,12 @@ class CategoryViewControllerDataProvider extends ControllerDataProvider {
         this.categoryQuery = categoryQuery;
     }
 
-    ModelMap provideData(CategoryViewParameters parameters) {
+    ModelMap provideData(CategoryViewParameters parameters, HttpSession session) {
 
         Assert.notNull(parameters, "parameters must not be null");
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
@@ -46,15 +53,11 @@ class CategoryViewControllerDataProvider extends ControllerDataProvider {
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
+            .addDashboard(period)
             .add(title)
             .build());
 
         modelMap.addAttribute(ADD_URL, CATEGORY_ADD_PATH);
-
-        String keyword = parameters.keyword();
-
-        modelMap.addAttribute(KEYWORD, keyword);
 
         Integer page = parameters.page();
 
@@ -66,7 +69,8 @@ class CategoryViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber());
 
-            modelMap.addAttribute("categories", categoryQuery.findAll(pageable, keyword));
+            modelMap.addAttribute("categories", categoryQuery
+                .findAll(pageable, parameters.keyword()));
         }
 
         return modelMap;

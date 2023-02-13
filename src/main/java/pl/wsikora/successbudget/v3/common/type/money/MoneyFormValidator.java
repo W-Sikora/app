@@ -20,6 +20,8 @@ public class MoneyFormValidator extends AbstractFormValidator<MoneyForm> {
 
     MoneyFormValidator(CurrencyValidator currencyValidator) {
 
+        super(MoneyForm.class);
+
         this.currencyValidator = currencyValidator;
     }
 
@@ -39,12 +41,6 @@ public class MoneyFormValidator extends AbstractFormValidator<MoneyForm> {
             errors.rejectValue(F_VALUE, E_VALUE_MUST_BE_WITHIN_ALLOWED_RANGE,
                 Money.getRange(), EMPTY);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(MoneyForm.class);
     }
 
 }

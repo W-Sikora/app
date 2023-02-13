@@ -22,9 +22,9 @@ interface UserRepository extends JpaRepository<User, Username> {
     @Query("""
         select (count(u) > 0)
         from User u
-        where u.username = ?1
+        where u.username.value = ?1
     """)
-    boolean existsByUsername(Username username);
+    boolean existsByUsername(String username);
 
     @Query("""
         select u.majorCurrency

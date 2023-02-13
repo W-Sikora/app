@@ -1,13 +1,14 @@
 package pl.wsikora.successbudget.v3.cashflow.application.expenditure;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 
 public interface ExpenditureAttributes {
 
     Long getExpenditureId();
 
-    Long getCashFlowId();
+    YearMonth getPeriod();
 
     String getTitle();
 

@@ -1,43 +1,61 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
-<div class="has-text-centered">
-    <form class="keyword-filter js-keyword-filter" method="get">
+<c:if test="${not empty plannedExpenditureCategories and not empty plannedRevenueCategories}">
+    <div class="has-text-centered">
+        <form class="is-filter js-category-filter" data-name-first="${_name1}" data-name-second="${_name2}">
 
-        <sec:csrfMetaTags/>
+            <sec:csrfMetaTags/>
 
-        <label class="label" for="categorySelect">
-            <fmt:message key="category"/>
-        </label>
+            <div class="field">
+                <label class="label has-text-left has-text-weight-normal" for="plannedExpenditureCategoryId">
+                    <fmt:message key="select.category.for.planned.expenditures"/>
+                </label>
 
-        <div class="field is-grouped">
-
-            <p class="control is-expanded">
-                <div class="select is-fullwidth is-small mr-3">
-                    <select id="categorySelect" class="">
+                <div class="select is-small is-fullwidth">
+                    <select id="plannedExpenditureCategoryId" name="plannedExpenditureCategoryId">
                         <option value="">
                             <fmt:message key="select.category"/>
                         </option>
-                        <c:forEach items="${categories}" var="category">
-                            <option value="${category.categoryId}" label="${category.title}"/>
+                        <c:forEach items="${plannedExpenditureCategories}" var="category">
+                            <option value="${category.categoryId}" label="${category.title}"></option>
                         </c:forEach>
                     </select>
                 </div>
-            </p>
+            </div>
 
-            <p class="control">
-                <button class="button is-small" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </p>
+            <div class="field">
+                <label class="label has-text-left has-text-weight-normal" for="plannedRevenueCategoryId">
+                    <fmt:message key="select.category.for.planned.revenues"/>
+                </label>
 
-            <p class="control">
-                <button class="button is-small js-clear-category">
-                    <i class="fas fa-eraser"></i>
-                </button>
-            </p>
-        </div>
+                <div class="select is-small is-fullwidth">
+                    <select id="plannedRevenueCategoryId" name="plannedRevenueCategoryId">
+                        <option value="">
+                            <fmt:message key="select.category"/>
+                        </option>
+                        <c:forEach items="${plannedRevenueCategories}" var="category">
+                            <option value="${category.categoryId}" label="${category.title}"></option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
 
-    </form>
-</div>
+            <div class="field is-grouped is-grouped-centered">
+                <p class="control mr-5">
+                    <button class="button is-small" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </p>
 
-<hr class="is-invisible">
+                <p class="control">
+                    <button class="button is-small js-clear-category">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                </p>
+            </div>
+
+        </form>
+    </div>
+
+    <hr class="is-invisible">
+</c:if>

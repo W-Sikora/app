@@ -1,10 +1,12 @@
 package pl.wsikora.successbudget.v3.common.util;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.util.Assert;
 
+import static pl.wsikora.successbudget.v3.common.type.url.UrlFactory.createPath;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.SLASH;
-import static pl.wsikora.successbudget.v3.common.util.StringUtils.fillPath;
 
 
 public class RedirectionUtils {
@@ -22,32 +24,25 @@ public class RedirectionUtils {
         return String.format(REDIRECT_PATTERN, path);
     }
 
-    public static String redirect(String path, Object value) {
+    public static String redirect(String path, Long value) {
 
         Assert.hasText(path, "path must not be empty");
         Assert.notNull(value, "value must not be empty");
 
-        String finalPath;
-
-        if (path.contains(ID_PATH_VARIABLE)) {
-
-            finalPath = fillPath(path, ID_PATH_VARIABLE, value);
-        }
-        else if (path.contains(BUDGET_ID_PATH_VARIABLE)) {
-
-            finalPath = fillPath(path, BUDGET_ID_PATH_VARIABLE, value);
-        }
-        else if (path.contains(CASH_FLOW_ID_PATH_VARIABLE)) {
-
-            finalPath = fillPath(path, CASH_FLOW_ID_PATH_VARIABLE, value);
-        }
-        else {
-
-            finalPath = path;
-        }
-
-        return String.format(REDIRECT_PATTERN, finalPath);
+        return createPath(path, value);
     }
+
+    public static String redirectToBudgetPath(HttpSession session) {
+
+        return redirectWithQueryParameter(BUDGET_PATH, PERIOD, getPeriod(session));
+    }
+
+    public static String redirectToCashFlowPath(HttpSession session) {
+
+        return redirectWithQueryParameter(CASH_FLOW_PATH, PERIOD, getPeriod(session));
+    }
+
+
 
     public static String redirect(Object... paths) {
 

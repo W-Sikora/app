@@ -1,16 +1,21 @@
 package pl.wsikora.successbudget.v3.objective.ui.view;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator;
 import pl.wsikora.successbudget.v3.objective.application.ObjectiveQuery;
 
+import java.time.YearMonth;
+
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
 
 @Service
@@ -28,7 +33,11 @@ class ObjectiveViewControllerDataProvider extends ControllerDataProvider {
         this.objectiveQuery = objectiveQuery;
     }
 
-    ModelMap provideData(ObjectiveViewParameters parameters) {
+    ModelMap provideData(ObjectiveViewParameters parameters, HttpSession session) {
+
+        Assert.notNull(session, "session must not be null");
+
+        YearMonth period = getPeriod(session);
 
         ModelMap modelMap = new ModelMap();
 
@@ -43,15 +52,11 @@ class ObjectiveViewControllerDataProvider extends ControllerDataProvider {
         modelMap.addAttribute(PAGE_TITLE, title);
 
         modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
-            .addDashboard()
+            .addDashboard(period)
             .add(title)
             .build());
 
         modelMap.addAttribute(ADD_URL, OBJECTIVE_ADD_PATH);
-
-        String keyword = parameters.keyword();
-
-        modelMap.addAttribute(KEYWORD, keyword);
 
         Integer page = parameters.page();
 
@@ -63,7 +68,8 @@ class ObjectiveViewControllerDataProvider extends ControllerDataProvider {
 
             modelMap.addAttribute(CURRENT_PAGE, pageable.getPageNumber());
 
-            modelMap.addAttribute("objectives", objectiveQuery.findAll(pageable, keyword));
+            modelMap.addAttribute("objectives", objectiveQuery.findAll(
+                pageable, parameters.keyword()));
         }
 
         return modelMap;

@@ -14,6 +14,11 @@ class PasswordValidator extends AbstractFormValidator<String> {
 
     static final String F_PASSWORD = "password";
 
+    protected PasswordValidator() {
+
+        super(String.class);
+    }
+
     @Override
     public void validateForm(String password, Errors errors) {
 
@@ -26,12 +31,6 @@ class PasswordValidator extends AbstractFormValidator<String> {
             errors.rejectValue(F_PASSWORD, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Password.getLengthRange(), EMPTY);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(String.class);
     }
 
 }

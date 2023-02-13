@@ -3,10 +3,12 @@ package pl.wsikora.successbudget.v3.common.breadcrumb;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.PathUtils.pathWithPeriod;
 
 
 public class BreadcrumbElementsBuilder {
@@ -39,6 +41,18 @@ public class BreadcrumbElementsBuilder {
         return this;
     }
 
+    public BreadcrumbElementsBuilder addWithPeriod(String labelCode, String url, YearMonth period) {
+
+        Assert.hasText(labelCode, "labelCode must not be empty");
+        Assert.hasText(url, "url must not be empty");
+
+        String label = messageProvider.getMessage(labelCode);
+
+        breadcrumbElements.add(BreadcrumbElement.of(label, pathWithPeriod(url, period)));
+
+        return this;
+    }
+
     public BreadcrumbElementsBuilder addLandingPage() {
 
         String label = messageProvider.getMessage(LANDING_PAGE_TITLE);
@@ -48,7 +62,7 @@ public class BreadcrumbElementsBuilder {
         return this;
     }
 
-    public BreadcrumbElementsBuilder addDashboard() {
+    public BreadcrumbElementsBuilder addDashboard(YearMonth period) {
 
         String label = messageProvider.getMessage(DASHBOARD_TITLE);
 

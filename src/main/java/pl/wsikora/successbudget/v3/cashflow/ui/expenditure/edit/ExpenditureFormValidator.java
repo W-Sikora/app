@@ -14,15 +14,17 @@ import static java.util.Objects.isNull;
 @Service
 class ExpenditureFormValidator extends AbstractFormValidator<ExpenditureForm> {
 
-    static final String F_CATEGORY_ID = "categoryId";
-
     private final TitleValidator titleValidator;
     private final MoneyFormValidator moneyValidator;
     private final PriorityValidator priorityValidator;
 
-    ExpenditureFormValidator(TitleValidator titleValidator,
-                             MoneyFormValidator moneyValidator,
-                             PriorityValidator priorityValidator) {
+    ExpenditureFormValidator(
+        TitleValidator titleValidator,
+        MoneyFormValidator moneyValidator,
+        PriorityValidator priorityValidator
+    ) {
+
+        super(ExpenditureForm.class);
 
         this.titleValidator = titleValidator;
         this.moneyValidator = moneyValidator;
@@ -34,27 +36,18 @@ class ExpenditureFormValidator extends AbstractFormValidator<ExpenditureForm> {
 
         titleValidator.validateForm(expenditureForm.getTitle(), errors);
 
-        Long categoryId = expenditureForm.getCategoryId();
-
-        if (isNull(categoryId)) {
+        if (isNull(expenditureForm.getCategoryId())) {
 
             errors.rejectValue(F_CATEGORY_ID, E_FIELD_MUST_NOT_BE_EMPTY);
         }
 
         priorityValidator.validateForm(expenditureForm.getPriority(), errors);
 
-        MoneyForm moneyForm = new MoneyForm(
-            expenditureForm.getCurrency(),
-            expenditureForm.getValue()
-        );
+
+
+        MoneyForm moneyForm = new MoneyForm(expenditureForm.getCurrency(), expenditureForm.getValue());
 
         moneyValidator.validateForm(moneyForm, errors);
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(ExpenditureForm.class);
     }
 
 }

@@ -1,11 +1,7 @@
 package pl.wsikora.successbudget.v3.common.type.money;
 
-import org.springframework.context.i18n.LocaleContextHolder;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -17,13 +13,13 @@ public class MoneyDtoFactory {
 
     public static MoneyDto create(Money money) {
 
-        BigDecimal value = money.getValue();
-
-        String formattedValue = formatValue(value);
+        Currency currency = money.getCurrency();
 
         return new MoneyDto(
-            money,
-            formattedValue
+            currency.ordinal(),
+            currency.getSign(),
+            money.getFormattedValue(),
+            money.isLessThanZero()
         );
     }
 
@@ -34,15 +30,6 @@ public class MoneyDtoFactory {
             .collect(toSet());
     }
 
-    private static String formatValue(BigDecimal value) {
 
-        Locale locale = LocaleContextHolder.getLocale();
-
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
-
-        DecimalFormat formatter = new DecimalFormat("#,##0.00", symbols);
-
-        return formatter.format(value);
-    }
 
 }

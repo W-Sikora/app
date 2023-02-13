@@ -11,10 +11,8 @@ import pl.wsikora.successbudget.v3.category.domain.Category;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 import pl.wsikora.successbudget.v3.common.type.url.UrlDtoFactory;
 
-import java.util.Locale;
 import java.util.Optional;
 
-import static org.springframework.util.StringUtils.hasText;
 import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.CATEGORY_EDIT_PATH;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.convertToLowerCase;

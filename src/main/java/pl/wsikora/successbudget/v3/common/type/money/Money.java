@@ -3,11 +3,16 @@ package pl.wsikora.successbudget.v3.common.type.money;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.util.Locale;
 import java.util.Objects;
 
 import static java.math.BigDecimal.ZERO;
@@ -151,6 +156,22 @@ public class Money {
     public boolean hasDifferentCurrency(Currency currency) {
 
         return !hasTheSameCurrency(currency);
+    }
+
+    public boolean isLessThanZero() {
+
+        return value.compareTo(ZERO) < 0;
+    }
+
+    public String getFormattedValue() {
+
+        Locale locale = LocaleContextHolder.getLocale();
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+
+        DecimalFormat formatter = new DecimalFormat("#,##0.00", symbols);
+
+        return formatter.format(value);
     }
 
     @Override

@@ -1,158 +1,162 @@
 <%@include file="../imports/jsp-imports.jsp" %>
 
 <div class="columns is-desktop">
-    <div class="column table-container">
 
-        <c:set var="_subtitle" value="planned.expenditures"/>
-        <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
-        <%@ include file="../common/subtitle-with-total.jsp" %>
-
-        <hr class="is-invisible">
-
-        <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
-
-        <c:if test="${not empty _addUrl}">
-
-            <%@ include file="../common/add.jsp" %>
-
-        </c:if>
+    <div class="column">
 
         <%@ include file="../common/category-filter.jsp" %>
 
-        <c:choose>
-            <c:when test="${empty plannedExpenditures}">
+        <div class="columns is-desktop">
+            <div class="column table-container">
 
-                <%@include file="../common/no-elements.jsp" %>
+                <c:set var="_subtitle" value="planned.expenditures"/>
+                <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
+                <%@ include file="../common/subtitle-with-total.jsp" %>
 
-            </c:when>
+                <hr class="is-invisible">
 
-            <c:otherwise>
+                <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
 
-                <table class="table is-fullwidth">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <fmt:message key="category"/>
-                        </th>
-                        <th>
-                            <fmt:message key="priority"/>
-                        </th>
-                        <th>
-                            <fmt:message key="money"/>
-                        </th>
-                        <th></th>
-                    </tr>
-                    </thead>
+                <c:if test="${not empty _addUrl}">
 
-                    <tbody>
-                    <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
-                        <tr>
-                            <th>
-                                ${loop.index + 1}
-                            </th>
-                            <td>
-                                ${plannedExpenditure.categoryDto.title}
-                            </td>
-                            <td>
-                                <fmt:message key="priority.${plannedExpenditure.priority}"/>
-                            </td>
-                            <td class="has-text-right">
-                                ${plannedExpenditure.moneyDto.formattedValue}
-                                ${plannedExpenditure.moneyDto.money.currency.sign}
-                            </td>
-                            <td>
-                                <c:set var="_fullEditUrl" value="${plannedExpenditure.urlDto.editUrl}"/>
-                                <c:set var="_fullDeleteUrl" value="${plannedExpenditure.urlDto.deleteUrl}"/>
+                    <%@ include file="../common/add.jsp" %>
 
-                                <%@include file="../common/options.jsp" %>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                </c:if>
 
-                <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
-                <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
-                <c:set var="_parameterName" value="plannedExpenditurePage"/>
-                <%@ include file="../common/pagination.jsp" %>
+                <c:choose>
+                    <c:when test="${empty plannedExpenditures}">
 
-            </c:otherwise>
-        </c:choose>
-    </div>
+                        <%@include file="../common/no-elements.jsp" %>
 
-    <div class="column table-container">
+                    </c:when>
 
-        <c:set var="_subtitle" value="planned.revenues"/>
-        <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
-        <%@ include file="../common/subtitle-with-total.jsp" %>
+                    <c:otherwise>
 
-        <hr class="is-invisible">
+                        <table class="table is-fullwidth">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <fmt:message key="category"/>
+                                </th>
+                                <th>
+                                    <fmt:message key="priority"/>
+                                </th>
+                                <th>
+                                    <fmt:message key="money"/>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
 
-        <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
+                            <tbody>
+                            <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
+                                <tr>
+                                    <th>
+                                            ${loop.index + 1}
+                                    </th>
+                                    <td>
+                                            ${plannedExpenditure.categoryDto.title}
+                                    </td>
+                                    <td>
+                                        <fmt:message key="priority.${plannedExpenditure.priority}"/>
+                                    </td>
+                                    <td class="has-text-right">
+                                            ${plannedExpenditure.moneyDto.formattedValue}
+                                            ${plannedExpenditure.moneyDto.sign}
+                                    </td>
+                                    <td>
+                                        <c:set var="_fullEditUrl" value="${plannedExpenditure.urlDto.editUrl}"/>
+                                        <c:set var="_fullDeleteUrl" value="${plannedExpenditure.urlDto.deleteUrl}"/>
 
-        <c:if test="${not empty _addUrl}">
+                                        <%@include file="../common/options.jsp" %>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
 
-            <%@ include file="../common/add.jsp" %>
+                        <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
+                        <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
+                        <c:set var="_parameterName" value="plannedExpenditurePage"/>
+                        <%@ include file="../common/pagination.jsp" %>
 
-        </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
-        <%@ include file="../common/category-filter.jsp" %>
+            <div class="column table-container">
 
-        <c:choose>
-            <c:when test="${empty plannedRevenues}">
+                <c:set var="_subtitle" value="planned.revenues"/>
+                <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
+                <%@ include file="../common/subtitle-with-total.jsp" %>
 
-                <%@include file="../common/no-elements.jsp" %>
+                <hr class="is-invisible">
 
-            </c:when>
+                <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
 
-            <c:otherwise>
+                <c:if test="${not empty _addUrl}">
 
-                <table class="table is-fullwidth">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <fmt:message key="category"/>
-                        </th>
-                        <th>
-                            <fmt:message key="money"/>
-                        </th>
-                        <th></th>
-                    </tr>
-                    </thead>
+                    <%@ include file="../common/add.jsp" %>
 
-                    <tbody>
-                    <c:forEach items="${plannedRevenues.toList()}" var="plannedRevenue" varStatus="loop">
-                        <tr>
-                            <th>
-                                ${loop.index + 1}
-                            </th>
-                            <td>
-                                ${plannedRevenue.categoryDto.title}
-                            </td>
-                            <td>
-                                ${plannedRevenue.moneyDto.formattedValue}
-                                ${plannedRevenue.moneyDto.money.currency.sign}
-                            </td>
-                            <td>
-                                <c:set var="_fullEditUrl" value="${plannedRevenue.urlDto.editUrl}"/>
-                                <c:set var="_fullDeleteUrl" value="${plannedRevenue.urlDto.deleteUrl}"/>
+                </c:if>
 
-                                <%@include file="../common/options.jsp" %>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <c:choose>
+                    <c:when test="${empty plannedRevenues}">
 
-                <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
-                <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
-                <c:set var="_parameterName" value="plannedRevenuePage"/>
-                <%@ include file="../common/pagination.jsp" %>
+                        <%@include file="../common/no-elements.jsp" %>
 
-            </c:otherwise>
-        </c:choose>
+                    </c:when>
+
+                    <c:otherwise>
+
+                        <table class="table is-fullwidth">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <fmt:message key="category"/>
+                                </th>
+                                <th>
+                                    <fmt:message key="money"/>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <c:forEach items="${plannedRevenues.toList()}" var="plannedRevenue" varStatus="loop">
+                                <tr>
+                                    <th>
+                                            ${loop.index + 1}
+                                    </th>
+                                    <td>
+                                            ${plannedRevenue.categoryDto.title}
+                                    </td>
+                                    <td>
+                                            ${plannedRevenue.moneyDto.formattedValue}
+                                            ${plannedRevenue.moneyDto.sign}
+                                    </td>
+                                    <td>
+                                        <c:set var="_fullEditUrl" value="${plannedRevenue.urlDto.editUrl}"/>
+                                        <c:set var="_fullDeleteUrl" value="${plannedRevenue.urlDto.deleteUrl}"/>
+
+                                        <%@include file="../common/options.jsp" %>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+
+                        <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
+                        <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
+                        <c:set var="_parameterName" value="plannedRevenuePage"/>
+                        <%@ include file="../common/pagination.jsp" %>
+
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
     </div>
 
     <%@ include file="../common/modal.jsp" %>

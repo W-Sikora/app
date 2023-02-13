@@ -12,6 +12,11 @@ public class CurrencyValidator extends AbstractFormValidator<Integer> {
 
     static final String F_CURRENCY = "currency";
 
+    protected CurrencyValidator() {
+
+        super(Integer.class);
+    }
+
     @Override
     public void validateForm(Integer currency, Errors errors) {
 
@@ -23,12 +28,6 @@ public class CurrencyValidator extends AbstractFormValidator<Integer> {
 
             errors.rejectValue(F_CURRENCY, E_FIELD_MUST_CONTAIN_VALID_VALUE);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(Integer.class);
     }
 
 }

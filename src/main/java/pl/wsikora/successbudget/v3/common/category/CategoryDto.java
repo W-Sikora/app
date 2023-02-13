@@ -8,5 +8,6 @@ public class CategoryDto {
 
     Long categoryId;
     String title;
+    String color;
 
 }

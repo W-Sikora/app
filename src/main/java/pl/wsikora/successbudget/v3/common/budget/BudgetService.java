@@ -1,10 +1,10 @@
 package pl.wsikora.successbudget.v3.common.budget;
 
-import java.time.YearMonth;
+import pl.wsikora.successbudget.v3.common.dashboard.DashboardDetailsDto;
 
 
 public interface BudgetService {
 
-    BudgetId create(YearMonth yearMonth);
+    BudgetId create(DashboardDetailsDto dashboardDetailsDto);
 
 }

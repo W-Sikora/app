@@ -3,6 +3,7 @@ package pl.wsikora.successbudget.v3.budget.application.plannedexpenditure;
 import org.springframework.data.domain.Page;
 import pl.wsikora.successbudget.v3.budget.application.budget.BudgetFilter;
 
+import java.time.YearMonth;
 import java.util.Optional;
 
 
@@ -12,6 +13,6 @@ public interface PlannedExpenditureQuery {
 
     Page<PlannedExpenditureDto> findAll(BudgetFilter budgetFilter);
 
-    boolean hasAssignedCategory(Long budgetId, Long categoryId);
+    boolean hasAssignedCategory(YearMonth period, Long categoryId);
 
 }

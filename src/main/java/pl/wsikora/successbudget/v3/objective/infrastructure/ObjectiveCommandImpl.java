@@ -35,7 +35,7 @@ class ObjectiveCommandImpl implements ObjectiveCommand {
 
         objective.setOwner(usernameProvider.getUsername());
 
-        objective.setTitle(new Title(objectiveAttributes.getTitle()));
+        objective.setTitle(Title.of(objectiveAttributes.getTitle()));
 
         objective.setDescription(new Description(objectiveAttributes.getDescription()));
 

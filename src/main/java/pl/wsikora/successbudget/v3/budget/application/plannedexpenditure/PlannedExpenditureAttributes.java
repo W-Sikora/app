@@ -1,13 +1,14 @@
 package pl.wsikora.successbudget.v3.budget.application.plannedexpenditure;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 
 public interface PlannedExpenditureAttributes {
 
     Long getPlannedExpenditureId();
 
-    Long getBudgetId();
+    YearMonth getPeriod();
 
     Long getCategoryId();
 

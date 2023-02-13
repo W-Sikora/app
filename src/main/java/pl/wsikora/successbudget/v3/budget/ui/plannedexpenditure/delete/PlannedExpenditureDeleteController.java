@@ -1,14 +1,14 @@
 package pl.wsikora.successbudget.v3.budget.ui.plannedexpenditure.delete;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureDeleteCommand;
 import pl.wsikora.successbudget.v3.budget.application.plannedexpenditure.PlannedExpenditureCommand;
 
-import static pl.wsikora.successbudget.v3.common.util.Constants.BUDGET_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.PLANNED_EXPENDITURE_DELETE_PATH;
-import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirect;
+import static pl.wsikora.successbudget.v3.common.util.RedirectionUtils.redirectToBudgetPath;
 
 
 @Controller
@@ -23,11 +23,11 @@ class PlannedExpenditureDeleteController {
     }
 
     @PostMapping
-    private String delete(PlannedExpenditureDeleteCommand plannedExpenditureDeleteCommand) {
+    private String delete(@PathVariable Long plannedExpenditureId, HttpSession session) {
 
-        plannedExpenditureCommand.delete(plannedExpenditureDeleteCommand);
+        plannedExpenditureCommand.delete(plannedExpenditureId);
 
-        return redirect(BUDGET_PATH, plannedExpenditureDeleteCommand.budgetId());
+        return redirectToBudgetPath(session);
     }
 
 }

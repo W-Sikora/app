@@ -2,20 +2,19 @@ package pl.wsikora.successbudget.v3.cashflow.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueAttributes;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueCommand;
-import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueDeleteCommand;
-import pl.wsikora.successbudget.v3.cashflow.domain.CashFlow;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payer.Payer;
+import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
+import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
-import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 
 @Service
@@ -23,15 +22,14 @@ class RevenueCommandImpl implements RevenueCommand {
 
     private final UsernameProvider usernameProvider;
     private final RevenueRepository revenueRepository;
-    private final CashFlowRepository cashFlowRepository;
 
-    private RevenueCommandImpl(UsernameProvider usernameProvider,
-                               RevenueRepository revenueRepository,
-                               CashFlowRepository cashFlowRepository) {
+    private RevenueCommandImpl(
+        UsernameProvider usernameProvider,
+        RevenueRepository revenueRepository
+    ) {
 
         this.usernameProvider = usernameProvider;
         this.revenueRepository = revenueRepository;
-        this.cashFlowRepository = cashFlowRepository;
     }
 
     @Override
@@ -43,32 +41,23 @@ class RevenueCommandImpl implements RevenueCommand {
 
         revenue.setRevenueId(revenueAttributes.getRevenueId());
 
-        CashFlow cashFlow = getCashFlowByCashFlowId(revenueAttributes.getCashFlowId());
-
-        revenue.setCashFlow(cashFlow);
+        revenue.setPeriod(revenueAttributes.getPeriod());
 
         revenue.setOwner(usernameProvider.getUsername());
 
-        CategoryId categoryId = new CategoryId(revenueAttributes.getCategoryId());
+        revenue.setTitle(Title.of(revenueAttributes.getTitle()));
 
-        revenue.setCategoryId(categoryId);
+        revenue.setCategoryId(CategoryId.of(revenueAttributes.getCategoryId()));
 
-        LocalDate date = LocalDate.parse(revenueAttributes.getDate());
-
-        revenue.setDate(date);
+        revenue.setDate(revenueAttributes.getDate());
 
         Currency currency = Currency.of(revenueAttributes.getCurrency());
 
-        Money money = Money.of(
-            currency,
-            revenueAttributes.getValue()
-        );
+        Money money = Money.of(currency, revenueAttributes.getValue());
 
         revenue.setMoney(money);
 
-        Payer payer = new Payer(revenueAttributes.getPayer());
-
-        revenue.setPayer(payer);
+        revenue.setPayer(Payer.of(revenueAttributes.getPayer()));
 
         revenue.setRepeatInNextPeriod(revenueAttributes.isRepeatInNextPeriod());
 
@@ -76,38 +65,29 @@ class RevenueCommandImpl implements RevenueCommand {
     }
 
     @Override
-    public void delete(RevenueDeleteCommand revenueDeleteCommand) {
+    public void delete(Long revenueId) {
 
-        Assert.notNull(revenueDeleteCommand, "revenueDeleteCommand must not be null");
+        Assert.notNull(revenueId, "revenueId must not be null");
 
-        revenueRepository.delete(
-            revenueDeleteCommand.cashFlowId(),
-            revenueDeleteCommand.revenueId()
-        );
+        revenueRepository.delete(revenueId);
     }
 
     @Override
-    public void repeat(CashFlowRepeatCommand cashFlowRepeatCommand) {
+    public void repeat(RepeatCommand repeatCommand) {
 
-        Assert.notNull(cashFlowRepeatCommand, "cashFlowRepeatCommand must not be null");
+        Assert.notNull(repeatCommand, "repeatCommand must not be null");
 
-        revenueRepository.findAllRepeated(cashFlowRepeatCommand.fromCashFlowId())
+        revenueRepository.findRepeatable(repeatCommand.fromPeriod())
             .stream()
-            .map(revenue -> assignCashFlow(revenue, cashFlowRepeatCommand.toCashFlowId()))
+            .map(revenue -> assignCashFlow(revenue, repeatCommand.toPeriod()))
             .forEach(revenueRepository::save);
     }
 
-    private CashFlow getCashFlowByCashFlowId(Long cashFlowId) {
+    private Revenue assignCashFlow(Revenue revenue, YearMonth toPeriod) {
 
-        return cashFlowRepository.findByCashFlowId(cashFlowId)
-            .orElseThrow(() -> new NotFoundException("CashFlow", cashFlowId));
-    }
+        revenue.setRevenueId(null);
 
-    private Revenue assignCashFlow(Revenue revenue, Long cashFlowId) {
-
-        CashFlow cashFlow = getCashFlowByCashFlowId(cashFlowId);
-
-        revenue.setCashFlow(cashFlow);
+        revenue.setPeriod(toPeriod);
 
         return revenue;
     }

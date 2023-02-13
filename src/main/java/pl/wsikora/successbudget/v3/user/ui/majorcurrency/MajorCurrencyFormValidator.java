@@ -13,6 +13,8 @@ class MajorCurrencyFormValidator extends AbstractFormValidator<MajorCurrencyForm
 
     MajorCurrencyFormValidator(CurrencyValidator currencyValidator) {
 
+        super(MajorCurrencyForm.class);
+
         this.currencyValidator = currencyValidator;
     }
 
@@ -20,12 +22,6 @@ class MajorCurrencyFormValidator extends AbstractFormValidator<MajorCurrencyForm
     public void validateForm(MajorCurrencyForm majorCurrencyForm, Errors errors) {
 
         currencyValidator.validateForm(majorCurrencyForm.getCurrency(), errors);
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(MajorCurrencyForm.class);
     }
 
 }

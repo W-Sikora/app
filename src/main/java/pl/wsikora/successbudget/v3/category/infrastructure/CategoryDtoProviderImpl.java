@@ -62,17 +62,20 @@ public class CategoryDtoProviderImpl implements CategoryDtoProvider {
 
         return new CategoryDto(
             category.getCategoryId(),
-            category.getTitle().getValue()
+            category.getTitle().getValue(),
+            category.getColor()
         );
     }
 
     private CategoryDto toDto(CategoryId categoryId) {
 
         String message = messageProvider.getMessage("category.was.deleted");
+        String deletedColor = "rgba(255, 0, 0, 0.5)";
 
         return new CategoryDto(
             categoryId.getValue(),
-            message
+            message,
+            deletedColor
         );
     }
 

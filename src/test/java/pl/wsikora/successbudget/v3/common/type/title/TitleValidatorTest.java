@@ -20,6 +20,7 @@ class TitleValidatorTest {
     @Mock
     private Errors errors;
     private TitleValidator titleValidator;
+    private String title;
 
     @BeforeEach
     void setUp() {
@@ -46,7 +47,7 @@ class TitleValidatorTest {
     void shouldDetectEmptyTitle() {
 
         // given
-        String title = EMPTY;
+        title = EMPTY;
 
         // when
         titleValidator.validateForm(title, errors);
@@ -59,7 +60,7 @@ class TitleValidatorTest {
     void shouldDetectBlankTitle() {
 
         // given
-        String title = SPACE;
+        title = SPACE;
 
         // when
         titleValidator.validateForm(title, errors);
@@ -72,7 +73,7 @@ class TitleValidatorTest {
     void shouldDetectTooShortTitle() {
 
         // given
-        String title = randomAlphabetic(Title.MINIMUM_LENGTH - 1);
+        title = randomAlphabetic(Title.MINIMUM_LENGTH - 1);
 
         // when
         titleValidator.validateForm(title, errors);
@@ -86,7 +87,7 @@ class TitleValidatorTest {
     void shouldDetectTooLongTitle() {
 
         // given
-        String title = randomAlphabetic(Title.MINIMUM_LENGTH + 1);
+        title = randomAlphabetic(Title.MINIMUM_LENGTH + 1);
 
         // when
         titleValidator.validateForm(title, errors);

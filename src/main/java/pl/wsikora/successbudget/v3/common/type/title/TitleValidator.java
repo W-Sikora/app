@@ -13,6 +13,11 @@ public class TitleValidator extends AbstractFormValidator<String> {
 
     static final String F_TITLE = "title";
 
+    protected TitleValidator() {
+
+        super(String.class);
+    }
+
     @Override
     public void validateForm(String title, Errors errors) {
 
@@ -25,12 +30,6 @@ public class TitleValidator extends AbstractFormValidator<String> {
             errors.rejectValue(F_TITLE, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Title.getLengthRange(), EMPTY);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(String.class);
     }
 
 }

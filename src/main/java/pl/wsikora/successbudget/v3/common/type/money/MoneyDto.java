@@ -6,7 +6,9 @@ import lombok.Value;
 @Value
 public class MoneyDto {
 
-    Money money;
+    Integer currency;
+    String sign;
     String formattedValue;
+    boolean negative;
 
 }

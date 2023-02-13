@@ -10,7 +10,7 @@ import pl.wsikora.successbudget.v3.common.type.url.UrlDto;
 public class PlannedExpenditureDto {
 
     Long plannedExpenditureId;
-    Long budgetId;
+    String period;
     CategoryDto categoryDto;
     Integer priority;
     MoneyDto moneyDto;

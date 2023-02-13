@@ -2,37 +2,35 @@ package pl.wsikora.successbudget.v3.budget.infrastructure;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.budget.domain.Budget;
 import pl.wsikora.successbudget.v3.common.budget.BudgetDto;
 import pl.wsikora.successbudget.v3.common.budget.BudgetDtoProvider;
-import pl.wsikora.successbudget.v3.common.budget.BudgetId;
 import pl.wsikora.successbudget.v3.common.currencyrate.CurrencyRateConverter;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
 import pl.wsikora.successbudget.v3.common.type.currency.MajorCurrencyProvider;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
-import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDtoFactory;
-import pl.wsikora.successbudget.v3.common.util.exception.NotFoundException;
 
+import java.time.YearMonth;
 import java.util.List;
+
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 
 
 @Service
 class BudgetDtoProviderImpl implements BudgetDtoProvider {
 
-    private final BudgetRepository budgetRepository;
     private final PlannedExpenditureRepository plannedExpenditureRepository;
     private final PlannedRevenueRepository plannedRevenueRepository;
     private final CurrencyRateConverter currencyRateConverter;
     private final MajorCurrencyProvider majorCurrencyProvider;
 
-    private BudgetDtoProviderImpl(BudgetRepository budgetRepository,
-                                  PlannedExpenditureRepository plannedExpenditureRepository,
-                                  PlannedRevenueRepository plannedRevenueRepository,
-                                  CurrencyRateConverter currencyRateConverter,
-                                  MajorCurrencyProvider majorCurrencyProvider) {
+    private BudgetDtoProviderImpl(
+        PlannedExpenditureRepository plannedExpenditureRepository,
+        PlannedRevenueRepository plannedRevenueRepository,
+        CurrencyRateConverter currencyRateConverter,
+        MajorCurrencyProvider majorCurrencyProvider
+    ) {
 
-        this.budgetRepository = budgetRepository;
         this.plannedExpenditureRepository = plannedExpenditureRepository;
         this.plannedRevenueRepository = plannedRevenueRepository;
         this.currencyRateConverter = currencyRateConverter;
@@ -40,35 +38,27 @@ class BudgetDtoProviderImpl implements BudgetDtoProvider {
     }
 
     @Override
-    public BudgetDto provideBudgetDto(BudgetId budgetId) {
+    public BudgetDto provideBudgetDto(YearMonth period) {
 
-        Assert.notNull(budgetId, "BudgetId must not be null");
-
-        Long value = budgetId.getValue();
-
-        Budget budget = budgetRepository.findByBudgetId(value)
-            .orElseThrow(() -> new NotFoundException("Budget", value));
+        Assert.notNull(period, "period must not be null");
 
         Currency majorCurrency = majorCurrencyProvider.getMajorCurrencyOrDefault();
 
-        List<Money> plannedExpenditureTotalMoney = plannedExpenditureRepository.findAllMoney(value);
+        List<Money> plannedExpenditureTotalMoney = plannedExpenditureRepository.findAllMoney(period);
 
-        MoneyDto totalPlannedExpenditures = currencyRateConverter.convert(plannedExpenditureTotalMoney, majorCurrency);
+        Money totalPlannedExpenditures = currencyRateConverter.convert(plannedExpenditureTotalMoney, majorCurrency);
 
-        List<Money> plannedRevenueTotalMoney = plannedRevenueRepository.findAllMoney(value);
+        List<Money> plannedRevenueTotalMoney = plannedRevenueRepository.findAllMoney(period);
 
-        MoneyDto totalPlannedRevenues = currencyRateConverter.convert(plannedRevenueTotalMoney, majorCurrency);
+        Money totalPlannedRevenues = currencyRateConverter.convert(plannedRevenueTotalMoney, majorCurrency);
 
-        Money balanceValue = totalPlannedRevenues.getMoney().subtract(totalPlannedExpenditures.getMoney());
-
-        MoneyDto balance = MoneyDtoFactory.create(balanceValue);
+        Money balanceValue = totalPlannedRevenues.subtract(totalPlannedExpenditures);
 
         return new BudgetDto(
-            budget.getBudgetId(),
-            budget.getPeriod().toString(),
-            totalPlannedExpenditures,
-            totalPlannedRevenues,
-            balance
+            period.format(PERIOD_FORMATTER),
+            MoneyDtoFactory.create(totalPlannedExpenditures),
+            MoneyDtoFactory.create(totalPlannedRevenues),
+            MoneyDtoFactory.create(balanceValue)
         );
     }
 

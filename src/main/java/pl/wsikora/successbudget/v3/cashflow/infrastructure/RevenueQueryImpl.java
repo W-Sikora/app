@@ -19,6 +19,7 @@ import java.util.Optional;
 import static pl.wsikora.successbudget.v3.common.util.Constants.REVENUE_DELETE_PATH;
 import static pl.wsikora.successbudget.v3.common.util.Constants.REVENUE_EDIT_PATH;
 import static pl.wsikora.successbudget.v3.common.util.DateFormatter.DATE_FORMATTER;
+import static pl.wsikora.successbudget.v3.common.util.DateFormatter.PERIOD_FORMATTER;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.convertToLowerCase;
 
 
@@ -53,7 +54,7 @@ class RevenueQueryImpl implements RevenueQuery {
 
         return revenueRepository.findAll(
                 cashFlowFilter.pageable(),
-                cashFlowFilter.cashFlowId(),
+                cashFlowFilter.period(),
                 convertToLowerCase(cashFlowFilter.keyword()),
                 cashFlowFilter.categoryId(),
                 cashFlowFilter.fromDate(),
@@ -66,18 +67,16 @@ class RevenueQueryImpl implements RevenueQuery {
 
         Long revenueId = revenue.getRevenueId();
 
-        Long cashFlowId = revenue.getCashFlow().getCashFlowId();
-
         CategoryDto categoryDto = categoryDtoProvider.convert(revenue.getCategoryId());
 
         MoneyDto moneyDto = MoneyDtoFactory.create(revenue.getMoney());
 
-        UrlDto urlDto = UrlDtoFactory.create(REVENUE_EDIT_PATH, REVENUE_DELETE_PATH,
-            cashFlowId, revenueId);
+        UrlDto urlDto = UrlDtoFactory.create(REVENUE_EDIT_PATH,
+            REVENUE_DELETE_PATH, revenueId);
 
         return new RevenueDto(
             revenueId,
-            cashFlowId,
+            revenue.getPeriod().format(PERIOD_FORMATTER),
             revenue.getTitle().getValue(),
             categoryDto,
             revenue.getDate().format(DATE_FORMATTER),

@@ -17,7 +17,7 @@ public class UsernameProvider {
             .getAuthentication();
 
         return Optional.ofNullable(authentication.getName())
-            .map(Username::new)
+            .map(Username::of)
             .orElseThrow(() -> new NotFoundException("username for logged-in user"));
     }
 

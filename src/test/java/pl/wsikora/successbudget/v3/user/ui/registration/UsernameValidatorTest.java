@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
-import pl.wsikora.successbudget.v3.user.application.UserQuery;
+import pl.wsikora.successbudget.v3.user.application.RegistrationQuery;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -24,7 +24,7 @@ class UsernameValidatorTest {
     @Mock
     private Errors errors;
     @Mock
-    private UserQuery userQuery;
+    private RegistrationQuery userQuery;
     private UsernameValidator usernameValidator;
     private String username;
 
@@ -109,11 +109,10 @@ class UsernameValidatorTest {
         // given
         username = randomAlphabetic(Username.MAXIMUM_LENGTH + 1);
 
-        given(userQuery.existsByUsername(new Username(username)))
-            .willReturn(true);
+        given(userQuery.existsByUsername(username)).willReturn(true);
 
         // when
-        usernameValidator.validateForm(this.username, errors);
+        usernameValidator.validateForm(username, errors);
 
         // then
         verify(errors).rejectValue(F_USER_NAME, E_USERNAME_MUST_BE_UNIQUE);

@@ -4,6 +4,7 @@ import lombok.*;
 import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureAttributes;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 
 @Getter
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 class ExpenditureForm implements ExpenditureAttributes {
 
     private Long expenditureId;
-    private Long cashFlowId;
+    private YearMonth period;
     private String title;
     private Long categoryId;
     private Integer priority;

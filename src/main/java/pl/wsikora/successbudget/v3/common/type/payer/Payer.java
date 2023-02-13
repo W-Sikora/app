@@ -6,10 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
-import java.util.Objects;
-
-import static org.springframework.util.StringUtils.hasText;
-
 
 @Embeddable
 @NoArgsConstructor
@@ -22,12 +18,17 @@ public class Payer {
     @Column(name = "payer", length = MAXIMUM_LENGTH)
     private String value;
 
-    public Payer(String value) {
-
-        Assert.isTrue(hasText(value), "payer value must not be empty");
-        Assert.isTrue(hasValidLength(value), "payer value must be of valid length");
+    private Payer(String value) {
 
         this.value = value;
+    }
+
+    public static Payer of(String value) {
+
+        Assert.hasText(value, "payer value must not be empty");
+        Assert.isTrue(hasValidLength(value), "payer value must be of valid length");
+
+        return new Payer(value);
     }
 
     public static boolean hasValidLength(String value) {
@@ -40,21 +41,6 @@ public class Payer {
     public static Object[] getLengthRange() {
 
         return new Object[]{MINIMUM_LENGTH, MAXIMUM_LENGTH};
-    }
-
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o) return true;
-        if (!(o instanceof Payer payer)) return false;
-
-        return Objects.equals(value, payer.value);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return value != null ? value.hashCode() : 0;
     }
 
 }

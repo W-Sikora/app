@@ -1,5 +1,6 @@
 package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,23 +15,23 @@ import static pl.wsikora.successbudget.v3.common.util.Constants.VIEW;
 @RequestMapping(BUDGET_PATH)
 class BudgetViewController {
 
-    private final BudgetViewControllerDataProvider budgetViewControllerDataProvider;
+    private final BudgetViewControllerDataProvider dataProvider;
 
-    private BudgetViewController(BudgetViewControllerDataProvider budgetViewControllerDataProvider) {
+    private BudgetViewController(BudgetViewControllerDataProvider dataProvider) {
 
-        this.budgetViewControllerDataProvider = budgetViewControllerDataProvider;
+        this.dataProvider = dataProvider;
     }
 
     @GetMapping
-    private String goToView() {
+    private String view() {
 
         return VIEW;
     }
 
     @ModelAttribute
-    private void data(BudgetViewParameters parameters, Model model) {
+    private void data(BudgetViewParameters parameters, HttpSession session, Model model) {
 
-        model.addAllAttributes(budgetViewControllerDataProvider.provideData(parameters));
+        model.addAllAttributes(dataProvider.provideData(parameters, session));
     }
 
 }

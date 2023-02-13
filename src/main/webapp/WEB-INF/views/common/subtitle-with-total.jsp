@@ -18,7 +18,7 @@
                         ${_totalMoneyDto.formattedValue}
                     </span>
                     <span>
-                        ${_totalMoneyDto.money.currency.sign}
+                        ${_totalMoneyDto.sign}
                     </span>
                 </p>
             </div>

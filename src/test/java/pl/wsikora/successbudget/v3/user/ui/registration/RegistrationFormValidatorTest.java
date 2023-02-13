@@ -9,7 +9,7 @@ import pl.wsikora.successbudget.v3.user.domain.Password;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
-import static pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator.E_REPEATED_PASSWORD_IS_DIFFERENT;
+import static pl.wsikora.successbudget.v3.user.ui.registration.RegistrationFormValidator.E_REPEATED_PASSWORD_IS_DIFFERENT;
 import static pl.wsikora.successbudget.v3.user.ui.registration.RegistrationFormValidator.F_REPEATED_PASSWORD;
 
 
@@ -21,9 +21,7 @@ class RegistrationFormValidatorTest {
     private UsernameValidator usernameValidator;
     @Mock
     private PasswordValidator passwordValidator;
-
     private RegistrationForm form;
-
     private RegistrationFormValidator registrationFormValidator;
 
     @BeforeEach

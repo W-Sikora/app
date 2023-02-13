@@ -9,7 +9,7 @@
                 <fmt:message key="balance"/>:
             </p>
             <c:choose>
-                <c:when test="${_totalMoneyDto.balance.money.value < 0}">
+                <c:when test="${_totalMoneyDto.balance.negative}">
                     <c:set var="cssClass" value="has-text-danger"/>
                 </c:when>
                 <c:otherwise>
@@ -21,7 +21,7 @@
                     ${_totalMoneyDto.balance.formattedValue}
                 </span>
                 <span>
-                    ${_totalMoneyDto.balance.money.currency.sign}
+                    ${_totalMoneyDto.balance.sign}
                 </span>
             </p>
         </div>

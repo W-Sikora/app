@@ -23,7 +23,7 @@ class LoginController {
     }
 
     @GetMapping
-    private String goToView() {
+    private String view() {
 
         return VIEW;
     }

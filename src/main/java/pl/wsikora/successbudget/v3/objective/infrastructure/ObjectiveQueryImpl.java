@@ -70,7 +70,7 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
 
         List<Money> moneys = raisedMoneyRepository.findAllMoney(objectiveId);
 
-        MoneyDto raisedMoneyDto = currencyRateConverter.convert(moneys, necessaryMoney.getCurrency());
+        Money raisedMoney = currencyRateConverter.convert(moneys, necessaryMoney.getCurrency());
 
         return new ObjectiveDto(
             objectiveId,
@@ -78,7 +78,7 @@ class ObjectiveQueryImpl implements ObjectiveQuery {
             objective.getDescription().getValue(),
             necessaryMoneyDto,
             objective.isRealized(),
-            raisedMoneyDto
+            MoneyDtoFactory.create(raisedMoney)
         );
     }
 

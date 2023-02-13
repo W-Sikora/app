@@ -13,6 +13,11 @@ public class PayeeValidator extends AbstractFormValidator<String> {
 
     static final String F_PAYEE = "payee";
 
+    protected PayeeValidator() {
+
+        super(String.class);
+    }
+
     @Override
     public void validateForm(String payee, Errors errors) {
 
@@ -25,12 +30,6 @@ public class PayeeValidator extends AbstractFormValidator<String> {
             errors.rejectValue(F_PAYEE, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Payee.getLengthRange(), EMPTY);
         }
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-
-        return clazz.equals(String.class);
     }
 
 }

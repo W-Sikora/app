@@ -1,10 +1,9 @@
 package pl.wsikora.successbudget.v3.category.ui.edit;
 
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.wsikora.successbudget.v3.category.application.CategoryCommand;
 
@@ -18,17 +17,17 @@ class CategoryEditController {
 
     private final CategoryCommand categoryCommand;
     private final CategoryFormValidator categoryFormValidator;
-    private final CategoryEditControllerDataProvider categoryEditControllerDataProvider;
+    private final CategoryEditControllerDataProvider dataProvider;
 
     private CategoryEditController(
         CategoryCommand categoryCommand,
         CategoryFormValidator categoryFormValidator,
-        CategoryEditControllerDataProvider categoryEditControllerDataProvider
+        CategoryEditControllerDataProvider dataProvider
     ) {
 
         this.categoryCommand = categoryCommand;
         this.categoryFormValidator = categoryFormValidator;
-        this.categoryEditControllerDataProvider = categoryEditControllerDataProvider;
+        this.dataProvider = dataProvider;
     }
 
     @GetMapping
@@ -38,10 +37,11 @@ class CategoryEditController {
     }
 
     @PostMapping
-    private String save(@Valid @ModelAttribute CategoryForm categoryForm,
-                        BindingResult bindingResult) {
+    private String save(@ModelAttribute CategoryForm categoryForm, Errors errors) {
 
-        if (bindingResult.hasErrors()) {
+        categoryFormValidator.validateForm(categoryForm, errors);
+
+        if (errors.hasErrors()) {
 
             return VIEW;
         }
@@ -51,16 +51,10 @@ class CategoryEditController {
         return redirect(CATEGORY_PATH);
     }
 
-    @InitBinder("categoryFormValidator")
-    private void initBinder(WebDataBinder binder) {
-
-        binder.setValidator(categoryFormValidator);
-    }
-
     @ModelAttribute
-    private void data(@RequestParam(required = false) Long categoryId, Model model) {
+    private void data(@RequestParam(required = false) Long categoryId, HttpSession session, Model model) {
 
-        model.addAllAttributes(categoryEditControllerDataProvider.provideData(categoryId));
+        model.addAllAttributes(dataProvider.provideData(categoryId, session));
     }
 
 }

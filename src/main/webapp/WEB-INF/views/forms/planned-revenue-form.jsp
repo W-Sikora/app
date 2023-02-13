@@ -6,7 +6,7 @@
 
     <form:hidden path="plannedRevenueId"/>
 
-    <form:hidden path="budgetId"/>
+    <form:hidden path="period"/>
 
     <div class="field">
         <form:label path="categoryId" cssClass="label">

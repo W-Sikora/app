@@ -1,14 +1,14 @@
 package pl.wsikora.successbudget.v3.cashflow.application.expenditure;
 
-import pl.wsikora.successbudget.v3.cashflow.application.cashflow.CashFlowRepeatCommand;
+import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 
 
 public interface ExpenditureCommand {
 
     void save(ExpenditureAttributes expenditureAttributes);
 
-    void delete(ExpenditureDeleteCommand expenditureDeleteCommand);
+    void delete(Long expenditureId);
 
-    void repeat(CashFlowRepeatCommand cashFlowRepeatCommand);
+    void repeat(RepeatCommand repeatCommand);
 
 }
