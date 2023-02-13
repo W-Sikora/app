@@ -13,7 +13,8 @@ import static java.util.Objects.nonNull;
 
 public record CashFlowFilter(Pageable pageable,
                              YearMonth period,
-                             @Nullable String keyword,
+                             @Nullable String expenditureKeyword,
+                             @Nullable String revenueKeyword,
                              @Nullable Long categoryId,
                              @Nullable LocalDate fromDate,
                              @Nullable LocalDate toDate) {

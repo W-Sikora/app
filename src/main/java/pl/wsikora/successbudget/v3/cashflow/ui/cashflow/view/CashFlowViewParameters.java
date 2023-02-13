@@ -11,40 +11,40 @@ import static pl.wsikora.successbudget.v3.common.util.Constants.DEFAULT_PAGINATI
 
 
 record CashFlowViewParameters(YearMonth period,
-                              @Nullable Integer plannedExpenditurePage,
-                              @Nullable Integer plannedExpenditureSize,
-                              @Nullable Integer plannedRevenuePage,
-                              @Nullable Integer plannedRevenueSize,
-                              @Nullable Long plannedExpenditureCategoryId,
-                              @Nullable Long plannedRevenueCategoryId) {
+                              @Nullable Integer expenditurePage,
+                              @Nullable Integer expenditureSize,
+                              @Nullable Integer revenuePage,
+                              @Nullable Integer revenueSize,
+                              @Nullable Long expenditureCategoryId,
+                              @Nullable Long revenueCategoryId) {
 
     CashFlowViewParameters(YearMonth period,
-                           @Nullable Integer plannedExpenditurePage,
-                           @Nullable Integer plannedExpenditureSize,
-                           @Nullable Integer plannedRevenuePage,
-                           @Nullable Integer plannedRevenueSize,
-                           @Nullable Long plannedExpenditureCategoryId,
-                           @Nullable Long plannedRevenueCategoryId) {
+                           @Nullable Integer expenditurePage,
+                           @Nullable Integer expenditureSize,
+                           @Nullable Integer revenuePage,
+                           @Nullable Integer revenueSize,
+                           @Nullable Long expenditureCategoryId,
+                           @Nullable Long revenueCategoryId) {
 
         Assert.notNull(period, "period must not be null");
 
         this.period = period;
 
-        this.plannedExpenditurePage = isNull(plannedExpenditurePage) ?
-            DEFAULT_PAGINATION_PAGE : plannedExpenditurePage;
+        this.expenditurePage = isNull(expenditurePage) ?
+            DEFAULT_PAGINATION_PAGE : expenditurePage;
 
-        this.plannedExpenditureSize = isNull(plannedExpenditureSize) ?
-            DEFAULT_PAGINATION_SIZE : plannedExpenditureSize;
+        this.expenditureSize = isNull(expenditureSize) ?
+            DEFAULT_PAGINATION_SIZE : expenditureSize;
 
-        this.plannedRevenuePage = isNull(plannedRevenuePage) ?
-            DEFAULT_PAGINATION_PAGE : plannedRevenuePage;
+        this.revenuePage = isNull(revenuePage) ?
+            DEFAULT_PAGINATION_PAGE : revenuePage;
 
-        this.plannedRevenueSize = isNull(plannedRevenueSize) ?
-            DEFAULT_PAGINATION_SIZE : plannedRevenueSize;
+        this.revenueSize = isNull(revenueSize) ?
+            DEFAULT_PAGINATION_SIZE : revenueSize;
 
-        this.plannedExpenditureCategoryId = plannedExpenditureCategoryId;
+        this.expenditureCategoryId = expenditureCategoryId;
 
-        this.plannedRevenueCategoryId = plannedRevenueCategoryId;
+        this.revenueCategoryId = revenueCategoryId;
     }
 
 }

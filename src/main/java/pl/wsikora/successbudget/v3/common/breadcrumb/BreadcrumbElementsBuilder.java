@@ -66,7 +66,7 @@ public class BreadcrumbElementsBuilder {
 
         String label = messageProvider.getMessage(DASHBOARD_TITLE);
 
-        breadcrumbElements.add(BreadcrumbElement.of(label, DASHBOARD_PATH));
+        breadcrumbElements.add(BreadcrumbElement.of(label, pathWithPeriod(DASHBOARD_PATH, period)));
 
         return this;
     }

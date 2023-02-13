@@ -12,8 +12,8 @@ import org.springframework.util.Assert;
 @Getter
 public class Payer {
 
-    public static final int MINIMUM_LENGTH = 3;
-    public static final int MAXIMUM_LENGTH = 70;
+    static final int MINIMUM_LENGTH = 3;
+    static final int MAXIMUM_LENGTH = 70;
 
     @Column(name = "payer", length = MAXIMUM_LENGTH)
     private String value;
@@ -31,14 +31,14 @@ public class Payer {
         return new Payer(value);
     }
 
-    public static boolean hasValidLength(String value) {
+    static boolean hasValidLength(String value) {
 
         int length = value.length();
 
         return length >= MINIMUM_LENGTH && length <= MAXIMUM_LENGTH;
     }
 
-    public static Object[] getLengthRange() {
+    static Object[] getLengthRange() {
 
         return new Object[]{MINIMUM_LENGTH, MAXIMUM_LENGTH};
     }

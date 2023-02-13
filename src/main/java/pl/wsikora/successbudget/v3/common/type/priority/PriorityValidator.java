@@ -12,7 +12,7 @@ public class PriorityValidator extends AbstractFormValidator<Integer> {
 
     static final String F_PRIORITY = "priority";
 
-    protected PriorityValidator() {
+    PriorityValidator() {
 
         super(Integer.class);
     }

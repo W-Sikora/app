@@ -29,9 +29,9 @@ class BudgetViewController {
     }
 
     @ModelAttribute
-    private void data(BudgetViewParameters parameters, HttpSession session, Model model) {
+    private void data(BudgetViewParameters parameters, Model model) {
 
-        model.addAllAttributes(dataProvider.provideData(parameters, session));
+        model.addAllAttributes(dataProvider.provideData(parameters));
     }
 
 }

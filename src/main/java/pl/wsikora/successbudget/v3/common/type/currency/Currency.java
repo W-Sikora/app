@@ -2,7 +2,6 @@ package pl.wsikora.successbudget.v3.common.type.currency;
 
 import lombok.Getter;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.type.priority.Priority;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +30,7 @@ public enum Currency {
         return Currency.values()[ordinal];
     }
 
-    public static boolean hasValidOrdinalRange(Integer ordinal) {
+    static boolean hasValidOrdinalRange(Integer ordinal) {
 
         Assert.notNull(ordinal, "Currency ordinal must not be null");
 

@@ -10,6 +10,7 @@ import java.time.YearMonth;
 
 import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
+import static pl.wsikora.successbudget.v3.common.util.PathUtils.pathWithPeriod;
 
 
 @Service
@@ -33,8 +34,6 @@ class DashboardControllerDataProvider {
             session.setAttribute(PERIOD, period);
         }
 
-        System.out.println(period);
-
         ModelMap modelMap = new ModelMap();
 
         modelMap.addAttribute(LOGO_APP_URL, DASHBOARD_PATH);
@@ -49,9 +48,9 @@ class DashboardControllerDataProvider {
 
         modelMap.addAttribute("categoryUrl", CATEGORY_PATH);
 
-        modelMap.addAttribute("budgetUrl", BUDGET_PATH);
+        modelMap.addAttribute("budgetUrl", pathWithPeriod(BUDGET_PATH, period));
 
-        modelMap.addAttribute("cashFlowUrl", CASH_FLOW_PATH);
+        modelMap.addAttribute("cashFlowUrl", pathWithPeriod(CASH_FLOW_PATH, period));
 
         return modelMap;
     }

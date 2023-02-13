@@ -78,7 +78,7 @@
 
                         <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
                         <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
-                        <c:set var="_parameterName" value="plannedExpenditurePage"/>
+                        <c:set var="_parameterName" value="expenditurePage"/>
                         <%@ include file="../common/pagination.jsp" %>
 
                     </c:otherwise>
@@ -150,7 +150,7 @@
 
                         <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
                         <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
-                        <c:set var="_parameterName" value="plannedRevenuePage"/>
+                        <c:set var="_parameterName" value="revenuePage"/>
                         <%@ include file="../common/pagination.jsp" %>
 
                     </c:otherwise>

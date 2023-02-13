@@ -71,8 +71,7 @@ class PlannedExpenditureEditControllerDataProvider extends ControllerDataProvide
             .addDashboard(period)
             .addWithPeriod(BUDGET, BUDGET_PATH, period)
             .add(title)
-            .build()
-        );
+            .build());
 
         modelMap.addAttribute("categories", categoryDtoProvider
             .provideAllByAssignedTransactionType(TransactionType.EXPENDITURE));

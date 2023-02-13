@@ -56,7 +56,7 @@ public class Money {
         return new Money(currency, ZERO);
     }
 
-    public static boolean hasValidValue(BigDecimal value) {
+    static boolean hasValidValue(BigDecimal value) {
 
         return isGreaterThanOrEqualTo(value, MINIMUM_VALUE)
             && isLessThanOrEqualTo(value, MAXIMUM_VALUE);

@@ -7,12 +7,12 @@
             <sec:csrfMetaTags/>
 
             <div class="field">
-                <label class="label has-text-left has-text-weight-normal" for="plannedExpenditureCategoryId">
+                <label class="label has-text-left has-text-weight-normal" for="expenditureCategoryId">
                     <fmt:message key="select.category.for.planned.expenditures"/>
                 </label>
 
                 <div class="select is-small is-fullwidth">
-                    <select id="plannedExpenditureCategoryId" name="plannedExpenditureCategoryId">
+                    <select id="expenditureCategoryId" name="expenditureCategoryId">
                         <option value="">
                             <fmt:message key="select.category"/>
                         </option>
@@ -24,12 +24,12 @@
             </div>
 
             <div class="field">
-                <label class="label has-text-left has-text-weight-normal" for="plannedRevenueCategoryId">
+                <label class="label has-text-left has-text-weight-normal" for="revenueCategoryId">
                     <fmt:message key="select.category.for.planned.revenues"/>
                 </label>
 
                 <div class="select is-small is-fullwidth">
-                    <select id="plannedRevenueCategoryId" name="plannedRevenueCategoryId">
+                    <select id="revenueCategoryId" name="revenueCategoryId">
                         <option value="">
                             <fmt:message key="select.category"/>
                         </option>

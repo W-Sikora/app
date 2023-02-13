@@ -26,7 +26,7 @@ record BudgetViewParameters(YearMonth period,
                          @Nullable Long plannedExpenditureCategoryId,
                          @Nullable Long plannedRevenueCategoryId) {
 
-//        Assert.notNull(period, "period must not be null");
+        Assert.notNull(period, "period must not be null");
 
         this.period = period;
 

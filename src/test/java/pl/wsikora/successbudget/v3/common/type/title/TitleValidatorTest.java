@@ -34,7 +34,7 @@ class TitleValidatorTest {
     void shouldDetectNullTitle() {
 
         // given
-        String title = null;
+        title = null;
 
         // when
         titleValidator.validateForm(title, errors);

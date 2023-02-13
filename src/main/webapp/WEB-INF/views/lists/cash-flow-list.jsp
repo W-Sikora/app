@@ -3,13 +3,13 @@
 <div class="columns is-desktop">
     <div class="column table-container">
 
-        <c:set var="_subtitle" value="planned.expenditures"/>
+        <c:set var="_subtitle" value="expenditures"/>
         <c:set var="_totalMoneyDto" value="${dto.totalPlannedExpenditures}"/>
         <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
 
-        <c:set var="_addUrl" value="${plannedExpenditureAddUrl}"/>
+        <c:set var="_addUrl" value="${expenditureAddUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -18,7 +18,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${empty plannedExpenditures}">
+            <c:when test="${not empty expenditures}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -31,10 +31,19 @@
                     <tr>
                         <th></th>
                         <th>
+                            <fmt:message key="date"/>
+                        </th>
+                        <th>
+                            <fmt:message key="title"/>
+                        </th>
+                        <th>
                             <fmt:message key="category"/>
                         </th>
                         <th>
                             <fmt:message key="priority"/>
+                        </th>
+                        <th>
+                            <fmt:message key="payee"/>
                         </th>
                         <th>
                             <fmt:message key="money"/>
@@ -44,24 +53,33 @@
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${plannedExpenditures.toList()}" var="plannedExpenditure" varStatus="loop">
+                    <c:forEach items="${expenditures.toList()}" var="expenditure" varStatus="loop">
                         <tr>
                             <th>
                                     ${loop.index + 1}
                             </th>
                             <td>
-                                    ${plannedExpenditure.categoryDto.title}
+                                    ${expenditure.date}
                             </td>
                             <td>
-                                <fmt:message key="priority.${plannedExpenditure.priority}"/>
+                                    ${expenditure.title}
+                            </td>
+                            <td>
+                                    ${expenditure.categoryDto.title}
+                            </td>
+                            <td>
+                                <fmt:message key="priority.${expenditure.priority}"/>
+                            </td>
+                            <td>
+                                    ${expenditure.payee}
                             </td>
                             <td class="has-text-right">
-                                    ${plannedExpenditure.moneyDto.formattedValue}
-                                    ${plannedExpenditure.moneyDto.money.currency.sign}
+                                    ${expenditure.moneyDto.formattedValue}
+                                    ${expenditure.moneyDto.sign}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${plannedExpenditure.urlDto.editUrl}"/>
-                                <c:set var="_fullDeleteUrl" value="${plannedExpenditure.urlDto.deleteUrl}"/>
+                                <c:set var="_fullEditUrl" value="${expenditure.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${expenditure.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -70,9 +88,9 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${plannedExpendituresCurrentPage}"/>
-                <c:set var="_lastPage" value="${plannedExpenditures.totalPages}"/>
-                <c:set var="_parameterName" value="plannedExpenditurePage"/>
+                <c:set var="_currentPage" value="${expendituresCurrentPage}"/>
+                <c:set var="_lastPage" value="${expenditures.totalPages}"/>
+                <c:set var="_parameterName" value="expenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
 
             </c:otherwise>
@@ -81,13 +99,13 @@
 
     <div class="column table-container">
 
-        <c:set var="_subtitle" value="planned.revenues"/>
+        <c:set var="_subtitle" value="revenues"/>
         <c:set var="_totalMoneyDto" value="${dto.totalPlannedRevenues}"/>
         <%@ include file="../common/subtitle-with-total.jsp" %>
 
         <hr class="is-invisible">
 
-        <c:set var="_addUrl" value="${plannedRevenueAddUrl}"/>
+        <c:set var="_addUrl" value="${revenueAddUrl}"/>
 
         <c:if test="${not empty _addUrl}">
 
@@ -96,7 +114,7 @@
         </c:if>
 
         <c:choose>
-            <c:when test="${empty plannedRevenues}">
+            <c:when test="${not empty revenues}">
 
                 <%@include file="../common/no-elements.jsp" %>
 
@@ -109,7 +127,16 @@
                     <tr>
                         <th></th>
                         <th>
+                            <fmt:message key="date"/>
+                        </th>
+                        <th>
+                            <fmt:message key="title"/>
+                        </th>
+                        <th>
                             <fmt:message key="category"/>
+                        </th>
+                        <th>
+                            <fmt:message key="payer"/>
                         </th>
                         <th>
                             <fmt:message key="money"/>
@@ -119,21 +146,27 @@
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${plannedRevenues.toList()}" var="plannedRevenue" varStatus="loop">
+                    <c:forEach items="${revenues.toList()}" var="revenue" varStatus="loop">
                         <tr>
                             <th>
                                     ${loop.index + 1}
                             </th>
                             <td>
-                                    ${plannedRevenue.categoryDto.title}
+                                    ${revenue.date}
                             </td>
                             <td>
-                                    ${plannedRevenue.moneyDto.formattedValue}
-                                    ${plannedRevenue.moneyDto.money.currency.sign}
+                                    ${revenue.categoryDto.title}
                             </td>
                             <td>
-                                <c:set var="_fullEditUrl" value="${plannedRevenue.urlDto.editUrl}"/>
-                                <c:set var="_fullDeleteUrl" value="${plannedRevenue.urlDto.deleteUrl}"/>
+                                    ${revenue.payer}
+                            </td>
+                            <td>
+                                    ${revenue.moneyDto.formattedValue}
+                                    ${revenue.moneyDto.sign}
+                            </td>
+                            <td>
+                                <c:set var="_fullEditUrl" value="${revenue.urlDto.editUrl}"/>
+                                <c:set var="_fullDeleteUrl" value="${revenue.urlDto.deleteUrl}"/>
 
                                 <%@include file="../common/options.jsp" %>
                             </td>
@@ -142,9 +175,9 @@
                     </tbody>
                 </table>
 
-                <c:set var="_currentPage" value="${plannedRevenuesCurrentPage}"/>
-                <c:set var="_lastPage" value="${plannedRevenues.totalPages}"/>
-                <c:set var="_parameterName" value="plannedExpenditurePage"/>
+                <c:set var="_currentPage" value="${revenuesCurrentPage}"/>
+                <c:set var="_lastPage" value="${revenues.totalPages}"/>
+                <c:set var="_parameterName" value="expenditurePage"/>
                 <%@ include file="../common/pagination.jsp" %>
 
             </c:otherwise>

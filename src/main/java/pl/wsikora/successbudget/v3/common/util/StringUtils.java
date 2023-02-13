@@ -25,9 +25,11 @@ public class StringUtils {
 
         StringBuilder result = new StringBuilder();
 
-        for (String part : parts) {
+        for (int i = 0; i < parts.length; i++) {
 
-            if (part.contains(DASH)) {
+            String part = parts[i];
+
+            if (i == 0 && part.contains(DASH)) {
 
                 String[] splitParts = part.split(DASH);
 
@@ -35,7 +37,7 @@ public class StringUtils {
                     .concat(splitParts[1].substring(0, 1).toUpperCase())
                     .concat(splitParts[1].substring(1));
             }
-            else {
+            else if (i > 0) {
 
                 part = capitalizeFirst(part);
             }

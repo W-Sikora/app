@@ -5,15 +5,18 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElement;
 import pl.wsikora.successbudget.v3.common.breadcrumb.BreadcrumbElementsBuilder;
+import pl.wsikora.successbudget.v3.common.category.CategoryDtoProvider;
+import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.priority.Priority;
+import pl.wsikora.successbudget.v3.common.type.transactiontype.TransactionType;
 import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
+import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.List;
 
-import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.SessionUtils.getPeriod;
 
@@ -23,14 +26,19 @@ class ExpenditureEditControllerDataProvider extends ControllerDataProvider {
 
     private final MessageProvider messageProvider;
     private final ExpenditureFormFactory expenditureFormFactory;
+    private final TitleProvider titleProvider;
+    private final CategoryDtoProvider categoryDtoProvider;
 
     private ExpenditureEditControllerDataProvider(
         MessageProvider messageProvider,
-        ExpenditureFormFactory expenditureFormFactory
+        ExpenditureFormFactory expenditureFormFactory,
+        CategoryDtoProvider categoryDtoProvider
     ) {
 
         this.messageProvider = messageProvider;
         this.expenditureFormFactory = expenditureFormFactory;
+        this.titleProvider = new TitleProvider(messageProvider);
+        this.categoryDtoProvider = categoryDtoProvider;
     }
 
     ModelMap provideData(@Nullable Long expenditureId, HttpSession session) {
@@ -45,25 +53,36 @@ class ExpenditureEditControllerDataProvider extends ControllerDataProvider {
 
         addAttributeColumnSize(modelMap, FORM_PAGE_SIZE);
 
-        modelMap.addAttribute(FORM_ACTION, EXPENDITURE_EDIT_PATH);
+        addAttributePagePathFromForm(modelMap, EXPENDITURE);
 
-        ExpenditureForm expenditureForm = expenditureFormFactory.getExpenditureForm(expenditureId, period);
+        addAttributeFormAction(modelMap, EXPENDITURE_ADD_PATH);
 
-        modelMap.addAttribute(FORM, expenditureForm);
+        ExpenditureForm expenditureForm = expenditureFormFactory
+            .getExpenditureForm(expenditureId, period);
 
-        String title = isNull(expenditureForm.getExpenditureId())
-            ? messageProvider.getMessage(EXPENDITURE_ADD_TITLE)
-            : messageProvider.getMessage(EXPENDITURE_EDIT_TITLE);
+        modelMap.addAttribute("expenditureForm", expenditureForm);
+
+        String title = titleProvider.provideTitle(expenditureForm.getExpenditureId(),
+            EXPENDITURE_ADD_TITLE, EXPENDITURE_EDIT_TITLE);
 
         modelMap.addAttribute(PAGE_TITLE, title);
 
-        List<BreadcrumbElement> breadcrumbElements = BreadcrumbElementsBuilder.builder(messageProvider)
+        modelMap.addAttribute(BREADCRUMB_ELEMENTS, BreadcrumbElementsBuilder.builder(messageProvider)
             .addDashboard(period)
             .addWithPeriod(CASH_FLOW_TITLE, CASH_FLOW_PATH, period)
             .add(title)
-            .build();
+            .build());
 
-        modelMap.addAttribute(BREADCRUMB_ELEMENTS, breadcrumbElements);
+        modelMap.addAttribute("categories", categoryDtoProvider
+            .provideAllByAssignedTransactionType(TransactionType.EXPENDITURE));
+
+        modelMap.addAttribute("priorities", Priority.getOrdinals());
+
+        modelMap.addAttribute("currencies", Currency.values());
+
+        modelMap.addAttribute("minDate", period.atDay(1));
+
+        modelMap.addAttribute("maxDate", period.atEndOfMonth());
 
         return modelMap;
     }

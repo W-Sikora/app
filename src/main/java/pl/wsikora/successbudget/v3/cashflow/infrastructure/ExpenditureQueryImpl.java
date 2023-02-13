@@ -55,7 +55,7 @@ class ExpenditureQueryImpl implements ExpenditureQuery {
         return expenditureRepository.findAll(
                 cashFlowFilter.pageable(),
                 cashFlowFilter.period(),
-                convertToLowerCase(cashFlowFilter.keyword()),
+                convertToLowerCase(cashFlowFilter.expenditureKeyword()),
                 cashFlowFilter.categoryId(),
                 cashFlowFilter.fromDate(),
                 cashFlowFilter.toDate()

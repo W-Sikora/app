@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.AbstractFormValidator;
 
+import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -13,7 +14,7 @@ public class PayeeValidator extends AbstractFormValidator<String> {
 
     static final String F_PAYEE = "payee";
 
-    protected PayeeValidator() {
+    PayeeValidator() {
 
         super(String.class);
     }
@@ -21,11 +22,11 @@ public class PayeeValidator extends AbstractFormValidator<String> {
     @Override
     public void validateForm(String payee, Errors errors) {
 
-        if (!hasText(payee)) {
+        if (nonNull(payee) && hasText(payee)) {
 
             errors.rejectValue(F_PAYEE, E_FIELD_MUST_NOT_BE_EMPTY);
         }
-        else if (!Payee.hasValidLength(payee)) {
+        else if (nonNull(payee) && Payee.hasValidLength(payee)) {
 
             errors.rejectValue(F_PAYEE, E_FIELD_MUST_CONTAIN_SPECIFIC_NUMBER_OF_CHARACTERS,
                 Payee.getLengthRange(), EMPTY);

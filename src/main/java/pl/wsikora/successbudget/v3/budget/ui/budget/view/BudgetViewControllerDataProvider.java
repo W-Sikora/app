@@ -1,6 +1,5 @@
 package pl.wsikora.successbudget.v3.budget.ui.budget.view;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,8 @@ import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.validation.PaginationValidator;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
-import static java.util.Objects.isNull;
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;
 import static pl.wsikora.successbudget.v3.common.util.StringUtils.formAttributeNameCamelCase;
 
@@ -49,18 +46,11 @@ class BudgetViewControllerDataProvider extends ControllerDataProvider {
         this.categoryDtoProvider = categoryDtoProvider;
     }
 
-    ModelMap provideData(BudgetViewParameters parameters, HttpSession session) {
+    ModelMap provideData(BudgetViewParameters parameters) {
 
         Assert.notNull(parameters, "parameters must not be null");
 
         YearMonth period = parameters.period();
-
-        if (isNull(period)) {
-
-            period = YearMonth.now();
-
-            session.setAttribute(PERIOD, period);
-        }
 
         ModelMap modelMap = new ModelMap();
 
