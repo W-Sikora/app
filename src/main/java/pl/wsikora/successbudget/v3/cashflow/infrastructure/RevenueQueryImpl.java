@@ -79,7 +79,7 @@ class RevenueQueryImpl implements RevenueQuery {
             revenue.getPeriod().format(PERIOD_FORMATTER),
             revenue.getTitle().getValue(),
             categoryDto,
-            revenue.getDate().format(DATE_FORMATTER),
+            revenue.getDate().asString(),
             moneyDto,
             revenue.getPayer().getValue(),
             revenue.isRepeatInNextPeriod(),

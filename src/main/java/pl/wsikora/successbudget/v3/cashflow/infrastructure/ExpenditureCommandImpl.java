@@ -7,6 +7,7 @@ import pl.wsikora.successbudget.v3.cashflow.application.expenditure.ExpenditureC
 import pl.wsikora.successbudget.v3.cashflow.domain.Expenditure;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payee.Payee;
 import pl.wsikora.successbudget.v3.common.type.priority.Priority;
@@ -14,8 +15,9 @@ import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
+
+import static org.springframework.util.StringUtils.hasText;
 
 
 @Service
@@ -56,19 +58,18 @@ class ExpenditureCommandImpl implements ExpenditureCommand {
 
         expenditure.setPriority(priority);
 
-        LocalDate date = LocalDate.parse(expenditureAttributes.getDate());
-
-        expenditure.setDate(date);
+        expenditure.setDate(Date.of(expenditureAttributes.getDate()));
 
         Currency currency = Currency.of(expenditureAttributes.getCurrency());
 
-        Money money = Money.of(currency, expenditureAttributes.getValue());
+        expenditure.setMoney(Money.of(currency, expenditureAttributes.getValue()));
 
-        expenditure.setMoney(money);
+        String payee = expenditureAttributes.getPayee();
 
-        Payee payee = Payee.of(expenditureAttributes.getPayee());
+        if (hasText(payee)) {
 
-        expenditure.setPayee(payee);
+            expenditure.setPayee(Payee.of(payee));
+        }
 
         expenditure.setRepeatInNextPeriod(expenditureAttributes.isRepeatInNextPeriod());
 

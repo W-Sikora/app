@@ -75,7 +75,7 @@
 
         <div class="control">
             <form:input path="date" type="date" cssClass="input" min="${minDate}" max="${maxDate}"
-                        cssErrorClass="input is-danger"/>
+                        pattern="dd.MM.yyyy" cssErrorClass="input is-danger"/>
         </div>
 
         <p class="validation-message">

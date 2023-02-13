@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
+import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payer.Payer;
 import pl.wsikora.successbudget.v3.common.type.title.Title;
 import pl.wsikora.successbudget.v3.common.type.username.Username;
 import pl.wsikora.successbudget.v3.common.util.databaseconverter.YearMonthDatabaseConverter;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 
@@ -38,7 +38,8 @@ public class Revenue {
     @Embedded
     private CategoryId categoryId;
 
-    private LocalDate date;
+    @Embedded
+    private Date date;
 
     @Embedded
     private Money money;

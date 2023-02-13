@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueDto;
 import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueQuery;
+import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyConverter;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyDto;
@@ -48,7 +49,7 @@ class RevenueFormFactory {
             .period(YearMonth.parse(revenueDto.getPeriod(), PERIOD_FORMATTER))
             .title(revenueDto.getTitle())
             .categoryId(revenueDto.getCategoryDto().getCategoryId())
-            .date(LocalDate.parse(revenueDto.getDate(), DATE_FORMATTER))
+            .date(revenueDto.getDate())
             .currency(money.getCurrency().ordinal())
             .value(money.getValue())
             .payer(revenueDto.getPayer())

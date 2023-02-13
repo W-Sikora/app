@@ -14,7 +14,6 @@ import pl.wsikora.successbudget.v3.common.util.message.MessageProvider;
 import pl.wsikora.successbudget.v3.common.util.title.TitleProvider;
 import pl.wsikora.successbudget.v3.common.util.ui.ControllerDataProvider;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 import static pl.wsikora.successbudget.v3.common.util.Constants.*;

@@ -2,6 +2,7 @@ package pl.wsikora.successbudget.v3.cashflow.ui.expenditure.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import pl.wsikora.successbudget.v3.common.type.date.DateValidator;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyForm;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator;
 import pl.wsikora.successbudget.v3.common.type.priority.PriorityValidator;
@@ -17,11 +18,13 @@ class ExpenditureFormValidator extends AbstractFormValidator<ExpenditureForm> {
     private final TitleValidator titleValidator;
     private final MoneyFormValidator moneyValidator;
     private final PriorityValidator priorityValidator;
+    private final DateValidator dateValidator;
 
     ExpenditureFormValidator(
         TitleValidator titleValidator,
         MoneyFormValidator moneyValidator,
-        PriorityValidator priorityValidator
+        PriorityValidator priorityValidator,
+        DateValidator dateValidator
     ) {
 
         super(ExpenditureForm.class);
@@ -29,6 +32,7 @@ class ExpenditureFormValidator extends AbstractFormValidator<ExpenditureForm> {
         this.titleValidator = titleValidator;
         this.moneyValidator = moneyValidator;
         this.priorityValidator = priorityValidator;
+        this.dateValidator = dateValidator;
     }
 
     @Override
@@ -43,7 +47,7 @@ class ExpenditureFormValidator extends AbstractFormValidator<ExpenditureForm> {
 
         priorityValidator.validateForm(expenditureForm.getPriority(), errors);
 
-
+        dateValidator.validateForm(expenditureForm.getDate(), errors);
 
         MoneyForm moneyForm = new MoneyForm(expenditureForm.getCurrency(), expenditureForm.getValue());
 

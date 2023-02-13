@@ -2,6 +2,7 @@ package pl.wsikora.successbudget.v3.cashflow.ui.revenue.edit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
+import pl.wsikora.successbudget.v3.common.type.date.DateValidator;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyForm;
 import pl.wsikora.successbudget.v3.common.type.money.MoneyFormValidator;
 import pl.wsikora.successbudget.v3.common.type.title.TitleValidator;
@@ -15,16 +16,19 @@ class RevenueFormValidator extends AbstractFormValidator<RevenueForm> {
 
     private final TitleValidator titleValidator;
     private final MoneyFormValidator moneyValidator;
+    private final DateValidator dateValidator;
 
     RevenueFormValidator(
         TitleValidator titleValidator,
-        MoneyFormValidator moneyValidator
+        MoneyFormValidator moneyValidator,
+        DateValidator dateValidator
     ) {
 
         super(RevenueForm.class);
 
         this.titleValidator = titleValidator;
         this.moneyValidator = moneyValidator;
+        this.dateValidator = dateValidator;
     }
 
     @Override
@@ -36,6 +40,8 @@ class RevenueFormValidator extends AbstractFormValidator<RevenueForm> {
 
             errors.rejectValue(F_CATEGORY_ID, E_FIELD_MUST_NOT_BE_EMPTY);
         }
+
+        dateValidator.validateForm(revenueForm.getDate(), errors);
 
         MoneyForm moneyForm = new MoneyForm(revenueForm.getCurrency(), revenueForm.getValue());
 

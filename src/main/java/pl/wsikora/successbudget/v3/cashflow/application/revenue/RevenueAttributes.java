@@ -1,7 +1,6 @@
 package pl.wsikora.successbudget.v3.cashflow.application.revenue;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 
@@ -15,7 +14,7 @@ public interface RevenueAttributes {
 
     Long getCategoryId();
 
-    LocalDate getDate();
+    String getDate();
 
     Integer getCurrency();
 

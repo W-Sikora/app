@@ -80,7 +80,7 @@ class ExpenditureQueryImpl implements ExpenditureQuery {
             expenditure.getTitle().getValue(),
             categoryDto,
             expenditure.getPriority().ordinal(),
-            expenditure.getDate().format(DATE_FORMATTER),
+            expenditure.getDate().asString(),
             moneyDto,
             expenditure.getPayee().getValue(),
             expenditure.isRepeatInNextPeriod(),

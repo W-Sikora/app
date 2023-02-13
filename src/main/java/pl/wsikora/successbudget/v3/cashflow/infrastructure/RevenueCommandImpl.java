@@ -7,6 +7,7 @@ import pl.wsikora.successbudget.v3.cashflow.application.revenue.RevenueCommand;
 import pl.wsikora.successbudget.v3.cashflow.domain.Revenue;
 import pl.wsikora.successbudget.v3.common.category.CategoryId;
 import pl.wsikora.successbudget.v3.common.type.currency.Currency;
+import pl.wsikora.successbudget.v3.common.type.date.Date;
 import pl.wsikora.successbudget.v3.common.type.money.Money;
 import pl.wsikora.successbudget.v3.common.type.payer.Payer;
 import pl.wsikora.successbudget.v3.common.type.repeat.RepeatCommand;
@@ -15,6 +16,8 @@ import pl.wsikora.successbudget.v3.common.type.username.UsernameProvider;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+
+import static org.springframework.util.StringUtils.hasText;
 
 
 @Service
@@ -49,15 +52,18 @@ class RevenueCommandImpl implements RevenueCommand {
 
         revenue.setCategoryId(CategoryId.of(revenueAttributes.getCategoryId()));
 
-        revenue.setDate(revenueAttributes.getDate());
+        revenue.setDate(Date.of(revenueAttributes.getDate()));
 
         Currency currency = Currency.of(revenueAttributes.getCurrency());
 
-        Money money = Money.of(currency, revenueAttributes.getValue());
+        revenue.setMoney(Money.of(currency, revenueAttributes.getValue()));
 
-        revenue.setMoney(money);
+        String payer = revenueAttributes.getPayer();
 
-        revenue.setPayer(Payer.of(revenueAttributes.getPayer()));
+        if (hasText(payer)) {
+
+            revenue.setPayer(Payer.of(payer));
+        }
 
         revenue.setRepeatInNextPeriod(revenueAttributes.isRepeatInNextPeriod());
 
